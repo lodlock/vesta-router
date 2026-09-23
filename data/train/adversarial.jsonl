@@ -1,0 +1,12 @@
+{"id": "tr.adv.past-time", "category": "adversarial", "locale": "en", "utterance": "I got up at five thirty for nothing.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.past-call", "category": "adversarial", "locale": "en", "utterance": "I called Giulia twice and got voicemail.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.hypothetical-timer", "category": "adversarial", "locale": "en", "utterance": "What happens if a timer goes off while the phone is silent?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.quoted-request", "category": "adversarial", "locale": "en", "utterance": "She texted me saying \"set an alarm for 6\" but I think she meant her own phone.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.conditional", "category": "adversarial", "locale": "en", "utterance": "If it rains tomorrow I'll need an earlier alarm.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.third-person", "category": "adversarial", "locale": "en", "utterance": "Marco wants me to call him back at four.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.no-required-args-tool", "category": "adversarial", "locale": "en", "utterance": "I've lost track of what day it even is.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.calendar-remark", "category": "adversarial", "locale": "en", "utterance": "Whoever invented back to back meetings owes me an apology.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.document-remark", "category": "adversarial", "locale": "en", "utterance": "I should really read that contract properly one day.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.it-past", "category": "adversarial", "locale": "it", "utterance": "Ieri ho chiamato Marco tre volte.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.instruction-in-text", "category": "adversarial", "locale": "en", "utterance": "Text Anna: remind me to buy milk", "state": null, "output": {"kind": "tool", "tool": "send_sms", "arguments": {"contact": "Anna", "text": "remind me to buy milk"}}}
+{"id": "tr.adv.nested-request", "category": "adversarial", "locale": "en", "utterance": "Add a note to my calendar that says call the plumber at nine, title it plumber, Thursday morning at eight.", "state": null, "output": {"kind": "tool", "tool": "create_event", "arguments": {"title": "plumber", "start": "Thursday 08:00"}}}

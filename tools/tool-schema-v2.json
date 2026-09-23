@@ -1,0 +1,165 @@
+{
+  "toolSchemaVersion": 2,
+  "status": "active",
+  "derivedFrom": "vesta @ apps/mobile/lib/tools/tool-registry.ts (MVP_TOOLS)",
+  "note": "THE SURFACE WE TRAIN ON. Derived from Vesta's production tool registry — every tool here is one the app can dispatch today, with the argument names and types the dispatcher actually expects. v1 was the Needle spike's four-tool toy schema and is frozen as historical eval material; training against it would have spent GPU time teaching an interface we already knew we were replacing.",
+
+  "outcomes": {
+    "tool": "An executable action: every REQUIRED argument present AND grounded in the user's own words.",
+    "incomplete": "The request names a tool but a required argument has no evidence in what the user said. NOT an action — Vesta asks.",
+    "cancel": "The user abandoned or cancelled a pending action.",
+    "chat": "No action. The request belongs to the conversational model."
+  },
+
+  "chatIsNotATool": "Vesta's registry contains a `general_chat` tool, and it is deliberately NOT listed below. Carrying it as a selectable tool would make 'chat' both a tool and a non-tool outcome, so every no-tool case could be scored two ways and the false-positive-action rate would depend on which. The router emits the `chat` OUTCOME; mapping that onto `general_chat` at dispatch is Vesta's business.",
+
+  "tools": [
+    {
+      "name": "set_alarm",
+      "description": "Set an alarm at a specific time.",
+      "confirmRequired": true,
+      "parameters": {
+        "time": {
+          "type": "string",
+          "required": true,
+          "format": "HH:MM",
+          "description": "Alarm time, 24-hour."
+        },
+        "date": {
+          "type": "string",
+          "required": false,
+          "format": "YYYY-MM-DD",
+          "description": "Only when the user named a day other than today.",
+          "note": "Optional, and it must stay optional. A required date is a date the model fills in — the confabulation Vesta's scheduling guard exists to stop. A date the user never said is refused at dispatch whatever the model proposes."
+        },
+        "label": { "type": "string", "required": false, "description": "Optional label." }
+      }
+    },
+    {
+      "name": "create_event",
+      "description": "Create a calendar event or appointment.",
+      "confirmRequired": true,
+      "parameters": {
+        "title": { "type": "string", "required": true, "description": "Event title." },
+        "start": {
+          "type": "string",
+          "required": true,
+          "format": "ISO8601",
+          "description": "Start date and time."
+        },
+        "end": { "type": "string", "required": false, "format": "ISO8601", "description": "End date and time." },
+        "location": { "type": "string", "required": false, "description": "Where." }
+      }
+    },
+    {
+      "name": "set_reminder",
+      "description": "Create a reminder with a notification at a specific time.",
+      "confirmRequired": true,
+      "parameters": {
+        "text": { "type": "string", "required": true, "description": "What to be reminded of." },
+        "datetime": {
+          "type": "string",
+          "required": true,
+          "format": "ISO8601",
+          "description": "When to remind."
+        }
+      },
+      "note": "Two required arguments, one of them temporal. The most common missing-slot shape on this surface is a reminder with a text and no time, or a time and no text."
+    },
+    {
+      "name": "set_timer",
+      "description": "Set a countdown timer.",
+      "confirmRequired": false,
+      "parameters": {
+        "minutes": {
+          "type": "number",
+          "required": true,
+          "description": "Timer duration in minutes, greater than zero.",
+          "note": "MINUTES, not seconds. This is the single most consequential difference between v1 and v2. The spike's headline failure — 'Set a timer for 20 minutes.' answered with duration_seconds: 20, a 60x error — does not transfer: against THIS schema the answer 20 is correct. The unit risk is real but different, and it is the conversions that are now the hard cases: '90 seconds' is 1.5, 'two hours' is 120, 'half an hour' is 30."
+        },
+        "label": { "type": "string", "required": false, "description": "Optional label." }
+      }
+    },
+    {
+      "name": "navigate_to",
+      "description": "Start navigation to a destination using the maps app.",
+      "confirmRequired": false,
+      "parameters": {
+        "destination": { "type": "string", "required": true, "description": "Address or place name, in the user's own words." }
+      }
+    },
+    {
+      "name": "search_contacts",
+      "description": "Search the address book for a contact by name.",
+      "confirmRequired": false,
+      "returnsData": true,
+      "parameters": {
+        "query": { "type": "string", "required": true, "description": "Name, or part of one." }
+      }
+    },
+    {
+      "name": "make_call",
+      "description": "Start a phone call to a contact or number.",
+      "confirmRequired": true,
+      "parameters": {
+        "contact": { "type": "string", "required": true, "description": "Contact name or phone number." }
+      },
+      "note": "Destructive and irreversible in the way that matters: a call that should not have been placed has already rung somebody. Its false-positive cases carry the `high-cost` tag and are weighted accordingly."
+    },
+    {
+      "name": "send_sms",
+      "description": "Compose an SMS to a contact or number.",
+      "confirmRequired": true,
+      "parameters": {
+        "contact": { "type": "string", "required": true, "description": "Contact name or phone number." },
+        "text": { "type": "string", "required": true, "description": "Message body." }
+      },
+      "note": "Also `high-cost`. A fabricated message body is worse than a fabricated room in every way."
+    },
+    {
+      "name": "get_calendar_events",
+      "description": "Read calendar events for a date.",
+      "confirmRequired": false,
+      "returnsData": true,
+      "parameters": {
+        "date": {
+          "type": "string",
+          "required": false,
+          "format": "YYYY-MM-DD",
+          "description": "Day to read; omit for today.",
+          "note": "Optional on purpose, and a case in its own right. 'What's on my calendar?' names no day. The correct answer is the tool with NO date, which Vesta resolves to today at dispatch — not a date the model invented."
+        }
+      }
+    },
+    {
+      "name": "query_document",
+      "description": "Search the user's imported documents and answer from their content.",
+      "confirmRequired": false,
+      "returnsData": true,
+      "parameters": {
+        "query": { "type": "string", "required": true, "description": "What to look up." }
+      }
+    },
+    {
+      "name": "get_time",
+      "description": "Read the current time or date, here or in another place or time zone.",
+      "confirmRequired": false,
+      "returnsData": true,
+      "parameters": {
+        "place": { "type": "string", "required": false, "description": "City, country or IANA zone; omit for the device's own." },
+        "kind": { "type": "string", "required": false, "enum": ["time", "date", "zone", "difference"], "description": "Defaults to \"time\"." },
+        "other": { "type": "string", "required": false, "description": "Second place, for kind \"difference\"." }
+      },
+      "note": "No required arguments, so it cannot produce a missing-slot case. Note that Vesta's deterministic world-time layer answers most of these BEFORE any model runs; the router sees this tool only for what that layer declined."
+    }
+  ],
+
+  "notInThisVersion": {
+    "general_chat": "Represented as the `chat` outcome — see chatIsNotATool.",
+    "control_light": "v1 toy tool. Home Assistant routing is on Vesta's roadmap and is not dispatchable today.",
+    "open_app": "v1 toy tool. App launching is not in the production registry.",
+    "tasker": "Roadmap. No dispatch path exists.",
+    "mcp": "Vesta exposes a read-only MCP server; routing OUT to MCP servers is roadmap.",
+    "_rule": "A tool the app cannot dispatch does not belong in the schema the model is trained on. Adding one teaches the router to propose actions that can only be refused, and every such proposal is indistinguishable from a false positive at scoring time."
+  }
+}

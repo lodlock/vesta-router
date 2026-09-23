@@ -1,0 +1,66 @@
+{
+  "artifact": {
+    "kind": "cact",
+    "path": "C:\\Users\\iamhu\\.cache\\huggingface\\hub\\models--Cactus-Compute--needle3\\snapshots\\b274efcb211a9eef48c9a88da4b43bd569696a39\\needle3.cact",
+    "sha256": "c9d915eca282ed42d1a09b143b592adb4cc6744ffe2d294adf5cfc5548170c38",
+    "sizeBytes": 35335380
+  },
+  "baselineId": "baseline-needle3-c9d915eca282",
+  "corpus": {
+    "files": [
+      {
+        "name": "missing-slot.jsonl",
+        "sha256": "c722d150c6f4af99198d832224f93b428da0b67431f33cebe1df77edf20a9095",
+        "sizeBytes": 5438
+      },
+      {
+        "name": "negative.jsonl",
+        "sha256": "8723a007c4b6171e60fdc42a6114f7c4e48376a775ac959dcb2fb4bfe5c2a730",
+        "sizeBytes": 5525
+      },
+      {
+        "name": "positive.jsonl",
+        "sha256": "20d02efe0dc9cf08a36a6a1606d94a7fda85adcf94b64ebad0039a8d3b2b8e15",
+        "sizeBytes": 7838
+      },
+      {
+        "name": "stale-context.jsonl",
+        "sha256": "c2a2a10ee50c8e6ca6f15826d2314ec875535cc3336ac8d70e9be3aba823e0bb",
+        "sizeBytes": 5142
+      }
+    ],
+    "sha256": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef"
+  },
+  "evaluatorVersion": "1.0.0",
+  "generatedAt": "2026-09-23T03:40:52Z",
+  "host": {
+    "machine": "AMD64",
+    "platform": "Windows-11-10.0.26220-SP0",
+    "python": "3.13.2"
+  },
+  "kind": "baseline",
+  "policy": {
+    "guardrail": "vesta_router.grounding — an evaluator-side approximation of Vesta's deterministic screen, NOT the app's own code",
+    "isolationMethod": "fresh engine process, corpus reversed, each case run twice; a differing pair is nondeterminism, an agreeing pair that differs from the scored pass is a state leak",
+    "isolationPass": true,
+    "metricsFrom": "the first pass only",
+    "partialRun": false,
+    "resetBetweenCases": true
+  },
+  "prompt": {
+    "autoDate": false,
+    "renderer": "vesta_router.render.render_example",
+    "systemPrompt": "You control a phone. Route the user's request to a tool when one fits, and answer as chat when none does."
+  },
+  "reportVersion": 1,
+  "runtime": {
+    "engine": "cactus-needle",
+    "engineLibrary": "C:\\Users\\iamhu\\.cache\\cactus-needle\\v3\\3.0.1\\libneedle.dll",
+    "engineVersion": "3.0.1"
+  },
+  "toolSchema": {
+    "path": "D:\\AI\\working\\b\\vesta-router\\tools\\tool-schema-v2.json",
+    "sha256": "417e8963c162f7a63c2a4146e508348fff6894ff342c60bf15b145cfec2b176b",
+    "version": 2
+  }
+}

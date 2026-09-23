@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vesta-router"
+version = "0.1.0"
+description = "Training, evaluation and release pipeline for Vesta's local tool router"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+
+# Deliberately empty. Everything in src/vesta_router runs on the standard
+# library, which is what lets the fast CI tier run anywhere — including on a
+# laptop with nothing set up — and is why eval/thresholds.json is JSON rather
+# than YAML. The training toolchain will bring its own dependencies and will
+# live behind an extra, so a corpus fix never waits on a CUDA wheel.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+vesta-router = "vesta_router.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 110
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

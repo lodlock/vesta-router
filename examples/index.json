@@ -1,0 +1,49 @@
+{
+  "_comment": "ILLUSTRATIVE EXAMPLE of index.json - the small document Vesta fetches when the user taps Check for update, and the ONLY thing it fetches until they tap Download. Compatibility fields are copies of each manifest's, so the app can filter without downloading a manifest per release. They are a hint: the manifest that arrives with the artifact is re-validated and wins.",
+  "indexVersion": 1,
+  "generatedAt": "2026-10-05T00:00:00Z",
+  "releases": [
+    {
+      "modelVersion": "1.1.0",
+      "status": "stable",
+      "manifestUrl": "https://github.com/lodlock/vesta-router/releases/download/v1.1.0/manifest.json",
+      "artifactUrl": "https://github.com/lodlock/vesta-router/releases/download/v1.1.0/vesta-router-1.1.0.cact",
+      "sha256": "e7f60529e8eb21ae96d943006b681328663590b6b6f076129625359fbcf9405d",
+      "sizeBytes": 35341204,
+      "publishedAt": "2026-10-05T08:30:00Z",
+      "minVestaVersion": "0.2.0",
+      "maxVestaVersion": null,
+      "requiredRouterProtocolVersion": 1,
+      "toolSchemaVersion": 2,
+      "releaseNotes": "Italian slot filling; stale-context misuse at zero on the regression corpus."
+    },
+    {
+      "modelVersion": "1.2.0-rc.1",
+      "status": "candidate",
+      "manifestUrl": "https://github.com/lodlock/vesta-router/releases/download/v1.2.0-rc.1/manifest.json",
+      "artifactUrl": "https://github.com/lodlock/vesta-router/releases/download/v1.2.0-rc.1/vesta-router-1.2.0-rc.1.cact",
+      "sha256": "b50c454c23300ccd215ee1d13867dbce6ad123d7905a9ebac8b72eb8baa66de4",
+      "sizeBytes": 35350000,
+      "publishedAt": "2026-10-11T12:00:00Z",
+      "minVestaVersion": "0.2.0",
+      "maxVestaVersion": null,
+      "requiredRouterProtocolVersion": 1,
+      "toolSchemaVersion": 2,
+      "releaseNotes": "Candidate. Not offered by the normal update flow."
+    },
+    {
+      "modelVersion": "1.0.0",
+      "status": "superseded",
+      "manifestUrl": "https://github.com/lodlock/vesta-router/releases/download/v1.0.0/manifest.json",
+      "artifactUrl": "https://github.com/lodlock/vesta-router/releases/download/v1.0.0/vesta-router-1.0.0.cact",
+      "sha256": "61bf5d73de37569247cca4134ded9db29c30b31b802b56405340b7d31aaeb226",
+      "sizeBytes": 35335380,
+      "publishedAt": "2026-10-01T10:30:00Z",
+      "minVestaVersion": "0.2.0",
+      "maxVestaVersion": null,
+      "requiredRouterProtocolVersion": 1,
+      "toolSchemaVersion": 2,
+      "releaseNotes": "Superseded by 1.1.0. Listed so a device still running it can identify what it has."
+    }
+  ]
+}

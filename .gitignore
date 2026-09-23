@@ -216,3 +216,31 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ── Vesta router artifacts ───────────────────────────────────────────────────
+#
+# Weights never enter this repository's history. They are release assets, and a
+# 34 MB file committed once is 34 MB in every clone forever — which is the same
+# reason Vesta keeps .gguf files and the Needle vendor drop out of git.
+#
+# What IS committed is the record of a build: its manifest and its eval report.
+# Those are small, they are the part that must be auditable, and they outlive
+# the weights they describe.
+*.cact
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+
+# Never. Loading a pickle executes what it contains, and a model artifact is a
+# file that arrives from elsewhere. Nothing here produces or consumes one, and
+# this line is a tripwire rather than a convenience.
+*.pkl
+*.pickle
+
+# Training and evaluation outputs. Reports that belong to a release are moved
+# into releases/<version>/ deliberately; everything else is scratch.
+artifacts/
+runs/
+wandb/
+checkpoints/

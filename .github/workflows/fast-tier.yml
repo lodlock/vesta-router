@@ -1,0 +1,117 @@
+# The fast CI tier: everything that can be right or wrong without a GPU.
+#
+# No model is built and none is run. That is the point of the split — a corpus
+# fix must not wait on GPU time, and a promotion must never happen without it.
+# The candidate tier (build the .cact, evaluate THAT artifact, apply the gates)
+# is a separate workflow and does not exist yet, because the training toolchain
+# does not.
+#
+# Deliberately dependency-free on the default job: `python -m vesta_router
+# validate` and the unittest suite run on the standard library, so this stays
+# green on any Python and can be reproduced on a laptop with nothing set up.
+#
+# THE EVALUATOR IS TESTED HERE; NO MODEL IS DOWNLOADED OR RUN.
+# `python -m vesta_router eval` loads a 34 MB artifact and a native runtime, and
+# a pull request must not wait on either. Everything about the evaluator that
+# can be wrong without a model — outcome classification, argument comparison,
+# metric aggregation, the raw-versus-guarded distinction, reset and isolation
+# handling, report serialization — is covered by the unittest suite below,
+# against recorded envelopes. Running the real thing is the candidate tier's
+# job, and there is no artifact cache here yet to make it cheap.
+
+name: fast tier
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No pip install. If this step ever needs one, the standard-library
+      # promise has been broken and that should be a visible change here.
+      - name: Validate corpora, tool schema, disjointness and rendering
+        run: python -m vesta_router validate
+        env:
+          PYTHONPATH: src
+
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+        env:
+          PYTHONPATH: src
+
+      - name: Validate the worked examples
+        run: |
+          python -m vesta_router manifest examples/vesta-router-1.0.0.manifest.json
+          python -m vesta_router gate examples/eval-report-1.0.0.json
+        env:
+          PYTHONPATH: src
+
+      - name: Validate every release manifest
+        run: |
+          shopt -s nullglob
+          found=0
+          for manifest in releases/*/manifest.json; do
+            found=1
+            python -m vesta_router manifest "$manifest"
+          done
+          if [ "$found" = 0 ]; then
+            echo "no release manifests yet"
+          fi
+        shell: bash
+        env:
+          PYTHONPATH: src
+
+      - name: The evaluator refuses to invent a result
+        run: |
+          # No runtime, no artifact, and it must fail rather than fall back to
+          # something it can measure. Exit 2 is "cannot evaluate"; a report
+          # produced without the artifact would be a number about something else.
+          set +e
+          python -m vesta_router eval --model /nonexistent/model.cact
+          code=$?
+          set -e
+          if [ "$code" != "2" ]; then
+            echo "expected exit 2 for a missing artifact, got $code"
+            exit 1
+          fi
+          if [ -n "$(git status --porcelain reports)" ]; then
+            echo "a failed evaluation must not write a report"
+            git status --porcelain reports
+            exit 1
+          fi
+        shell: bash
+        env:
+          PYTHONPATH: src
+
+      - name: Refuse committed weights
+        run: |
+          # The gitignore covers the accident; this covers the --force. A
+          # 34 MB file committed once is 34 MB in every clone forever.
+          offenders=$(git ls-files | grep -E '\.(cact|safetensors|bin|pt|ckpt|pkl|pickle)$' || true)
+          if [ -n "$offenders" ]; then
+            echo "model artifacts must not be committed:"
+            echo "$offenders"
+            exit 1
+          fi
+        shell: bash
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff
+      - run: ruff check src tests
+      - run: ruff format --check src tests

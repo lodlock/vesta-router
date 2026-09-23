@@ -1,0 +1,57 @@
+{
+  "_comment": "ILLUSTRATIVE EXAMPLE. No such release exists and the digests below are the SHA-256 of a label string, not of any model file - they are here so the shape can be validated. A build that shipped them would be refused at install time when the real artifact hashed to something else. Validated by tests/test_manifest.py and by `python -m vesta_router manifest`.",
+  "manifestVersion": 1,
+  "modelVersion": "1.0.0",
+  "status": "stable",
+  "artifact": {
+    "filename": "vesta-router-1.0.0.cact",
+    "sha256": "61bf5d73de37569247cca4134ded9db29c30b31b802b56405340b7d31aaeb226",
+    "sizeBytes": 35335380
+  },
+  "runtime": {
+    "engine": "needle",
+    "engineVersion": "3.0.0",
+    "minEngineVersion": "3.0.0",
+    "exporterVersion": "cactus-needle 0.4.1"
+  },
+  "shape": {
+    "architecture": "needle3",
+    "parameters": 121021910,
+    "layers": 20,
+    "hiddenSize": 768,
+    "contextTokens": 8192,
+    "quantization": "cactus-quants embedding=4, mhc=4, default=2; kv cache int8"
+  },
+  "provenance": {
+    "trainingDatasetRevision": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
+    "evalDatasetRevision": "b2c3d4e5f60718293a4b5c6d7e8f901234567890",
+    "trainingConfigRevision": "c3d4e5f60718293a4b5c6d7e8f90123456789012",
+    "parentModelVersion": null,
+    "builtAt": "2026-10-01T09:14:00Z"
+  },
+  "compatibility": {
+    "minVestaVersion": "0.2.0",
+    "maxVestaVersion": null,
+    "requiredRouterProtocolVersion": 1,
+    "toolSchemaVersion": 2
+  },
+  "evaluation": {
+    "corpusRevision": "b2c3d4e5f60718293a4b5c6d7e8f901234567890",
+    "cases": 62,
+    "evaluatedArtifactSha256": "61bf5d73de37569247cca4134ded9db29c30b31b802b56405340b7d31aaeb226",
+    "evaluatedAt": "2026-10-01T10:02:00Z",
+    "metrics": {
+      "toolSelectionAccuracy": 0.97,
+      "argumentExactMatchAccuracy": 0.94,
+      "falsePositiveActionRate": 0.0,
+      "missingSlotExecutionRate": 0.0,
+      "noToolClassificationAccuracy": 0.98,
+      "unitNormalizationAccuracy": 1.0,
+      "malformedOutputCount": 0,
+      "staleContextMisuseCount": 0,
+      "medianLatencyMs": 180,
+      "p95LatencyMs": 420
+    }
+  },
+  "releaseNotes": "First promoted router build against tool schema v2 (Vesta's production tool surface). peakMemoryMb is deliberately absent: the spike measured ~131 MB on one device and that is not a per-release figure, so it is not reported rather than reported as a number it is not."
+}

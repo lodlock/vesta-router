@@ -1,0 +1,41 @@
+{
+  "_comment": "ILLUSTRATIVE EXAMPLE of the eval report the candidate CI tier emits, and the input to `python -m vesta_router gate`. `artifactSha256` is what makes the report a statement about a specific file: a report whose digest does not match the manifest's artifact cannot promote it.",
+  "reportVersion": 1,
+  "modelVersion": "1.0.0",
+  "artifactSha256": "61bf5d73de37569247cca4134ded9db29c30b31b802b56405340b7d31aaeb226",
+  "artifactKind": "cact",
+  "corpusRevision": "b2c3d4e5f60718293a4b5c6d7e8f901234567890",
+  "toolSchemaVersion": 2,
+  "evaluatedAt": "2026-10-01T10:02:00Z",
+  "cases": 62,
+  "metrics": {
+    "toolSelectionAccuracy": 0.97,
+    "argumentExactMatchAccuracy": 0.94,
+    "falsePositiveActionRate": 0.0,
+    "missingSlotExecutionRate": 0.0,
+    "noToolClassificationAccuracy": 0.98,
+    "unitNormalizationAccuracy": 1.0,
+    "malformedOutputCount": 0,
+    "staleContextMisuseCount": 0,
+    "medianLatencyMs": 180,
+    "p95LatencyMs": 420
+  },
+  "perTag": {
+    "high-cost": {
+      "cases": 8,
+      "falsePositiveActionRate": 0.0
+    },
+    "missing-slot": {
+      "cases": 14,
+      "missingSlotExecutionRate": 0.0
+    },
+    "stale-context": {
+      "cases": 10,
+      "staleContextMisuseCount": 0
+    },
+    "italian": {
+      "cases": 7,
+      "toolSelectionAccuracy": 0.96
+    }
+  }
+}

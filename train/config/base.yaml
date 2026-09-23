@@ -1,0 +1,103 @@
+# Base training configuration for the Vesta router model.
+#
+# NOT YET RUN BY ANYTHING. No model has been trained, and the fine-tuning
+# toolchain is not wired up. This file exists because its git revision is
+# recorded in every manifest it will eventually produce
+# (`provenance.trainingConfigRevision`), so the shape has to be settled before
+# the first build rather than after it.
+#
+# YAML here, JSON in eval/thresholds.json. Not inconsistency: the thresholds are
+# read by the fast CI tier, which must run on the standard library alone, and a
+# training config is read by a toolchain that has plenty of dependencies
+# already.
+
+name: vesta-router-base
+description: >
+  Single-turn tool routing for Vesta's production tool surface, with
+  conversation state supplied explicitly in a rendered block rather than as
+  implicit chat history.
+
+# ── What it learns from ──────────────────────────────────────────────────────
+
+data:
+  train_dir: data/train
+  # Never data/eval. The disjointness check in the fast tier is what enforces
+  # this, but naming it here makes an accidental edit visible in review.
+  eval_dir: null
+  tool_schema: tools/tool-schema-v2.json
+
+  # data/historical is v1 spike material against a schema with different
+  # argument names. Including it would teach `duration_seconds` to a model whose
+  # dispatcher expects `minutes`.
+  exclude_dirs:
+    - data/historical
+
+# ── How a turn is rendered ───────────────────────────────────────────────────
+#
+# The renderer is src/vesta_router/render.py and its rules are part of the
+# contract, not a training detail: Vesta's future router caller has to produce
+# byte-identical input or the model sees a prompt it was never trained on.
+
+rendering:
+  # A stateless turn renders the utterance alone. NOT an empty [pending] block —
+  # those are different bytes and only one of them is what the app produces.
+  empty_state_renders_block: false
+  known_keys: sorted
+  missing_order: tool_schema_declaration_order
+  history_block: true
+
+# ── Base model ───────────────────────────────────────────────────────────────
+
+base_model:
+  engine: needle
+  # The 121M Needle 3 base the spike ran on device. Whether a fine-tune of this
+  # size fixes the fabrication behaviour is the open question the first
+  # train/eval cycle exists to answer - it is not assumed.
+  architecture: needle3
+  parameters: 121021910
+  layers: 20
+  hidden_size: 768
+  context_tokens: 8192
+
+# ── Fine-tune ────────────────────────────────────────────────────────────────
+#
+# Every number below is a placeholder. They are here so the keys are settled;
+# none of them is a choice anyone has justified, and the first run replaces them
+# with values that come from a sweep.
+
+fine_tune:
+  method: lora
+  adapter_format: safetensors   # never pickle, in either direction
+  rank: 16
+  alpha: 32
+  dropout: 0.05
+  learning_rate: 1.0e-4
+  epochs: 3
+  batch_size: 8
+  seed: 20260922              # fixed, so a build is reproducible from this file
+
+# ── Export ───────────────────────────────────────────────────────────────────
+
+export:
+  format: cact
+  quantization: cactus-quants
+  # Quantization changes behaviour, which is why promotion evaluates the .cact
+  # and not the adapter, and why the manifest ties an evaluation to an exact
+  # artifact digest.
+  evaluate_after_export: true
+
+# ── Safety weighting ─────────────────────────────────────────────────────────
+#
+# A false executable action costs the user something real; an unnecessary
+# escalation to the chat model costs a little latency. The loss should reflect
+# that asymmetry rather than leaving it entirely to the gates.
+
+objective:
+  oversample:
+    missing-slot: 2.0
+    stale-context: 2.0
+    high-cost: 2.0
+    trap: 1.5
+  # A refusal predicted as an action is the expensive direction; the reverse is
+  # merely unhelpful.
+  penalize_false_action_over_false_chat: true

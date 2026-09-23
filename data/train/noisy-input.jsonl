@@ -1,0 +1,12 @@
+{"id": "tr.stt.timer", "category": "stt-error", "locale": "en", "utterance": "set a timer for tin minutes", "state": null, "output": {"kind": "tool", "tool": "set_timer", "arguments": {"minutes": 10}}}
+{"id": "tr.stt.alarm", "category": "stt-error", "locale": "en", "utterance": "wake me up at half past sex", "state": null, "output": {"kind": "tool", "tool": "set_alarm", "arguments": {"time": "06:30"}}}
+{"id": "tr.stt.no-punctuation", "category": "stt-error", "locale": "en", "utterance": "remind me to call the bank at three thirty", "state": null, "output": {"kind": "tool", "tool": "set_reminder", "arguments": {"text": "call the bank", "datetime": "15:30"}}}
+{"id": "tr.stt.contact-homophone", "category": "stt-error", "locale": "en", "utterance": "call anna marie", "state": null, "output": {"kind": "tool", "tool": "make_call", "arguments": {"contact": "anna marie"}}}
+{"id": "tr.stt.filler", "category": "stt-error", "locale": "en", "utterance": "um so like a timer yeah twenty minutes", "state": null, "output": {"kind": "tool", "tool": "set_timer", "arguments": {"minutes": 20}}}
+{"id": "tr.stt.dead-air", "category": "stt-error", "locale": "en", "utterance": "hmm right ok", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.stt.it", "category": "stt-error", "locale": "it", "utterance": "metti una sveglia alle sei e mezzo", "state": null, "output": {"kind": "tool", "tool": "set_alarm", "arguments": {"time": "06:30"}}}
+{"id": "tr.typo.timer", "category": "typo", "locale": "en", "utterance": "set a tiemr for 20 mins", "state": null, "output": {"kind": "tool", "tool": "set_timer", "arguments": {"minutes": 20}}}
+{"id": "tr.typo.reminder", "category": "typo", "locale": "en", "utterance": "remnid me to feed teh cat at 7", "state": null, "output": {"kind": "tool", "tool": "set_reminder", "arguments": {"text": "feed the cat", "datetime": "07:00"}}}
+{"id": "tr.typo.navigate", "category": "typo", "locale": "en", "utterance": "naviagte to the trian station", "state": null, "output": {"kind": "tool", "tool": "navigate_to", "arguments": {"destination": "the train station"}}}
+{"id": "tr.typo.chat", "category": "typo", "locale": "en", "utterance": "taht was realy helpfull", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.typo.it", "category": "typo", "locale": "it", "utterance": "ricrodami di chiamre il dottore alle 10", "state": null, "output": {"kind": "tool", "tool": "set_reminder", "arguments": {"text": "chiamare il dottore", "datetime": "10:00"}}}

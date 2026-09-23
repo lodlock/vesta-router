@@ -1,0 +1,65 @@
+{
+  "toolSchemaVersion": 1,
+  "status": "historical",
+  "supersededBy": 2,
+  "note": "FROZEN. These are the four tools the Needle feasibility spike used, kept verbatim so the device findings of 2026-09-22 remain reproducible against the corpus that records them. Nothing is trained against this schema: control_light and open_app do not exist in Vesta's tool registry, and set_timer here takes duration_seconds where production takes minutes. v2 (tools/tool-schema-v2.json) is derived from the production registry and is the surface that is trained and released. This file and data/historical/ exist so a spike result can still be read in the terms it was produced in — not as a training target.",
+  "tools": [
+    {
+      "name": "set_timer",
+      "description": "Start a countdown timer.",
+      "parameters": {
+        "duration_seconds": {
+          "type": "integer",
+          "required": true,
+          "description": "How long the timer should run, in seconds.",
+          "note": "The spike's finding 1: 'Set a timer for 20 minutes.' came back as 20, not 1200. Unit normalization is Vesta's responsibility at dispatch, and the router is still evaluated on getting it right — a router that emits the wrong unit forces the deterministic layer to guess which unit it meant."
+        }
+      }
+    },
+    {
+      "name": "set_alarm",
+      "description": "Set an alarm at a clock time.",
+      "parameters": {
+        "time": {
+          "type": "string",
+          "required": true,
+          "description": "Clock time in HH:MM, 24-hour.",
+          "note": "The DATE is not a parameter. Vesta's deterministic scheduling layer resolves days, and its grounding guard refuses a temporal value the user never said."
+        }
+      }
+    },
+    {
+      "name": "control_light",
+      "description": "Turn a light on or off in a named room.",
+      "parameters": {
+        "room": {
+          "type": "string",
+          "required": true,
+          "description": "The room, in the user's own words. Not normalized here."
+        },
+        "action": {
+          "type": "string",
+          "required": true,
+          "enum": ["on", "off"]
+        }
+      }
+    },
+    {
+      "name": "open_app",
+      "description": "Launch an installed application.",
+      "parameters": {
+        "app_name": {
+          "type": "string",
+          "required": true,
+          "description": "The application as the user named it. Resolving it to a package is Vesta's job."
+        }
+      }
+    }
+  ],
+  "outcomes": {
+    "tool": "An executable action with every required argument present AND grounded in the user's own words.",
+    "incomplete": "The request names a tool but a required argument has no evidence. NOT an action. Vesta asks.",
+    "cancel": "The user abandoned or cancelled a pending action.",
+    "chat": "No action. The request belongs to the conversational model."
+  }
+}

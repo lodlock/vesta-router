@@ -1,0 +1,16 @@
+{"id": "tr.chat.knowledge", "category": "no-tool", "locale": "en", "utterance": "How far away is the moon?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.chat.opinion", "category": "no-tool", "locale": "en", "utterance": "Do you think I should learn Rust or Go first?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.chat.smalltalk", "category": "no-tool", "locale": "en", "utterance": "Morning! Slept badly again.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.chat.it", "category": "no-tool", "locale": "it", "utterance": "Qual è la capitale del Portogallo?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.chat.creative", "category": "no-tool", "locale": "en", "utterance": "Write me a haiku about rain on a tin roof.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.chat.about-vesta", "category": "no-tool", "locale": "en", "utterance": "Does any of this leave my phone?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.timer", "category": "tool-mention", "locale": "en", "utterance": "I always forget to start the timer when I cook.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.alarm", "category": "tool-mention", "locale": "en", "utterance": "Three alarms and I still slept through it.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.reminder", "category": "tool-mention", "locale": "en", "utterance": "Reminders only work if you actually read them.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.calendar", "category": "tool-mention", "locale": "en", "utterance": "My calendar app keeps double booking me.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.navigate", "category": "tool-mention", "locale": "en", "utterance": "The satnav took me the long way round again.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.call", "category": "tool-mention", "locale": "en", "utterance": "Anna rang while I was out.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.it", "category": "tool-mention", "locale": "it", "utterance": "Le sveglie non mi svegliano mai.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.ambig.later", "category": "ambiguous", "locale": "en", "utterance": "Remind me about that thing.", "state": null, "output": {"kind": "incomplete", "tool": "set_reminder", "missing": ["text", "datetime"]}}
+{"id": "tr.ambig.sometime", "category": "ambiguous", "locale": "en", "utterance": "Wake me up at some point in the morning.", "state": null, "output": {"kind": "incomplete", "tool": "set_alarm", "missing": ["time"]}}
+{"id": "tr.ambig.them", "category": "ambiguous", "locale": "en", "utterance": "Give them a ring would you.", "state": null, "output": {"kind": "incomplete", "tool": "make_call", "missing": ["contact"]}}
