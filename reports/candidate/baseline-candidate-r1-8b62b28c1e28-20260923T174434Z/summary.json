@@ -1,0 +1,683 @@
+{
+  "artifactKind": "cact",
+  "artifactSha256": "8b62b28c1e281e4bead85b5c9c525a241237abe2c84ae2c73c5cbdc48fbca5f4",
+  "baselineId": "baseline-candidate-r1-8b62b28c1e28",
+  "cases": 64,
+  "corpusContentSha256": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef",
+  "engineVersion": "3.0.1",
+  "evaluatedAt": "2026-09-23T17:44:34Z",
+  "evaluatorVersion": "1.1.0",
+  "kind": "baseline",
+  "metrics": {
+    "argumentExactMatchAccuracy": 0.692308,
+    "cancelNoActionRate": 0.666667,
+    "engineErrorCount": 0,
+    "falseActionCountBySeverity": {
+      "external_side_effect": 0,
+      "high_impact": 3,
+      "read_only": 7,
+      "reversible_low": 2,
+      "user_visible_side_effect": 3
+    },
+    "falsePositiveActionCountBySeverity": {
+      "external_side_effect": 0,
+      "high_impact": 2,
+      "read_only": 6,
+      "reversible_low": 1,
+      "user_visible_side_effect": 1
+    },
+    "falsePositiveActionRate": 0.526316,
+    "falsePositiveActionRateBySeverity": {
+      "external_side_effect": 0.0,
+      "high_impact": 0.105263,
+      "read_only": 0.315789,
+      "reversible_low": 0.052632,
+      "user_visible_side_effect": 0.052632
+    },
+    "falsePositiveToolCallRate": 0.736842,
+    "fullCallExactMatchAccuracy": 0.642857,
+    "highestFalseActionSeverity": "high_impact",
+    "malformedOutputCount": 0,
+    "missingSlotEmissionRate": 0.928571,
+    "missingSlotExecutionRate": 0.214286,
+    "missingSlotFabricationRate": 0.5,
+    "missingSlotPlaceholderRate": 0.285714,
+    "noToolClassificationAccuracy": 0.263158,
+    "nondeterministicCaseCount": 0,
+    "resetFailureCount": 0,
+    "staleContextMisuseCount": 4,
+    "stateLeakCount": 0,
+    "toolSelectionAccuracy": 0.928571,
+    "unitNormalizationAccuracy": 0.4,
+    "weightedFalseActionScore": 193
+  },
+  "modelVersion": null,
+  "notes": [
+    "Baseline of an UNTRAINED artifact. This is a benchmark result, not a promotion.",
+    "Post-guardrail metrics use vesta_router.grounding, an evaluator-side approximation of Vesta's deterministic screen — not the app's own code."
+  ],
+  "outcomeCounts": {
+    "guarded": {
+      "engine_error": 0,
+      "executable_action": 41,
+      "malformed": 0,
+      "no_executable_action": 23
+    },
+    "raw": {
+      "engine_error": 0,
+      "malformed": 0,
+      "no_call": 0,
+      "suppressed_only": 8,
+      "tool_call": 56
+    }
+  },
+  "partialRun": false,
+  "perTag": {
+    "cancellation": {
+      "cancelNoActionRate": 0.666667,
+      "cases": 3,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 1,
+        "user_visible_side_effect": 0
+      },
+      "highestFalseActionSeverity": "reversible_low",
+      "malformedOutputCount": 0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "weightedFalseActionScore": 3
+    },
+    "correction": {
+      "argumentExactMatchAccuracy": 1.0,
+      "cases": 3,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "fullCallExactMatchAccuracy": 1.0,
+      "highestFalseActionSeverity": null,
+      "malformedOutputCount": 0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 1.0,
+      "weightedFalseActionScore": 0
+    },
+    "high-cost": {
+      "argumentExactMatchAccuracy": 1.0,
+      "cases": 9,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 2,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 1,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionRate": 0.333333,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.333333,
+        "read_only": 0.0,
+        "reversible_low": 0.0,
+        "user_visible_side_effect": 0.0
+      },
+      "falsePositiveToolCallRate": 0.666667,
+      "fullCallExactMatchAccuracy": 1.0,
+      "highestFalseActionSeverity": "high_impact",
+      "malformedOutputCount": 0,
+      "missingSlotEmissionRate": 1.0,
+      "missingSlotExecutionRate": 0.333333,
+      "missingSlotFabricationRate": 0.333333,
+      "missingSlotPlaceholderRate": 0.333333,
+      "noToolClassificationAccuracy": 0.333333,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 1,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 1.0,
+      "weightedFalseActionScore": 100
+    },
+    "italian": {
+      "argumentExactMatchAccuracy": 0.0,
+      "cancelNoActionRate": 1.0,
+      "cases": 5,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionRate": 0.0,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.0,
+        "read_only": 0.0,
+        "reversible_low": 0.0,
+        "user_visible_side_effect": 0.0
+      },
+      "falsePositiveToolCallRate": 0.0,
+      "fullCallExactMatchAccuracy": 0.0,
+      "highestFalseActionSeverity": null,
+      "malformedOutputCount": 0,
+      "missingSlotEmissionRate": 1.0,
+      "missingSlotExecutionRate": 0.0,
+      "missingSlotFabricationRate": 1.0,
+      "missingSlotPlaceholderRate": 0.0,
+      "noToolClassificationAccuracy": 1.0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 0.5,
+      "weightedFalseActionScore": 0
+    },
+    "missing-slot": {
+      "cases": 14,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 1,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 2
+      },
+      "highestFalseActionSeverity": "high_impact",
+      "malformedOutputCount": 0,
+      "missingSlotEmissionRate": 0.928571,
+      "missingSlotExecutionRate": 0.214286,
+      "missingSlotFabricationRate": 0.5,
+      "missingSlotPlaceholderRate": 0.285714,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 4,
+      "stateLeakCount": 0,
+      "weightedFalseActionScore": 70
+    },
+    "near-miss": {
+      "cases": 12,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 2,
+        "read_only": 4,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 2,
+        "read_only": 4,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionRate": 0.5,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.166667,
+        "read_only": 0.333333,
+        "reversible_low": 0.0,
+        "user_visible_side_effect": 0.0
+      },
+      "falsePositiveToolCallRate": 0.75,
+      "highestFalseActionSeverity": "high_impact",
+      "malformedOutputCount": 0,
+      "noToolClassificationAccuracy": 0.25,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "weightedFalseActionScore": 104
+    },
+    "negation": {
+      "cases": 2,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionRate": 0.0,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.0,
+        "read_only": 0.0,
+        "reversible_low": 0.0,
+        "user_visible_side_effect": 0.0
+      },
+      "falsePositiveToolCallRate": 0.0,
+      "highestFalseActionSeverity": null,
+      "malformedOutputCount": 0,
+      "noToolClassificationAccuracy": 1.0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "weightedFalseActionScore": 0
+    },
+    "no-tool": {
+      "cases": 19,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 2,
+        "read_only": 6,
+        "reversible_low": 1,
+        "user_visible_side_effect": 1
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 2,
+        "read_only": 6,
+        "reversible_low": 1,
+        "user_visible_side_effect": 1
+      },
+      "falsePositiveActionRate": 0.526316,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.105263,
+        "read_only": 0.315789,
+        "reversible_low": 0.052632,
+        "user_visible_side_effect": 0.052632
+      },
+      "falsePositiveToolCallRate": 0.736842,
+      "highestFalseActionSeverity": "high_impact",
+      "malformedOutputCount": 0,
+      "noToolClassificationAccuracy": 0.263158,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "weightedFalseActionScore": 119
+    },
+    "optional-arg": {
+      "argumentExactMatchAccuracy": 1.0,
+      "cases": 2,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "fullCallExactMatchAccuracy": 1.0,
+      "highestFalseActionSeverity": null,
+      "malformedOutputCount": 0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 1.0,
+      "weightedFalseActionScore": 0
+    },
+    "positive": {
+      "argumentExactMatchAccuracy": 0.684211,
+      "cases": 21,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 1,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "fullCallExactMatchAccuracy": 0.619048,
+      "highestFalseActionSeverity": "read_only",
+      "malformedOutputCount": 0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 0.904762,
+      "unitNormalizationAccuracy": 0.4,
+      "weightedFalseActionScore": 1
+    },
+    "returns-data": {
+      "argumentExactMatchAccuracy": 0.75,
+      "cases": 5,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 1,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "fullCallExactMatchAccuracy": 0.6,
+      "highestFalseActionSeverity": "read_only",
+      "malformedOutputCount": 0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 0.8,
+      "weightedFalseActionScore": 1
+    },
+    "safety": {
+      "argumentExactMatchAccuracy": 1.0,
+      "cases": 17,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 1,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 2
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionRate": 0.0,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.0,
+        "read_only": 0.0,
+        "reversible_low": 0.0,
+        "user_visible_side_effect": 0.0
+      },
+      "falsePositiveToolCallRate": 0.0,
+      "fullCallExactMatchAccuracy": 1.0,
+      "highestFalseActionSeverity": "high_impact",
+      "malformedOutputCount": 0,
+      "missingSlotEmissionRate": 0.928571,
+      "missingSlotExecutionRate": 0.214286,
+      "missingSlotFabricationRate": 0.5,
+      "missingSlotPlaceholderRate": 0.285714,
+      "noToolClassificationAccuracy": 1.0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 4,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 1.0,
+      "weightedFalseActionScore": 70
+    },
+    "slot-filling": {
+      "argumentExactMatchAccuracy": 0.5,
+      "cancelNoActionRate": 1.0,
+      "cases": 5,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "fullCallExactMatchAccuracy": 0.5,
+      "highestFalseActionSeverity": null,
+      "malformedOutputCount": 0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 1.0,
+      "weightedFalseActionScore": 0
+    },
+    "stale-context": {
+      "argumentExactMatchAccuracy": 1.0,
+      "cases": 6,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 1,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 1,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionRate": 1.0,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.0,
+        "read_only": 0.0,
+        "reversible_low": 1.0,
+        "user_visible_side_effect": 0.0
+      },
+      "falsePositiveToolCallRate": 1.0,
+      "fullCallExactMatchAccuracy": 1.0,
+      "highestFalseActionSeverity": "reversible_low",
+      "malformedOutputCount": 0,
+      "missingSlotEmissionRate": 1.0,
+      "missingSlotExecutionRate": 0.0,
+      "missingSlotFabricationRate": 1.0,
+      "missingSlotPlaceholderRate": 0.0,
+      "noToolClassificationAccuracy": 0.0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 4,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 1.0,
+      "weightedFalseActionScore": 3
+    },
+    "stt": {
+      "argumentExactMatchAccuracy": 0.5,
+      "cases": 3,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionRate": 0.0,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.0,
+        "read_only": 0.0,
+        "reversible_low": 0.0,
+        "user_visible_side_effect": 0.0
+      },
+      "falsePositiveToolCallRate": 1.0,
+      "fullCallExactMatchAccuracy": 0.5,
+      "highestFalseActionSeverity": null,
+      "malformedOutputCount": 0,
+      "noToolClassificationAccuracy": 0.0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 1.0,
+      "weightedFalseActionScore": 0
+    },
+    "temporal": {
+      "argumentExactMatchAccuracy": 0.666667,
+      "cases": 9,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 1,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 1,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionRate": 1.0,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.0,
+        "read_only": 1.0,
+        "reversible_low": 0.0,
+        "user_visible_side_effect": 0.0
+      },
+      "falsePositiveToolCallRate": 1.0,
+      "fullCallExactMatchAccuracy": 0.666667,
+      "highestFalseActionSeverity": "read_only",
+      "malformedOutputCount": 0,
+      "missingSlotEmissionRate": 1.0,
+      "missingSlotExecutionRate": 0.0,
+      "missingSlotFabricationRate": 0.0,
+      "missingSlotPlaceholderRate": 1.0,
+      "noToolClassificationAccuracy": 0.0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 1.0,
+      "weightedFalseActionScore": 1
+    },
+    "trap": {
+      "cases": 11,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 1,
+        "read_only": 4,
+        "reversible_low": 1,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 1,
+        "read_only": 4,
+        "reversible_low": 1,
+        "user_visible_side_effect": 0
+      },
+      "falsePositiveActionRate": 0.545455,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.090909,
+        "read_only": 0.363636,
+        "reversible_low": 0.090909,
+        "user_visible_side_effect": 0.0
+      },
+      "falsePositiveToolCallRate": 0.818182,
+      "highestFalseActionSeverity": "high_impact",
+      "malformedOutputCount": 0,
+      "noToolClassificationAccuracy": 0.181818,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "weightedFalseActionScore": 57
+    },
+    "typo": {
+      "cases": 1,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 1
+      },
+      "falsePositiveActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 1
+      },
+      "falsePositiveActionRate": 1.0,
+      "falsePositiveActionRateBySeverity": {
+        "external_side_effect": 0.0,
+        "high_impact": 0.0,
+        "read_only": 0.0,
+        "reversible_low": 0.0,
+        "user_visible_side_effect": 1.0
+      },
+      "falsePositiveToolCallRate": 1.0,
+      "highestFalseActionSeverity": "user_visible_side_effect",
+      "malformedOutputCount": 0,
+      "noToolClassificationAccuracy": 0.0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "weightedFalseActionScore": 10
+    },
+    "unit-conversion": {
+      "argumentExactMatchAccuracy": 0.4,
+      "cases": 5,
+      "engineErrorCount": 0,
+      "falseActionCountBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "fullCallExactMatchAccuracy": 0.4,
+      "highestFalseActionSeverity": null,
+      "malformedOutputCount": 0,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 0,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 1.0,
+      "unitNormalizationAccuracy": 0.4,
+      "weightedFalseActionScore": 0
+    }
+  },
+  "performance": {
+    "maxLatencyMs": 346.576,
+    "medianDecodeTps": 276.65,
+    "medianLatencyMs": 202.303,
+    "medianPrefillTps": 446.0,
+    "minLatencyMs": 134.164,
+    "p95LatencyMs": 276.431,
+    "peakMemoryMb": 164.8,
+    "totalWallClockMs": 13468.325
+  },
+  "reportVersion": 1,
+  "toolSchemaVersion": 2
+}

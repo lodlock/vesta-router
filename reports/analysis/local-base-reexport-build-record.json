@@ -1,0 +1,36 @@
+{
+  "artifact": {
+    "baseArchive": "C:\\Users\\iamhu\\.cache\\cactus-needle\\v3\\3.0.1\\needle3.cact",
+    "baseArchiveSha256": "c9d915eca282ed42d1a09b143b592adb4cc6744ffe2d294adf5cfc5548170c38",
+    "confidenceHeadDropped": true,
+    "layers": 20,
+    "path": "artifacts/local-base-reexport-3bde318ede18.cact",
+    "sha256": "3bde318ede183eb06eb65524c9139f83d749e929f46feadfe516cefa3c8e8863",
+    "sizeBytes": 63437076,
+    "tensors": 574,
+    "weightBits": 4
+  },
+  "checkpoint": {
+    "path": "checkpoints/needle3.safetensors",
+    "sha256": "c234c70dccc7a9115e7c41ac2e41d3655fea3b85c245dd898b46179fb90c6c0c"
+  },
+  "crossCheck": {
+    "command": "needle build checkpoints/needle3.safetensors --lora artifacts/local-base-zero-adapter.safetensors --out local-base-reexport.crosscheck.cact",
+    "identicalToNoAdapterExport": true,
+    "reference": "artifacts/candidate-r1-adapter.safetensors",
+    "sha256": "3bde318ede183eb06eb65524c9139f83d749e929f46feadfe516cefa3c8e8863",
+    "zeroAdapter": {
+      "base": "checkpoints/needle3.safetensors",
+      "path": "artifacts/local-base-zero-adapter.safetensors",
+      "rank": 16,
+      "scale": 2.0,
+      "sha256": "f041dd1fb3527b15bf6bfeb1e28790c97d52fc9cdc9d2b5eeacbd3c6cd3bf5f0",
+      "weightGroups": 5
+    }
+  },
+  "host": {
+    "machine": "AMD64",
+    "platform": "Windows-11-10.0.26220-SP0",
+    "python": "3.13.2"
+  }
+}

@@ -1,11 +1,15 @@
 # vesta-router
 Training, evaluation, and release pipeline for Vesta’s local Needle-based tool router.
 
-**Status: no model has been trained.** What exists is the contract, the corpora,
-the part of the pipeline that can be right or wrong without a GPU — corpus
-validation, the state-block renderer, manifest validation and the promotion
-gates — and, now, **the evaluation harness and a measured baseline of the stock
-untrained `.cact`**. All of the first part runs on the standard library:
+**Status: baseline evaluation complete. One experimental fine-tune has been run.
+No model is promoted for production use.**
+
+What exists is the contract, the corpora, the part of the pipeline that can be
+right or wrong without a GPU — corpus validation, the state-block renderer,
+manifest validation and the promotion gates — **the evaluation harness with a
+measured baseline of the stock untrained `.cact`**, and a false-action
+**severity model** so a report can tell a wasted turn from a phone call staged
+to a named contact. All of the first part runs on the standard library:
 
 ```sh
 python -m vesta_router validate      # corpora, tool schema, disjointness, rendering
@@ -27,6 +31,31 @@ produced an action a deterministic guard would have let through. Zero malformed
 outputs, zero state leaks. All three safety gates fail, which is the expected
 shape for an untrained model and the reason to measure it before changing
 anything.
+
+### candidate-r1 is experimental, and its result is a negative one
+
+`candidate-r1` is the first fine-tune: LoRA rank 16, three epochs over 151
+examples, 57 steps on CPU. It is **not stable, not promoted and not a release**,
+and it is not a candidate for becoming one.
+
+Measured against the *published* base archive it appeared to move eleven
+metrics. It did not. An **untrained** base checkpoint put through candidate-r1's
+own exporter, with no adapter, reproduces every one of those movements exactly:
+on the same 64 cases the untrained control and the trained candidate produce
+**identical values for all 23 metrics**, zero failure families move and zero
+severities move. Three epochs changed the shape of two fabricated values and
+nothing else.
+
+The confound was the artifact, not the corpus. The published archive stores 115
+of its 119 body matmul tensors at **CQ W2**; the local exporter writes **W4** for
+all of them and cannot do otherwise. So the original comparison was between two
+quantizations — it also accounts for 63.4 MB against 35.3 MB, and for +44 MB of
+resident memory, to the byte and with no residual.
+
+[`eval/EXPORT-CONTROL.md`](eval/EXPORT-CONTROL.md) is that run: how the control
+was built and cross-checked, where every byte of the size difference went, the
+three-way metric table, and what has to hold before a second training run.
+[`eval/SEVERITY.md`](eval/SEVERITY.md) is the severity model it is scored with.
 
 [Vesta](https://github.com/lodlock/vesta) is a local-first AI assistant that runs
 entirely on-device. This repository holds the small model that decides what a
@@ -60,7 +89,7 @@ The full contract is in the Vesta repository at
 
 ```
 data/
-  train/        training corpus, JSONL, 112 cases
+  train/        training corpus, JSONL, 151 cases
   eval/         regression corpus, JSONL, 64 cases - never trained on
   historical/   frozen v1 spike material, validated against the v1 schema
 tools/
@@ -68,14 +97,19 @@ tools/
   tool-schema-v2.json   ACTIVE. Derived from Vesta's production tool registry.
 train/
   config/       training configuration, revisioned; its revision goes in every manifest
+  reexport_base.py      the untouched-base export control - see eval/EXPORT-CONTROL.md
 eval/
   thresholds.json       promotion gates. Every threshold is PROVISIONAL.
   BASELINE.md           how to run the evaluator, and the first baseline result
+  EXPORT-CONTROL.md     published vs locally exported base, and candidate-r1's real delta
+  SEVERITY.md           the false-action severity taxonomy and its metrics
 examples/       worked manifest, eval report and update index
 releases/       <version>/manifest.json and eval-report.json per promoted build
-reports/        baseline/<id>-<timestamp>/{summary,cases,manifest}
-src/vesta_router/   validation, rendering, manifest and gate logic, and the
-                    evaluator: evaluate, grounding, runner, engines/
+reports/        baseline|control|candidate/<id>-<timestamp>/{summary,cases,manifest}
+                analysis/  derived failure groupings and run diffs
+src/vesta_router/   validation, rendering, manifest and gate logic, the
+                    evaluator (evaluate, grounding, runner, engines/), the
+                    severity model, and the .cact inspector
 tests/
 ```
 
@@ -247,6 +281,13 @@ file. Enforced from both ends: CI evaluates the artifact, and a `stable`
 manifest whose `evaluatedArtifactSha256` differs from its `artifact.sha256` is
 refused by the validator here *and* on the device.
 
+That rule was written about the adapter and turned out to be needed one level
+further out. Two `.cact` files built from the *same checkpoint* by two different
+exporters are also different files, and candidate-r1's first result was a
+measurement of that difference rather than of its training. **So a candidate is
+compared against a local re-export of the untouched base, never against the
+published archive** — see [`eval/EXPORT-CONTROL.md`](eval/EXPORT-CONTROL.md).
+
 ### Promotion gates
 
 `eval/thresholds.json`. **Every threshold is provisional** until a baseline
@@ -261,9 +302,17 @@ supposed to judge is how a threshold ends up describing what happened instead of
 what is required.
 
 Safety gates are not traded against accuracy. A false executable action costs
-the user something real — a wrong alarm, a call that has already rung, a message
-sent under their name. An unnecessary escalation to the chat model costs a little
+the user something real — a wrong alarm, a message staged under their name to a
+named contact. An unnecessary escalation to the chat model costs a little
 latency.
+
+**And a false action now has a severity, not just a count.** `get_time {}` and
+`navigate_to {"destination": "thnaks"}` on *"thnaks that worked"* are the same
+`falsePositiveActionRate` and are not the same event, so every tool carries a
+severity derived from what Vesta's dispatcher actually does with the call, and a
+severity that rises makes a comparison a `safety-regression` even when no rate
+moved. No threshold references a severity metric yet, for the reason above —
+[`eval/SEVERITY.md`](eval/SEVERITY.md).
 
 **A gate whose metric is absent from the report fails.** A metric nobody measured
 is not a metric that passed.

@@ -11,6 +11,21 @@ distribution of failures existed. Now one does.
 and the baseline identifier is deliberately not a `ModelVersion` — see
 [Identity](#identity).
 
+> **Two companion documents, written after this one.**
+>
+> [`SEVERITY.md`](SEVERITY.md) — the false-action severity model that evaluator
+> **1.1.0** added. Every metric below is produced unchanged and means the same
+> thing; the severity rows sit beside them and decompose them.
+>
+> [`EXPORT-CONTROL.md`](EXPORT-CONTROL.md) — the thing this document did not
+> anticipate. The **published** `.cact` measured here and a `.cact` built
+> locally from the same checkpoint are **different quantizations** (W2-dominant
+> versus uniform W4), so "Comparing a candidate against this", at the bottom of
+> this page, is only right for a candidate built by the *same* pipeline as the
+> published archive. A locally built candidate must be compared against a local
+> re-export of the untouched base. candidate-r1 was not, and the whole of its
+> apparent improvement turned out to be the exporter.
+
 ---
 
 ## Running it
@@ -206,6 +221,19 @@ a gap, and a single number would hide which one is happening.
 | `stateLeakCount` | every case | answers that depended on what ran before them |
 | `nondeterministicCaseCount` | every case | answers that differ when repeated back to back |
 | `resetFailureCount` | every case | resets that did not succeed |
+
+Added by evaluator **1.1.0**, and documented in full in
+[`SEVERITY.md`](SEVERITY.md). They decompose the rows above rather than
+replacing them:
+
+| Metric | Over | |
+|---|---|---|
+| `falsePositiveActionCountBySeverity` | cases expecting chat | the numerator of `falsePositiveActionRate`, partitioned by the worst tool a case would have run |
+| `falsePositiveActionRateBySeverity` | cases expecting chat | the same as rates |
+| `falseActionCountBySeverity` | every case | the full picture — missing-slot and wrong-tool executions included |
+| `weightedFalseActionScore` | every case | Σ of per-case worst-severity weights. **Provisional weights** |
+| `highestFalseActionSeverity` | every case | the ordinal that cannot be averaged away. `null` means *measured, none found* |
+| `unclassifiedToolsInFalseActions` | every case | present only when a tool executed with no severity — fail-closed, and said out loud |
 
 Latency and throughput, when the runtime reports them: `medianLatencyMs`,
 `p95LatencyMs`, `minLatencyMs`, `maxLatencyMs`, `totalWallClockMs`,
@@ -428,15 +456,27 @@ settings — all four are in every report, so a mismatch is visible rather than
 assumed. Then:
 
 1. Build the candidate's final `.cact`. Never score the adapter.
-2. `python -m vesta_router eval --model <candidate>.cact`
-3. Diff `summary.json → metrics` against this baseline.
-4. `python -m vesta_router gate <candidate summary.json>`.
-5. Read `cases.jsonl` for anything that moved the wrong way, per case rather
+2. **Build the control**: the untouched base checkpoint through the *same*
+   exporter, no adapter — `python train/reexport_base.py --cross-check <the
+   candidate's adapter>`. Skipping this step is what made candidate-r1's first
+   result a measurement of its exporter.
+3. `python -m vesta_router eval --model <candidate>.cact`, and the control too.
+4. Diff `summary.json → metrics` **against the control**, not against this page.
+   `python -m vesta_router compare-runs <published> <control> <candidate>` puts
+   all three side by side; a metric the control already moved is not the
+   candidate's.
+5. `python -m vesta_router gate <candidate summary.json>`.
+6. Read `cases.jsonl` for anything that moved the wrong way, per case rather
    than per metric. A regression is localizable there and nowhere else.
+7. Read `caseSafetyDiff` in the comparison. A false action that changed *tool*
+   at the same rate is a safety movement the rates cannot show.
 
 A candidate that improves `toolSelectionAccuracy` and raises
 `falsePositiveActionRate` has got worse. Safety gates are not traded against
-accuracy gates, and `eval/thresholds.json` says so from the other side.
+accuracy gates, and `eval/thresholds.json` says so from the other side. A
+candidate that leaves `falsePositiveActionRate` **unchanged** and turns a
+`get_time` false positive into a `navigate_to` one has also got worse, and that
+is what the severity rows are for.
 
 **The thresholds should now be revised** — from provisional guesses to numbers
 derived from this distribution — but not in the same change that produced the

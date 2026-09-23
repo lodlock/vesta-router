@@ -1,0 +1,429 @@
+{
+  "comparable": true,
+  "comparisonVersion": 1,
+  "incomparabilities": [],
+  "metrics": [
+    {
+      "identical": false,
+      "metric": "argumentExactMatchAccuracy",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.692308,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.692308,
+        "baseline-needle3-c9d915eca282": 0.518519
+      }
+    },
+    {
+      "identical": true,
+      "metric": "cancelNoActionRate",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.666667,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.666667,
+        "baseline-needle3-c9d915eca282": 0.666667
+      }
+    },
+    {
+      "identical": true,
+      "metric": "engineErrorCount",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0,
+        "baseline-needle3-c9d915eca282": 0
+      }
+    },
+    {
+      "identical": false,
+      "metric": "falseActionCountBySeverity",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": {
+          "external_side_effect": 0,
+          "high_impact": 3,
+          "read_only": 7,
+          "reversible_low": 2,
+          "user_visible_side_effect": 3
+        },
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": {
+          "external_side_effect": 0,
+          "high_impact": 3,
+          "read_only": 7,
+          "reversible_low": 2,
+          "user_visible_side_effect": 3
+        },
+        "baseline-needle3-c9d915eca282": {
+          "external_side_effect": 1,
+          "high_impact": 2,
+          "read_only": 6,
+          "reversible_low": 2,
+          "user_visible_side_effect": 3
+        }
+      }
+    },
+    {
+      "identical": false,
+      "metric": "falsePositiveActionCountBySeverity",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": {
+          "external_side_effect": 0,
+          "high_impact": 2,
+          "read_only": 6,
+          "reversible_low": 1,
+          "user_visible_side_effect": 1
+        },
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": {
+          "external_side_effect": 0,
+          "high_impact": 2,
+          "read_only": 6,
+          "reversible_low": 1,
+          "user_visible_side_effect": 1
+        },
+        "baseline-needle3-c9d915eca282": {
+          "external_side_effect": 1,
+          "high_impact": 1,
+          "read_only": 6,
+          "reversible_low": 1,
+          "user_visible_side_effect": 1
+        }
+      }
+    },
+    {
+      "identical": true,
+      "metric": "falsePositiveActionRate",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.526316,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.526316,
+        "baseline-needle3-c9d915eca282": 0.526316
+      }
+    },
+    {
+      "identical": false,
+      "metric": "falsePositiveActionRateBySeverity",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": {
+          "external_side_effect": 0.0,
+          "high_impact": 0.105263,
+          "read_only": 0.315789,
+          "reversible_low": 0.052632,
+          "user_visible_side_effect": 0.052632
+        },
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": {
+          "external_side_effect": 0.0,
+          "high_impact": 0.105263,
+          "read_only": 0.315789,
+          "reversible_low": 0.052632,
+          "user_visible_side_effect": 0.052632
+        },
+        "baseline-needle3-c9d915eca282": {
+          "external_side_effect": 0.052632,
+          "high_impact": 0.052632,
+          "read_only": 0.315789,
+          "reversible_low": 0.052632,
+          "user_visible_side_effect": 0.052632
+        }
+      }
+    },
+    {
+      "identical": false,
+      "metric": "falsePositiveToolCallRate",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.736842,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.736842,
+        "baseline-needle3-c9d915eca282": 0.684211
+      }
+    },
+    {
+      "identical": false,
+      "metric": "fullCallExactMatchAccuracy",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.642857,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.642857,
+        "baseline-needle3-c9d915eca282": 0.5
+      }
+    },
+    {
+      "identical": true,
+      "metric": "highestFalseActionSeverity",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": "high_impact",
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": "high_impact",
+        "baseline-needle3-c9d915eca282": "high_impact"
+      }
+    },
+    {
+      "identical": true,
+      "metric": "malformedOutputCount",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0,
+        "baseline-needle3-c9d915eca282": 0
+      }
+    },
+    {
+      "identical": false,
+      "metric": "missingSlotEmissionRate",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.928571,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.928571,
+        "baseline-needle3-c9d915eca282": 0.857143
+      }
+    },
+    {
+      "identical": true,
+      "metric": "missingSlotExecutionRate",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.214286,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.214286,
+        "baseline-needle3-c9d915eca282": 0.214286
+      }
+    },
+    {
+      "identical": false,
+      "metric": "missingSlotFabricationRate",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.5,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.5,
+        "baseline-needle3-c9d915eca282": 0.428571
+      }
+    },
+    {
+      "identical": true,
+      "metric": "missingSlotPlaceholderRate",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.285714,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.285714,
+        "baseline-needle3-c9d915eca282": 0.285714
+      }
+    },
+    {
+      "identical": false,
+      "metric": "noToolClassificationAccuracy",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.263158,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.263158,
+        "baseline-needle3-c9d915eca282": 0.315789
+      }
+    },
+    {
+      "identical": true,
+      "metric": "nondeterministicCaseCount",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0,
+        "baseline-needle3-c9d915eca282": 0
+      }
+    },
+    {
+      "identical": true,
+      "metric": "resetFailureCount",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0,
+        "baseline-needle3-c9d915eca282": 0
+      }
+    },
+    {
+      "identical": false,
+      "metric": "staleContextMisuseCount",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 4,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 4,
+        "baseline-needle3-c9d915eca282": 5
+      }
+    },
+    {
+      "identical": true,
+      "metric": "stateLeakCount",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0,
+        "baseline-needle3-c9d915eca282": 0
+      }
+    },
+    {
+      "identical": false,
+      "metric": "toolSelectionAccuracy",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.928571,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.928571,
+        "baseline-needle3-c9d915eca282": 0.964286
+      }
+    },
+    {
+      "identical": true,
+      "metric": "unitNormalizationAccuracy",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 0.4,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 0.4,
+        "baseline-needle3-c9d915eca282": 0.4
+      }
+    },
+    {
+      "identical": false,
+      "metric": "weightedFalseActionScore",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 193,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 193,
+        "baseline-needle3-c9d915eca282": 167
+      }
+    }
+  ],
+  "metricsDiffering": [
+    "argumentExactMatchAccuracy",
+    "falseActionCountBySeverity",
+    "falsePositiveActionCountBySeverity",
+    "falsePositiveActionRateBySeverity",
+    "falsePositiveToolCallRate",
+    "fullCallExactMatchAccuracy",
+    "missingSlotEmissionRate",
+    "missingSlotFabricationRate",
+    "noToolClassificationAccuracy",
+    "staleContextMisuseCount",
+    "toolSelectionAccuracy",
+    "weightedFalseActionScore"
+  ],
+  "metricsIdenticalAcrossRuns": [
+    "cancelNoActionRate",
+    "engineErrorCount",
+    "falsePositiveActionRate",
+    "highestFalseActionSeverity",
+    "malformedOutputCount",
+    "missingSlotExecutionRate",
+    "missingSlotPlaceholderRate",
+    "nondeterministicCaseCount",
+    "resetFailureCount",
+    "stateLeakCount",
+    "unitNormalizationAccuracy"
+  ],
+  "performance": [
+    {
+      "identical": false,
+      "metric": "maxLatencyMs",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 346.576,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 348.796,
+        "baseline-needle3-c9d915eca282": 375.995
+      }
+    },
+    {
+      "identical": false,
+      "metric": "medianDecodeTps",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 276.65,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 294.7,
+        "baseline-needle3-c9d915eca282": 279.95
+      }
+    },
+    {
+      "identical": false,
+      "metric": "medianLatencyMs",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 202.303,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 188.101,
+        "baseline-needle3-c9d915eca282": 195.575
+      }
+    },
+    {
+      "identical": false,
+      "metric": "medianPrefillTps",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 446.0,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 560.85,
+        "baseline-needle3-c9d915eca282": 494.05
+      }
+    },
+    {
+      "identical": false,
+      "metric": "minLatencyMs",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 134.164,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 134.094,
+        "baseline-needle3-c9d915eca282": 115.799
+      }
+    },
+    {
+      "identical": false,
+      "metric": "p95LatencyMs",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 276.431,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 296.966,
+        "baseline-needle3-c9d915eca282": 280.586
+      }
+    },
+    {
+      "identical": false,
+      "metric": "peakMemoryMb",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 164.8,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 164.6,
+        "baseline-needle3-c9d915eca282": 120.3
+      }
+    },
+    {
+      "identical": false,
+      "metric": "totalWallClockMs",
+      "presentInEveryRun": true,
+      "values": {
+        "baseline-candidate-r1-8b62b28c1e28": 13468.325,
+        "baseline-local-base-reexport-3bde318ede18-3bde318ede18": 13035.337,
+        "baseline-needle3-c9d915eca282": 13158.799
+      }
+    }
+  ],
+  "runs": [
+    {
+      "artifactSha256": "c9d915eca282ed42d1a09b143b592adb4cc6744ffe2d294adf5cfc5548170c38",
+      "cases": 64,
+      "corpusContentSha256": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef",
+      "evaluatorVersion": "1.1.0",
+      "label": "baseline-needle3-c9d915eca282",
+      "partialRun": false,
+      "toolSchemaVersion": 2
+    },
+    {
+      "artifactSha256": "3bde318ede183eb06eb65524c9139f83d749e929f46feadfe516cefa3c8e8863",
+      "cases": 64,
+      "corpusContentSha256": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef",
+      "evaluatorVersion": "1.1.0",
+      "label": "baseline-local-base-reexport-3bde318ede18-3bde318ede18",
+      "partialRun": false,
+      "toolSchemaVersion": 2
+    },
+    {
+      "artifactSha256": "8b62b28c1e281e4bead85b5c9c525a241237abe2c84ae2c73c5cbdc48fbca5f4",
+      "cases": 64,
+      "corpusContentSha256": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef",
+      "evaluatorVersion": "1.1.0",
+      "label": "baseline-candidate-r1-8b62b28c1e28",
+      "partialRun": false,
+      "toolSchemaVersion": 2
+    }
+  ]
+}

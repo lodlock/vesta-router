@@ -9,6 +9,11 @@ request has not broken the corpus, the schema or a manifest.
     python -m vesta_router manifest <path>     # validate one manifest
     python -m vesta_router verify <manifest> <artifact>
     python -m vesta_router gate <eval-report>  # apply promotion thresholds
+    python -m vesta_router failures <cases.jsonl>            # group a run by failure family
+    python -m vesta_router regressions <before> <after>      # diff two runs, per case
+    python -m vesta_router traindata --out <path.jsonl>      # render the training corpus
+    python -m vesta_router inspect <a.cact> [<b.cact> --compare]  # what is in an archive
+    python -m vesta_router compare-runs <summary.json>...    # N runs, one metric table
 
 One command is the exception, and it is marked as one:
 
@@ -33,6 +38,7 @@ from .gates import apply_gates, load_gates, promotable
 from .manifest import validate_manifest, verify_artifact
 from .render import render_example
 from .schema import load_tool_schema
+from .severity import TOOL_SEVERITY, schema_coverage
 
 REPO = Path(__file__).resolve().parents[2]
 ACTIVE_SCHEMA = REPO / "tools" / "tool-schema-v2.json"
@@ -83,6 +89,19 @@ def cmd_validate(_args: argparse.Namespace) -> int:
             render_problems.append(f"{case.file}:{case.line} [{case.id}] renders differently on repeat")
     failures += _report(render_problems, "determinism")
 
+    # Both directions. A schema tool with no severity is a hole in the safety
+    # model that scores it at the worst tier without saying so; a severity for
+    # a tool the schema does not declare is a rule about something the app
+    # cannot dispatch.
+    print("\nfalse-action severity")
+    coverage = schema_coverage(schema.tool_names)
+    severity_problems = [f"{name}: no severity assigned" for name in coverage["unclassified"]]
+    severity_problems += [
+        f"{name}: has a severity but is not in the tool schema"
+        for name in coverage["classifiedButNotInSchema"]
+    ]
+    failures += _report(severity_problems, f"coverage ({len(TOOL_SEVERITY)} tools classified)")
+
     print(f"\n{'FAILED' if failures else 'PASSED'} - {failures} problem(s)")
     return 1 if failures else 0
 
@@ -131,6 +150,147 @@ def cmd_gate(args: argparse.Namespace) -> int:
     if any(g.gate.provisional for g in results):
         print("note: some thresholds are provisional; see eval/thresholds.json")
     return 0 if ok else 1
+
+
+def _emit(document: dict, out: str | None) -> None:
+    """Print a machine-readable document, or write it where it was asked for.
+
+    Sorted keys and a trailing newline, for the same reason the eval report
+    serializes that way: two runs of the same analysis must diff to nothing.
+    """
+    text = json.dumps(document, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+    if out:
+        path = Path(out)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+        print(f"wrote {path}")
+    else:
+        print(text, end="")
+
+
+def cmd_failures(args: argparse.Namespace) -> int:
+    from .failures import analyze, load_cases
+
+    document = analyze(load_cases(args.cases))
+    _emit(document, args.output)
+    if args.output:
+        for family in document["families"]:
+            if family["count"]:
+                mark = "SAFETY" if family["safety"] else "      "
+                print(f"  {mark} {family['family']:<34} {family['count']}")
+    return 0
+
+
+def cmd_regressions(args: argparse.Namespace) -> int:
+    from .failures import compare, load_cases
+
+    document = compare(load_cases(args.before), load_cases(args.after))
+    _emit(document, args.output)
+    if args.output:
+        print(
+            f"  improved {len(document['improved'])}  regressed {len(document['regressed'])}  "
+            f"changed {len(document['changed'])}  unchanged failures {len(document['unchangedFailures'])}"
+        )
+        print(f"  verdict  {document['verdict']}")
+    return 0
+
+
+def cmd_compare_runs(args: argparse.Namespace) -> int:
+    """Put several eval summaries in one metric table.
+
+    Two runs can only ever say "these differ". Three — a published artifact, a
+    locally re-exported control built from the same checkpoint, and a trained
+    candidate — can say WHICH of the build path and the training the difference
+    belongs to, which is the question two runs structurally cannot answer.
+    """
+    from .failures import compare_summaries
+
+    summaries = [json.loads(Path(path).read_text(encoding="utf-8")) for path in args.summary]
+    document = compare_summaries(summaries)
+    _emit(document, args.output)
+    if args.output:
+        labels = [run["label"] for run in document["runs"]]
+        if not document["comparable"]:
+            print("  NOT COMPARABLE:")
+            for problem in document["incomparabilities"]:
+                print(f"    {problem['field']}: {problem['reason']}")
+        print(f"  runs     {len(labels)}")
+        print(f"  identical across runs  {len(document['metricsIdenticalAcrossRuns'])}")
+        print(f"  differing              {len(document['metricsDiffering'])}")
+        for name in document["metricsDiffering"]:
+            row = next(r for r in document["metrics"] if r["metric"] == name)
+            rendered = "  ".join(f"{label}={row['values'][label]}" for label in labels)
+            print(f"    {name:<34} {rendered}")
+    return 0
+
+
+def cmd_inspect(args: argparse.Namespace) -> int:
+    """Read a ``.cact``'s header and tensor directory, or diff two of them.
+
+    Part of the fast tier despite naming an artifact: it reads a file, it loads
+    no runtime and it imports nothing outside the standard library. What it
+    answers is what quantization and what tensor set an archive actually holds,
+    which is the question the 35.3 MB / 63.4 MB discrepancy turned out to be.
+    """
+    from .artifact import compare_artifacts, inspect_artifact, render_text
+
+    try:
+        if len(args.artifact) == 2 and args.compare:
+            _emit(compare_artifacts(args.artifact[0], args.artifact[1]), args.output)
+            return 0
+        if args.compare:
+            print("--compare needs exactly two artifacts", file=sys.stderr)
+            return 1
+        documents = [inspect_artifact(path) for path in args.artifact]
+    except (OSError, ValueError) as exc:
+        print(f"{exc}", file=sys.stderr)
+        return 1
+
+    if args.output or args.json:
+        _emit(documents[0] if len(documents) == 1 else {"artifacts": documents}, args.output)
+        return 0
+    for document in documents:
+        print(render_text(document))
+    return 0
+
+
+def cmd_traindata(args: argparse.Namespace) -> int:
+    """Render data/train into the JSONL the Needle trainer reads.
+
+    Refuses on an invalid or non-disjoint corpus for the same reason ``eval``
+    refuses on one: a model trained from cases that do not validate is a model
+    nobody can say what was asked of, and an eval utterance that reached
+    training turns the regression corpus into a memorization test.
+    """
+    from .engines import tool_definitions
+    from .engines.needle import NEEDLE_SYSTEM_PROMPT
+    from .training import corpus_digest, write_training_jsonl
+
+    schema = load_tool_schema(ACTIVE_SCHEMA)
+    train, train_load = load_corpus(TRAIN_DIR)
+    evaluation, eval_load = load_corpus(EVAL_DIR)
+    problems = (
+        train_load
+        + eval_load
+        + validate_corpus(train, schema)
+        + validate_corpus(evaluation, schema)
+        + check_disjoint(train, evaluation)
+    )
+    if problems:
+        print(f"{len(problems)} corpus problem(s); refusing to render training data", file=sys.stderr)
+        for problem in problems:
+            print(f"  {problem}", file=sys.stderr)
+        return 1
+
+    tools = tool_definitions(ACTIVE_SCHEMA)
+    summary = write_training_jsonl(args.out, train, schema, tools, system_prompt=NEEDLE_SYSTEM_PROMPT)
+    print(f"train corpus   {len(train)} cases from {TRAIN_DIR}")
+    print(f"               content sha256 {corpus_digest(TRAIN_DIR)['sha256']}")
+    print(f"rendered       {summary['examples']} examples -> {args.out}")
+    print(f"               sha256 {summary['sha256']}  {summary['sizeBytes']} bytes")
+    for kind, count in sorted(summary["byOutcome"].items()):
+        print(f"  {kind:<12} {count}")
+    return 0
 
 
 def _select_cases(cases, wanted, limit):
@@ -302,6 +462,28 @@ def main(argv: list[str] | None = None) -> int:
     gate = sub.add_parser("gate", help="apply promotion thresholds to an eval report")
     gate.add_argument("report")
 
+    failures = sub.add_parser("failures", help="group one eval report's cases.jsonl by failure family")
+    failures.add_argument("cases", help="path to a report's cases.jsonl")
+    failures.add_argument("--output", help="write the JSON here instead of to stdout")
+
+    regressions = sub.add_parser("regressions", help="diff two eval reports, per case and per family")
+    regressions.add_argument("before", help="baseline cases.jsonl")
+    regressions.add_argument("after", help="candidate cases.jsonl")
+    regressions.add_argument("--output", help="write the JSON here instead of to stdout")
+
+    traindata = sub.add_parser("traindata", help="render data/train into the trainer's JSONL")
+    traindata.add_argument("--out", required=True, help="output .jsonl path")
+
+    compare_runs = sub.add_parser("compare-runs", help="put several eval summaries in one metric table")
+    compare_runs.add_argument("summary", nargs="+", help="two or more report summary.json paths")
+    compare_runs.add_argument("--output", help="write the JSON here instead of to stdout")
+
+    inspect = sub.add_parser("inspect", help="read a .cact archive's header and tensor directory")
+    inspect.add_argument("artifact", nargs="+", help="one .cact to describe, or two with --compare")
+    inspect.add_argument("--compare", action="store_true", help="diff two archives and decompose the size")
+    inspect.add_argument("--json", action="store_true", help="machine-readable output")
+    inspect.add_argument("--output", help="write the JSON here instead of to stdout")
+
     evaluate = sub.add_parser(
         "eval",
         help="run the eval corpus against a .cact artifact (loads a real runtime)",
@@ -336,6 +518,11 @@ def main(argv: list[str] | None = None) -> int:
         "verify": cmd_verify,
         "gate": cmd_gate,
         "eval": cmd_eval,
+        "failures": cmd_failures,
+        "regressions": cmd_regressions,
+        "traindata": cmd_traindata,
+        "inspect": cmd_inspect,
+        "compare-runs": cmd_compare_runs,
     }[args.command](args)
 
 

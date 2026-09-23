@@ -13,3 +13,9 @@
 {"id": "tr.slot.navigate.bare", "category": "missing-slot", "locale": "en", "utterance": "Open directions.", "state": null, "output": {"kind": "incomplete", "tool": "navigate_to", "missing": ["destination"]}}
 {"id": "tr.slot.contacts.bare", "category": "missing-slot", "locale": "en", "utterance": "Search my address book.", "state": null, "output": {"kind": "incomplete", "tool": "search_contacts", "missing": ["query"]}}
 {"id": "tr.slot.document.bare", "category": "missing-slot", "locale": "en", "utterance": "Look it up in my documents.", "state": null, "output": {"kind": "incomplete", "tool": "query_document", "missing": ["query"]}}
+{"id": "tr.slot.sms.vague-text", "category": "missing-slot", "locale": "en", "utterance": "Text Anna something.", "state": null, "output": {"kind": "incomplete", "tool": "send_sms", "missing": ["text"]}}
+{"id": "tr.slot.navigate.vague", "category": "missing-slot", "locale": "en", "utterance": "Navigate somewhere.", "state": null, "output": {"kind": "incomplete", "tool": "navigate_to", "missing": ["destination"]}}
+{"id": "tr.slot.reminder.time-only", "category": "missing-slot", "locale": "en", "utterance": "Remind me at half past two.", "state": null, "output": {"kind": "incomplete", "tool": "set_reminder", "missing": ["text"]}}
+{"id": "tr.slot.alarm.it.polite", "category": "missing-slot", "locale": "it", "utterance": "Metti una sveglia per favore.", "state": null, "output": {"kind": "incomplete", "tool": "set_alarm", "missing": ["time"]}}
+{"id": "tr.slot.event.noun-phrase", "category": "missing-slot", "locale": "en", "utterance": "Put my brother's graduation in the calendar.", "state": null, "output": {"kind": "incomplete", "tool": "create_event", "missing": ["start"]}}
+{"id": "tr.slot.call.vague", "category": "missing-slot", "locale": "en", "utterance": "Ring somebody for me.", "state": null, "output": {"kind": "incomplete", "tool": "make_call", "missing": ["contact"]}}

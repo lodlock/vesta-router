@@ -1,0 +1,2856 @@
+{
+  "baseline": {
+    "cases": 64,
+    "provenance": {
+      "artifactSha256": "c9d915eca282ed42d1a09b143b592adb4cc6744ffe2d294adf5cfc5548170c38",
+      "baselineId": "baseline-needle3-c9d915eca282",
+      "corpusContentSha256": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef",
+      "engineVersion": "3.0.1",
+      "evaluatorVersion": "1.0.0",
+      "toolSchemaVersion": 2
+    },
+    "severity": {
+      "available": false,
+      "casesWithoutSeverity": 64,
+      "countBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "highestFalseActionSeverity": null,
+      "weightedFalseActionScore": 0
+    }
+  },
+  "candidate": {
+    "cases": 64,
+    "provenance": {
+      "artifactSha256": "8b62b28c1e281e4bead85b5c9c525a241237abe2c84ae2c73c5cbdc48fbca5f4",
+      "baselineId": "baseline-candidate-r1-8b62b28c1e28",
+      "corpusContentSha256": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef",
+      "engineVersion": "3.0.1",
+      "evaluatorVersion": "1.0.0",
+      "toolSchemaVersion": 2
+    },
+    "severity": {
+      "available": false,
+      "casesWithoutSeverity": 64,
+      "countBySeverity": {
+        "external_side_effect": 0,
+        "high_impact": 0,
+        "read_only": 0,
+        "reversible_low": 0,
+        "user_visible_side_effect": 0
+      },
+      "highestFalseActionSeverity": null,
+      "weightedFalseActionScore": 0
+    }
+  },
+  "caseSafetyDiff": [
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.alarm-complaint",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "My alarm didn't go off yesterday.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.bare-duration",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "20 minutes",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.calendar-observation",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "My calendar is a disaster this week.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.call-story",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Marco called me twice yesterday.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.capital",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "What is the capital of Australia?",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.cat-name",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Monday is a terrible name for a cat.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.hypothetical",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "What would happen if I set a timer for zero minutes?",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.navigate-story",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "The drive to Piazza Garibaldi took forever.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.negation.alarm",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Don't set an alarm.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.negation.call",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Don't call Marco, I'll do it myself.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.remember-later",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "I need to remember to set a timer later.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.sms-complaint",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "He never texts me back.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.stt.mumble",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "uh yeah so anyway",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.tasker-memory",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "I used Tasker years ago.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.time-philosophy",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Time really flies when you're busy.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.timers-annoying",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Timers are annoying.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.timers-annoying.it",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "I timer sono fastidiosi.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.typo.thanks",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "thnaks that worked",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "chat",
+      "id": "neg.woke-at-730",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "I woke up at 7:30.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.alarm.labelled",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Set an alarm for 6am called gym.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.alarm.stt",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "wake me at seven thirty",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.alarm.time",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Wake me at 7:30 tomorrow.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.calendar.named-day",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "What do I have on Thursday?",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.calendar.today",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "What's on my calendar?",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.call.contact",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Call Marco.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.contacts.search",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "What's Marco's number?",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.document.query",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "What does my insurance policy say about excess?",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.event.title-start",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Put lunch with Sara on my calendar for Friday at noon.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.navigate",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Navigate to Piazza Garibaldi.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.reminder.both",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Remind me to call the dentist at 3pm.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.reminder.it",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Ricordami di chiamare il dentista alle 15.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.sms.both",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Text Marco that I'm running late.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.time.elsewhere",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "What time is it in Tokyo?",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.timer.compound",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Set a timer for 1 minute 30 seconds.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.timer.half-hour",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Timer for half an hour.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.timer.hours",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Set a timer for two hours.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.timer.minutes",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Set a timer for 20 minutes.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.timer.minutes.it",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Metti un timer di venti minuti.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.timer.seconds",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Set a timer for 90 seconds.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "pos.timer.seconds.half",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Set a timer for 30 seconds.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.alarm.bare",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Wake me up.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.alarm.bare.it",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Mettimi una sveglia.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.call.bare",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Make a call.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.event.no-start",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Add a dentist appointment to my calendar.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "cancel",
+      "id": "slot.followup.cancelled",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "actually, never mind",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "slot.followup.keeps-known",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "at 4pm",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "slot.followup.minutes",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "20 minutes",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "slot.followup.time",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "seven thirty",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.navigate.bare",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Start navigation.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.reminder.bare",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Set a reminder.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.reminder.no-text",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Remind me at 4pm.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.reminder.no-time",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Remind me to call the dentist.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.sms.no-text",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Send Marco a text.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "slot.timer.bare",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Set a timer.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "stale.alarm.prior-turn",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Wake me up.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "stale.calendar.no-invented-date",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "What's on my calendar?",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "stale.call.other-contact",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Call them back.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "cancel",
+      "id": "stale.cancellation.explicit",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "cancel that, forget the timer",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "cancel",
+      "id": "stale.cancellation.it",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "lascia stare",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "stale.correction.contact",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "sorry, I meant Sara",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "stale.correction.duration",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "no, make it 10 minutes",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "tool",
+      "id": "stale.new-request-over-pending",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "actually set a timer for 5 minutes instead",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "stale.reminder.other-text",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Remind me at 5.",
+      "verdict": "unavailable"
+    },
+    {
+      "after": null,
+      "afterSeverity": null,
+      "before": null,
+      "beforeSeverity": null,
+      "expectedKind": "incomplete",
+      "id": "stale.timer.prior-turn",
+      "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+      "utterance": "Set a timer.",
+      "verdict": "unavailable"
+    }
+  ],
+  "casesComparedById": 64,
+  "changed": [
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "query": "insurance policy"
+            },
+            "name": "search_contacts"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "wrong-tool"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "query": "insurance policy"
+            },
+            "name": "query_document"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "pos.document.query",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "time": "07:00"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "",
+              "text": "Wake me up"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-placeholder",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.alarm.bare",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "start": "",
+              "title": "Dentist appointment"
+            },
+            "name": "create_event"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-placeholder",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "start": "now",
+              "title": "Dentist appointment"
+            },
+            "name": "create_event"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.event.no-start",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-fabrication"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "suppressed_only",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-placeholder"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "suppressed_only",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.timer.bare",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    }
+  ],
+  "comparisonVersion": 2,
+  "familyDeltas": [
+    {
+      "after": 3,
+      "before": 3,
+      "delta": 0,
+      "family": "missing-slot-execution",
+      "fixed": [],
+      "introduced": [],
+      "safety": true
+    },
+    {
+      "after": 10,
+      "before": 10,
+      "delta": 0,
+      "family": "false-positive-executable-action",
+      "fixed": [],
+      "introduced": [],
+      "safety": true
+    },
+    {
+      "after": 4,
+      "before": 5,
+      "delta": -1,
+      "family": "stale-context-misuse",
+      "fixed": [
+        "stale.calendar.no-invented-date"
+      ],
+      "introduced": [],
+      "safety": true
+    },
+    {
+      "after": 1,
+      "before": 1,
+      "delta": 0,
+      "family": "cancel-produced-action",
+      "fixed": [],
+      "introduced": [],
+      "safety": true
+    },
+    {
+      "after": 8,
+      "before": 10,
+      "delta": -2,
+      "family": "lexical-grounded-wrong-value",
+      "fixed": [
+        "neg.capital",
+        "neg.cat-name",
+        "neg.woke-at-730"
+      ],
+      "introduced": [
+        "neg.typo.thanks"
+      ],
+      "safety": false
+    },
+    {
+      "after": 14,
+      "before": 13,
+      "delta": 1,
+      "family": "false-positive-tool-call",
+      "fixed": [],
+      "introduced": [
+        "neg.stt.mumble"
+      ],
+      "safety": false
+    },
+    {
+      "after": 7,
+      "before": 6,
+      "delta": 1,
+      "family": "missing-slot-fabrication",
+      "fixed": [
+        "slot.event.no-start"
+      ],
+      "introduced": [
+        "slot.alarm.bare",
+        "slot.timer.bare"
+      ],
+      "safety": false
+    },
+    {
+      "after": 4,
+      "before": 4,
+      "delta": 0,
+      "family": "missing-slot-placeholder",
+      "fixed": [
+        "slot.alarm.bare",
+        "slot.timer.bare"
+      ],
+      "introduced": [
+        "slot.event.no-start",
+        "slot.reminder.bare"
+      ],
+      "safety": false
+    },
+    {
+      "after": 13,
+      "before": 12,
+      "delta": 1,
+      "family": "missing-slot-emission",
+      "fixed": [],
+      "introduced": [
+        "slot.reminder.bare"
+      ],
+      "safety": false
+    },
+    {
+      "after": 1,
+      "before": 0,
+      "delta": 1,
+      "family": "wrong-tool",
+      "fixed": [],
+      "introduced": [
+        "pos.document.query"
+      ],
+      "safety": false
+    },
+    {
+      "after": 1,
+      "before": 1,
+      "delta": 0,
+      "family": "no-tool-when-expected",
+      "fixed": [],
+      "introduced": [],
+      "safety": false
+    },
+    {
+      "after": 8,
+      "before": 13,
+      "delta": -5,
+      "family": "correct-tool-wrong-arguments",
+      "fixed": [
+        "pos.alarm.stt",
+        "pos.alarm.time",
+        "pos.document.query",
+        "pos.reminder.both",
+        "stale.calendar.no-invented-date"
+      ],
+      "introduced": [],
+      "safety": false
+    },
+    {
+      "after": 3,
+      "before": 3,
+      "delta": 0,
+      "family": "unit-normalization-error",
+      "fixed": [],
+      "introduced": [],
+      "safety": false
+    },
+    {
+      "after": 0,
+      "before": 0,
+      "delta": 0,
+      "family": "malformed-output",
+      "fixed": [],
+      "introduced": [],
+      "safety": false
+    },
+    {
+      "after": 0,
+      "before": 0,
+      "delta": 0,
+      "family": "engine-error",
+      "fixed": [],
+      "introduced": [],
+      "safety": false
+    },
+    {
+      "after": 0,
+      "before": 0,
+      "delta": 0,
+      "family": "state-leak",
+      "fixed": [],
+      "introduced": [],
+      "safety": false
+    },
+    {
+      "after": 0,
+      "before": 0,
+      "delta": 0,
+      "family": "nondeterministic",
+      "fixed": [],
+      "introduced": [],
+      "safety": false
+    },
+    {
+      "after": 0,
+      "before": 0,
+      "delta": 0,
+      "family": "reset-failure",
+      "fixed": [],
+      "introduced": [],
+      "safety": false
+    }
+  ],
+  "improved": [
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {},
+            "name": "get_calendar_events"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "query": "Australia"
+            },
+            "name": "search_contacts"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.capital",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "date": "monday"
+            },
+            "name": "get_calendar_events"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "start": "Monday",
+              "title": "Terrible name for a cat"
+            },
+            "name": "create_event"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.cat-name",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {},
+            "name": "get_time"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "time": "7:30"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.woke-at-730",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "time": "07:30"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [],
+        "fullCallExact": true,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "time": "7:30"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "pos.alarm.stt",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "time": "07:30"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [],
+        "fullCallExact": true,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "date": "tomorrow",
+              "time": "7:30"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "pos.alarm.time",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "15:00",
+              "text": "call the dentist"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [],
+        "fullCallExact": true,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "3pm",
+              "text": "call the dentist"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "pos.reminder.both",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {},
+            "name": "get_calendar_events"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [],
+        "fullCallExact": true,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "date": "Thursday"
+            },
+            "name": "get_calendar_events"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "stale-context-misuse",
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "stale.calendar.no-invented-date",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    }
+  ],
+  "onlyInBaseline": [],
+  "onlyInCandidate": [],
+  "regressed": [
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "destination": ""
+            },
+            "name": "navigate_to"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [],
+        "expectedKind": "chat",
+        "families": [],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "no_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.stt.mumble",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "destination": "thnaks"
+            },
+            "name": "navigate_to"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {},
+            "name": "get_time"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.typo.thanks",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "",
+              "text": "Reminder"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-placeholder",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [],
+        "expectedKind": "incomplete",
+        "families": [],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "no_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.reminder.bare",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    }
+  ],
+  "safetyImprovementCount": 0,
+  "safetyRegressionCount": 0,
+  "safetyRegressions": [],
+  "safetySeverityImprovements": [],
+  "safetySeverityRegressions": [],
+  "safetySeverityUnavailableCount": 64,
+  "unchangedFailures": [
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "date": "yesterday",
+              "time": "07:00"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "label": "Alarm",
+              "time": "07:00"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.alarm-complaint",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 20.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 20.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.bare-duration",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {},
+            "name": "get_calendar_events"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {},
+            "name": "get_calendar_events"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.calendar-observation",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": "Marco"
+            },
+            "name": "make_call"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": "Marco"
+            },
+            "name": "make_call"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.call-story",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 0.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 0.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.hypothetical",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "place": "Piazza Garibaldi"
+            },
+            "name": "get_time"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "place": "Piazza Garibaldi"
+            },
+            "name": "get_time"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.navigate-story",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "destination": ""
+            },
+            "name": "navigate_to"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": "Mom",
+              "text": "He never texts me back"
+            },
+            "name": "send_sms"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.sms-complaint",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": "Tasker"
+            },
+            "name": "make_call"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "query": "Tasker"
+            },
+            "name": "search_contacts"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "lexical-grounded-wrong-value",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.tasker-memory",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {},
+            "name": "get_time"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {},
+            "name": "get_time"
+          }
+        ],
+        "expectedKind": "chat",
+        "families": [
+          "false-positive-executable-action",
+          "false-positive-tool-call"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "neg.time-philosophy",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "start": "Friday at noon",
+              "title": "Lunch with Sara"
+            },
+            "name": "create_event"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "start": "Friday at noon",
+              "title": "Lunch with Sara"
+            },
+            "name": "create_event"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "pos.event.title-start",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "15",
+              "text": "chiamare il dentista"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "15",
+              "text": "chiamare il dentista"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "pos.reminder.it",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "place": "Tokyo"
+            },
+            "name": "get_time"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "place": "Tokyo"
+            },
+            "name": "get_time"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "pos.time.elsewhere",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 130.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments",
+          "unit-normalization-error"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": false
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 130.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments",
+          "unit-normalization-error"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": false
+      },
+      "id": "pos.timer.compound",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [],
+        "expectedKind": "tool",
+        "families": [
+          "no-tool-when-expected"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "suppressed_only",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [],
+        "expectedKind": "tool",
+        "families": [
+          "no-tool-when-expected"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "suppressed_only",
+        "unitNormalizationCorrect": null
+      },
+      "id": "pos.timer.minutes.it",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 90.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments",
+          "unit-normalization-error"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": false
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 90.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments",
+          "unit-normalization-error"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": false
+      },
+      "id": "pos.timer.seconds",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 30.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments",
+          "unit-normalization-error"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": false
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 30.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments",
+          "unit-normalization-error"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": false
+      },
+      "id": "pos.timer.seconds.half",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "time": "now"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "time": "now"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.alarm.bare.it",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": ""
+            },
+            "name": "make_call"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-placeholder",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": ""
+            },
+            "name": "make_call"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-placeholder",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.call.bare",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "4pm",
+              "text": "call the dentist"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "4pm",
+              "text": "call the dentist"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.followup.keeps-known",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "label": "Tool=set_alarm",
+              "time": "7:30"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "label": "Missing=time",
+              "time": "7:30"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "tool",
+        "families": [
+          "correct-tool-wrong-arguments"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.followup.time",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "destination": "navigation"
+            },
+            "name": "navigate_to"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-execution",
+          "lexical-grounded-wrong-value",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "destination": "navigation"
+            },
+            "name": "navigate_to"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-execution",
+          "lexical-grounded-wrong-value",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.navigate.bare",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "time": "16:00"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-execution",
+          "lexical-grounded-wrong-value",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "4pm",
+              "text": "Remind me"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-execution",
+          "lexical-grounded-wrong-value",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.reminder.no-text",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "",
+              "text": "call the dentist"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-placeholder",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "",
+              "text": "call the dentist"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-placeholder",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.reminder.no-time",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": "Marco",
+              "text": "a text"
+            },
+            "name": "send_sms"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-execution",
+          "lexical-grounded-wrong-value",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": "Marco",
+              "text": "a text"
+            },
+            "name": "send_sms"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "missing-slot-execution",
+          "lexical-grounded-wrong-value",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "slot.sms.no-text",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "time": "06:00"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "stale-context-misuse",
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "label": "Tool=set_alarm",
+              "time": "06:00"
+            },
+            "name": "set_alarm"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "stale-context-misuse",
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "stale.alarm.prior-turn",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": "Marco"
+            },
+            "name": "make_call"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "stale-context-misuse",
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "contact": "Marco"
+            },
+            "name": "make_call"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "stale-context-misuse",
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "stale.call.other-contact",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 20.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "cancel",
+        "families": [
+          "cancel-produced-action",
+          "lexical-grounded-wrong-value"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 20.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "cancel",
+        "families": [
+          "cancel-produced-action",
+          "lexical-grounded-wrong-value"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "stale.cancellation.explicit",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "15:00",
+              "text": "call the dentist"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "stale-context-misuse",
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "datetime": "5",
+              "text": "call the dentist"
+            },
+            "name": "set_reminder"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "stale-context-misuse",
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "stale.reminder.other-text",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    },
+    {
+      "after": {
+        "calls": [
+          {
+            "arguments": {
+              "label": "Args",
+              "minutes": 5.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "stale-context-misuse",
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "before": {
+        "calls": [
+          {
+            "arguments": {
+              "minutes": 5.0
+            },
+            "name": "set_timer"
+          }
+        ],
+        "expectedKind": "incomplete",
+        "families": [
+          "stale-context-misuse",
+          "missing-slot-fabrication",
+          "missing-slot-emission"
+        ],
+        "fullCallExact": false,
+        "guardedOutcome": "no_executable_action",
+        "rawOutcome": "tool_call",
+        "unitNormalizationCorrect": null
+      },
+      "id": "stale.timer.prior-turn",
+      "safety": {
+        "reason": "the baseline report carries no severity block (evaluator predates 1.1.0)",
+        "verdict": "unavailable"
+      }
+    }
+  ],
+  "verdict": "mixed",
+  "weightedFalseActionScoreDelta": null
+}

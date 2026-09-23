@@ -10,3 +10,8 @@
 {"id": "tr.adv.it-past", "category": "adversarial", "locale": "it", "utterance": "Ieri ho chiamato Marco tre volte.", "state": null, "output": {"kind": "chat"}}
 {"id": "tr.adv.instruction-in-text", "category": "adversarial", "locale": "en", "utterance": "Text Anna: remind me to buy milk", "state": null, "output": {"kind": "tool", "tool": "send_sms", "arguments": {"contact": "Anna", "text": "remind me to buy milk"}}}
 {"id": "tr.adv.nested-request", "category": "adversarial", "locale": "en", "utterance": "Add a note to my calendar that says call the plumber at nine, title it plumber, Thursday morning at eight.", "state": null, "output": {"kind": "tool", "tool": "create_event", "arguments": {"title": "plumber", "start": "Thursday 08:00"}}}
+{"id": "tr.adv.past-clock-time", "category": "adversarial", "locale": "en", "utterance": "The alarm went off at 6:15 and I ignored it.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.inbound-sms", "category": "adversarial", "locale": "en", "utterance": "Anna texted me to say she's running late.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.declined-directions", "category": "adversarial", "locale": "en", "utterance": "Don't bother with directions, I know the way.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.zero-value-question", "category": "adversarial", "locale": "en", "utterance": "Is a zero minute timer even a thing?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.adv.it-negation-call", "category": "adversarial", "locale": "it", "utterance": "Non chiamare Anna adesso.", "state": null, "output": {"kind": "chat"}}

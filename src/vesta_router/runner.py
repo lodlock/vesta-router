@@ -45,6 +45,15 @@ from .engines import Engine
 from .evaluate import CaseResult, aggregate, score_case
 from .render import render_example
 from .schema import ToolSchema
+from .severity import (
+    SEVERITIES,
+    SEVERITY_DESCRIPTIONS,
+    SEVERITY_WEIGHTS,
+    TOOL_SEVERITY,
+    TOOL_SEVERITY_RATIONALE,
+    WEIGHTS_ARE_PROVISIONAL,
+    schema_coverage,
+)
 
 __all__ = [
     "EVALUATOR_VERSION",
@@ -58,7 +67,14 @@ __all__ = [
 #: Bumped when the SCORING changes, not when the harness is refactored. Two
 #: reports carrying different evaluator versions are not comparable, and the
 #: number is in every report so that is visible rather than assumed.
-EVALUATOR_VERSION = "1.0.0"
+#:
+#: 1.1.0 added the false-action severity model
+#: (:mod:`vesta_router.severity`). Additive: every metric 1.0.0 produced is
+#: still produced and still means the same thing. But a 1.0.0 report carries no
+#: severity rows at all, so a comparison against one reports the unweighted
+#: metrics normally and must report the severity ones as UNAVAILABLE rather
+#: than as zero — an absent severity is not an absence of severe failures.
+EVALUATOR_VERSION = "1.1.0"
 
 
 @dataclass
@@ -268,6 +284,33 @@ def write_report(
             "sha256": hashlib.sha256(schema_path.read_bytes()).hexdigest(),
         },
         "corpus": corpus,
+        # The severity model rides in the report rather than being looked up
+        # from whatever the repository happens to say later. A score is only
+        # readable next to the taxonomy and the weights that produced it, and
+        # both will change; a report that does not carry them stops meaning
+        # anything the moment they do.
+        "severityModel": {
+            "module": "vesta_router.severity",
+            "severities": list(SEVERITIES),
+            "descriptions": dict(SEVERITY_DESCRIPTIONS),
+            "weights": dict(SEVERITY_WEIGHTS),
+            "weightsProvisional": WEIGHTS_ARE_PROVISIONAL,
+            "weightsNote": (
+                "PROVISIONAL and not calibrated. No user study, no incident data and no "
+                "cost model stands behind these numbers; the ORDER is what the rationales "
+                "argue for. Read falseActionCountBySeverity and "
+                "highestFalseActionSeverity, which are unweighted, beside any weighted score."
+            ),
+            "appliesTo": (
+                "EVALUATION ONLY. Nothing here changes what Vesta executes, confirms or "
+                "admits; `confirmRequired` is a dispatch control and deliberately not the "
+                "severity, because scoring a tool as safe on the strength of a downstream "
+                "mitigation is how the mitigation becomes an excuse."
+            ),
+            "toolSeverity": dict(TOOL_SEVERITY),
+            "toolRationale": dict(TOOL_SEVERITY_RATIONALE),
+            "coverage": schema_coverage(schema.tool_names),
+        },
         "policy": {
             "resetBetweenCases": True,
             "isolationPass": outcome.isolation_ran,

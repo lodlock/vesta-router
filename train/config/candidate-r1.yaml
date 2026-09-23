@@ -1,0 +1,142 @@
+# The configuration of ONE experimental fine-tune: candidate-r1.
+#
+# base.yaml is the shape a training config has to have; this file is what was
+# actually run. They are separate files on purpose — base.yaml's numbers are
+# declared placeholders, and overwriting them with the first thing anybody tried
+# would turn "not yet chosen" into "chosen", which is the opposite of what the
+# first run establishes.
+#
+# STATUS: EXPERIMENTAL. Not promoted, not stable, not a release. The artifact it
+# produced is a candidate measured against the frozen v2 eval corpus and nothing
+# more.
+
+name: vesta-router-candidate-r1
+description: >
+  First targeted fine-tune. Answers one question — does a small, targeted
+  training expansion materially improve the deployable .cact against the
+  unchanged v2 eval corpus — and is deliberately a single run rather than a
+  sweep, so the answer is about the corpus change and not about hyperparameters.
+
+# ── What it learned from ─────────────────────────────────────────────────────
+
+data:
+  train_dir: data/train
+  eval_dir: null                      # never. Disjointness is checked before rendering.
+  tool_schema: tools/tool-schema-v2.json
+  exclude_dirs:
+    - data/historical
+
+  # The corpus after expansion-r1. Both digests are content digests, not git
+  # revisions, for the reason every report here gives: a build must stay
+  # attributable when it was produced from a dirty tree.
+  train_corpus_cases: 151
+  train_corpus_sha256: a87a444db105fa99c0a2ebe5b2bd5ac5d051f32dd6d0aea7bef238c587bd3b39
+  train_corpus_sha256_before_expansion: 3c35643c52de5581dbaa5ccca0fa55c4b4c52ecf806e1526ba80fc8b9efc99da
+  expansion: train/expansion-r1.json
+
+# ── How a turn was rendered ──────────────────────────────────────────────────
+#
+# Not restated here: src/vesta_router/training.py renders every example, and it
+# takes the renderer, the system prompt and the tool JSON from the modules the
+# EVALUATOR uses, so the two cannot drift. What is recorded is the result.
+
+rendering:
+  renderer: vesta_router.training.write_training_jsonl
+  state_renderer: vesta_router.render.render_example
+  system_prompt_from: vesta_router.engines.needle.NEEDLE_SYSTEM_PROMPT
+  tools_from: vesta_router.engines.tool_definitions
+  tools_serialization: 'json.dumps(tools, ensure_ascii=False) — the exact call NeedleEngine makes'
+  reasoning_field: none               # no <think> supervision; the corpus authors none
+  rendered_jsonl: artifacts/train-r1.jsonl
+  rendered_jsonl_sha256: b4a112a51976b74861586d6aaaf90c62e7ef88901264b08069ed33dfe4ea7a54
+  rendered_examples: 151
+  rendered_by_outcome: { tool: 68, chat: 46, incomplete: 32, cancel: 5 }
+
+# ── Base ─────────────────────────────────────────────────────────────────────
+
+base_model:
+  engine: needle
+  architecture: needle3
+  checkpoint: checkpoints/needle3.safetensors
+  checkpoint_sha256: c234c70dccc7a9115e7c41ac2e41d3655fea3b85c245dd898b46179fb90c6c0c
+  checkpoint_bytes: 242047978
+  source: Hugging Face Cactus-Compute/needle3, checkpoints/needle3.safetensors
+  layers: 20
+
+# ── Fine-tune, exactly as invoked ────────────────────────────────────────────
+#
+#   needle finetune artifacts/train-r1.jsonl \
+#     --checkpoint checkpoints/needle3.safetensors \
+#     --epochs 3 --batch-size 8 --lr 1e-4 \
+#     --lora-rank 16 --lora-alpha 32 \
+#     --max-len 1280 --val-split 0 --seed 20260922 \
+#     --checkpoint-dir checkpoints \
+#     --out artifacts/candidate-r1-adapter.safetensors
+
+fine_tune:
+  method: lora
+  adapter_format: safetensors         # never pickle, in either direction
+  rank: 16
+  alpha: 32
+  learning_rate: 1.0e-4
+  epochs: 3
+  batch_size: 8
+  seed: 20260922
+  max_len: 1280
+  val_split: 0.0
+  lora_targets: [q_proj, k_proj, v_proj, gate_proj, out_proj]
+  schedule: warmup_cosine_decay, warmup 2 of 57 steps, global-norm clip 1.0
+  optimizer: adamw
+  numerics: CQ W4 straight-through estimator + A8 activations, matching export
+
+  # Why max_len is 1280 and not the tool's default 1024: the tool schema alone
+  # is ~1000 tokens of every prompt, and the longest rendered example is 1155
+  # tokens. At 1024 the trainer would have truncated the TARGET off the longest
+  # examples — the part the loss mask covers — and trained on a prompt with no
+  # answer. 1280 is the smallest round cap above the measured maximum; padding
+  # to 2048, the next power-of-two bucket, would have cost 60% more compute for
+  # nothing.
+  max_len_rationale: measured longest rendered example is 1155 tokens
+
+  # Why no validation holdout: the frozen eval corpus IS the held-out set, it is
+  # disjoint by id and by normalized utterance, and CI checks that. A second
+  # random holdout would have cost 15 of 151 training examples to measure worse
+  # what the eval corpus measures properly.
+  val_split_rationale: data/eval is the holdout and is disjoint by construction
+
+# ── Export ───────────────────────────────────────────────────────────────────
+#
+#   needle build checkpoints/needle3.safetensors \
+#     --lora artifacts/candidate-r1-adapter.safetensors \
+#     --out artifacts/candidate-r1.cact
+
+export:
+  format: cact
+  quantization: cactus-quants W4A8
+  evaluate_after_export: true
+  confidence_head: dropped
+  # `needle build` drops the confidence head, because local tuning does not
+  # train it and a head trained for other weights reports a number about them.
+  # Nothing here or in Vesta reads confidence, so nothing is lost: there is no
+  # parameter for it in either repository, and a fabricated 07:00 arriving at
+  # 1.00 is why.
+
+# ── What this toolchain cannot express ───────────────────────────────────────
+#
+# Recorded rather than quietly dropped. base.yaml declares an objective section
+# that the local trainer has no interface for, so this run does NOT implement
+# it, and a later run that does will not be comparable with this one on those
+# axes.
+
+not_applied:
+  - key: objective.oversample
+    reason: >
+      `needle finetune` has no per-example weighting or sampling interface. The
+      safety asymmetry is therefore carried only by the gates and by the shape
+      of the corpus, not by the loss. Achievable here only by duplicating lines
+      in the rendered JSONL, which was not done: it would have changed two
+      things at once in a run whose entire purpose is to isolate one.
+  - key: objective.penalize_false_action_over_false_chat
+    reason: same — the loss is plain masked cross-entropy over the target tokens.
+  - key: fine_tune.dropout
+    reason: no flag on `needle finetune`; the trainer applies none.

@@ -11,3 +11,5 @@
 {"id": "tr.neg.negation.timer", "category": "negation", "locale": "en", "utterance": "no timer needed thanks", "state": null, "output": {"kind": "chat"}}
 {"id": "tr.neg.negation.sms", "category": "negation", "locale": "en", "utterance": "Don't text Anna, I already spoke to her.", "state": null, "output": {"kind": "chat"}}
 {"id": "tr.neg.negation.it", "category": "negation", "locale": "it", "utterance": "Non mettere la sveglia domani.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.cancel.names-tool", "category": "cancellation", "locale": "en", "utterance": "cancel that, no timer", "state": {"pending": {"tool": "set_timer", "known": {"minutes": 20}, "missing": []}}, "output": {"kind": "cancel", "tool": "set_timer"}}
+{"id": "tr.cancel.it.drop", "category": "cancellation", "locale": "it", "utterance": "lascia perdere", "state": {"pending": {"tool": "set_alarm", "known": {"time": "07:00"}, "missing": []}}, "output": {"kind": "cancel", "tool": "set_alarm"}}

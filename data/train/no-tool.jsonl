@@ -14,3 +14,13 @@
 {"id": "tr.ambig.later", "category": "ambiguous", "locale": "en", "utterance": "Remind me about that thing.", "state": null, "output": {"kind": "incomplete", "tool": "set_reminder", "missing": ["text", "datetime"]}}
 {"id": "tr.ambig.sometime", "category": "ambiguous", "locale": "en", "utterance": "Wake me up at some point in the morning.", "state": null, "output": {"kind": "incomplete", "tool": "set_alarm", "missing": ["time"]}}
 {"id": "tr.ambig.them", "category": "ambiguous", "locale": "en", "utterance": "Give them a ring would you.", "state": null, "output": {"kind": "incomplete", "tool": "make_call", "missing": ["contact"]}}
+{"id": "tr.chat.knowledge.placename", "category": "no-tool", "locale": "en", "utterance": "Which country is Ljubljana the capital of?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.chat.knowledge.it", "category": "no-tool", "locale": "it", "utterance": "Chi ha scritto il Gattopardo?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.chat.acknowledgement", "category": "no-tool", "locale": "en", "utterance": "ok great, that sorted it", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.chat.how-it-works", "category": "no-tool", "locale": "en", "utterance": "How do reminders work when the phone is off?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.aphorism.time", "category": "tool-mention", "locale": "en", "utterance": "Mornings always go faster than evenings.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.weekday-subject", "category": "tool-mention", "locale": "en", "utterance": "Thursday is the worst day of the week.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.place-in-story", "category": "tool-mention", "locale": "en", "utterance": "Getting out to the airport took two hours yesterday.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.week-is-full", "category": "tool-mention", "locale": "en", "utterance": "My week is completely full already.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.old-app", "category": "tool-mention", "locale": "en", "utterance": "I stopped using that maps app years ago.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr.mention.meetings.it", "category": "tool-mention", "locale": "it", "utterance": "Ho troppe riunioni questa settimana.", "state": null, "output": {"kind": "chat"}}

@@ -1,0 +1,158 @@
+{
+  "_resolvedBy": {
+    "artifactSizeFinding": "RESOLVED, and it was not packing. The published archive is a MIXED-WIDTH map: 115 of its 119 body matmul tensors are CQ W2, only the embedding and three mHC blocks are W4. The local exporter writes W4 for all 119 and cannot do otherwise (WEIGHT_BITS = 4 is a constant and _cq_pack raises on any other width). That plus the dropped confidence head accounts for all 28,101,696 bytes with zero residual. The field's own phrase 'the same 20-layer architecture at W4A8' was true of this artifact and NOT of the published one.",
+    "baselineArtifactFinding": "RESOLVED, and the concern was correct in full. An untouched base checkpoint exported down this candidate's own path reproduces EVERY metric movement this run reported against the published base: all 23 metrics identical, zero failure families moved, zero severities moved. None of this run's delta is attributable to training.",
+    "controlArtifact": "artifacts/local-base-reexport-3bde318ede18.cact",
+    "controlArtifactSha256": "3bde318ede183eb06eb65524c9139f83d749e929f46feadfe516cefa3c8e8863",
+    "controlReport": "reports/control/baseline-local-base-reexport-3bde318ede18-3bde318ede18-20260923T174345Z",
+    "document": "eval/EXPORT-CONTROL.md",
+    "note": "Nothing above this key has been edited. This record is what was known on 2026-09-23 when the run was made, and both of the things it flagged as unresolved turned out to be one thing and to be the whole result."
+  },
+  "_status": "EXPERIMENTAL CANDIDATE. Not promoted, not stable, not released. This file records ONE training run so its result is attributable; it is deliberately NOT a release manifest and does not have that shape. A release manifest is written only by a promotion, and nothing here has been promoted.",
+  "adapter": {
+    "_note": "Recorded, never evaluated. Quantization changes behaviour, so a number measured on this file would be a number about a different file.",
+    "kind": "safetensors",
+    "path": "artifacts/candidate-r1-adapter.safetensors",
+    "sha256": "c11e356556e185728b0376b9bf2287961b39fd39a0dedd426ed61102b9cf79f9",
+    "sizeBytes": 7906608
+  },
+  "artifact": {
+    "_note": "63.4 MB against the published base archive's 35.3 MB for the same 20-layer architecture at W4A8. The local exporter writes 574 tensors; whether the published archive packs something this one does not is UNEXPLAINED, and is recorded as a finding rather than dismissed.",
+    "kind": "cact",
+    "path": "artifacts/candidate-r1.cact",
+    "sha256": "8b62b28c1e281e4bead85b5c9c525a241237abe2c84ae2c73c5cbdc48fbca5f4",
+    "sizeBytes": 63437076
+  },
+  "baseCheckpoint": {
+    "kind": "safetensors",
+    "path": "checkpoints/needle3.safetensors",
+    "sha256": "c234c70dccc7a9115e7c41ac2e41d3655fea3b85c245dd898b46179fb90c6c0c",
+    "sizeBytes": 242047978,
+    "source": "Hugging Face Cactus-Compute/needle3, checkpoints/needle3.safetensors"
+  },
+  "baselineArtifact": {
+    "_note": "The untrained artifact this candidate is compared against. It is the PUBLISHED base .cact, not a local export of baseCheckpoint, so some part of any delta may belong to the exporter rather than to training. Isolating that needs an export of the unmodified checkpoint, which this experiment did not run.",
+    "baselineId": "baseline-needle3-c9d915eca282",
+    "kind": "cact",
+    "sha256": "c9d915eca282ed42d1a09b143b592adb4cc6744ffe2d294adf5cfc5548170c38",
+    "sizeBytes": 35335380
+  },
+  "candidateId": "candidate-r1-8b62b28c1e28",
+  "environment": {
+    "_gpu": "An NVIDIA RTX 5070 Ti is present and was NOT used: JAX publishes no CUDA wheels for native Windows, so jax[cuda12] is not installable here. Training ran on the CPU at roughly 50 s/step, 57 steps.",
+    "device": "CPU only",
+    "engineLibrary": "C:/Users/iamhu/.cache/cactus-needle/v3/3.0.1/libneedle.dll",
+    "machine": "AMD64",
+    "needlePackage": {
+      "checkout": "D:/AI/working/b/needle",
+      "dirty": false,
+      "gitSha": "f189b23ebf34b98bcc8f9ee819249425c6623a32",
+      "installedAs": "editable, --no-deps, into ./.venv",
+      "name": "cactus-needle",
+      "version": "3.0.1"
+    },
+    "noPickle": "The adapter is .safetensors and the base checkpoint is .safetensors. No pickle was written or read anywhere on this path.",
+    "packages": {
+      "flax": "0.12.9",
+      "jax": "0.11.2",
+      "jaxlib": "0.11.2",
+      "numpy": "2.5.3",
+      "optax": "0.2.8",
+      "safetensors": "0.8.0",
+      "sentencepiece": "0.2.2"
+    },
+    "platform": "Windows-11-10.0.26220-SP0",
+    "python": "3.13.2",
+    "trainingBackend": "jax cpu"
+  },
+  "evalCorpus": {
+    "_note": "Frozen for this experiment. Identical digest to the baseline run, so the two reports measure the same 64 cases.",
+    "cases": 64,
+    "contentSha256": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef",
+    "directory": "data/eval",
+    "unchangedSinceBaseline": true
+  },
+  "evaluation": {
+    "_harnessId": "The harness names every run baseline-<artifact stem>-<sha12>. That prefix names a MEASUREMENT of one file; it is not a status and not a version, and it does not make this run a baseline or a promotion.",
+    "comparedAgainst": "baseline-needle3-c9d915eca282",
+    "evaluatedArtifactSha256": "8b62b28c1e281e4bead85b5c9c525a241237abe2c84ae2c73c5cbdc48fbca5f4",
+    "evaluatorVersion": "1.0.0",
+    "harnessBaselineId": "baseline-candidate-r1-8b62b28c1e28",
+    "metrics": {
+      "argumentExactMatchAccuracy": 0.692308,
+      "cancelNoActionRate": 0.666667,
+      "engineErrorCount": 0,
+      "falsePositiveActionRate": 0.526316,
+      "falsePositiveToolCallRate": 0.736842,
+      "fullCallExactMatchAccuracy": 0.642857,
+      "malformedOutputCount": 0,
+      "missingSlotEmissionRate": 0.928571,
+      "missingSlotExecutionRate": 0.214286,
+      "missingSlotFabricationRate": 0.5,
+      "missingSlotPlaceholderRate": 0.285714,
+      "noToolClassificationAccuracy": 0.263158,
+      "nondeterministicCaseCount": 0,
+      "resetFailureCount": 0,
+      "staleContextMisuseCount": 4,
+      "stateLeakCount": 0,
+      "toolSelectionAccuracy": 0.928571,
+      "unitNormalizationAccuracy": 0.4
+    },
+    "reportDirectory": "reports/candidate/baseline-candidate-r1-8b62b28c1e28-20260923T152523Z"
+  },
+  "generatedAt": "2026-09-23",
+  "manifestKind": "candidate-build-record",
+  "manifestVersion": 1,
+  "promoted": false,
+  "promotion": {
+    "_rule": "This experiment answers whether targeted fine-tuning materially improves the deployable router. It is not a release decision, and no number in it authorizes one.",
+    "gateApplied": false,
+    "promoted": false
+  },
+  "status": "experimental",
+  "toolSchema": {
+    "path": "tools/tool-schema-v2.json",
+    "sha256": "417e8963c162f7a63c2a4146e508348fff6894ff342c60bf15b145cfec2b176b",
+    "version": 2
+  },
+  "trainingConfig": {
+    "_notApplied": "train/config/base.yaml declares objective.oversample, objective.penalize_false_action_over_false_chat and fine_tune.dropout. `needle finetune` has no interface for any of them, so this run does NOT implement them. See train/config/candidate-r1.yaml -> not_applied.",
+    "_reproducibility": "Seed fixed and recorded; JAX on CPU; no data generation and no network during training. The corpus digest, the rendered-JSONL digest and the base-checkpoint digest together pin every input to the run.",
+    "alpha": 32,
+    "batchSize": 8,
+    "buildCommand": "needle build checkpoints/needle3.safetensors --lora artifacts/candidate-r1-adapter.safetensors --out artifacts/candidate-r1.cact",
+    "command": "needle finetune artifacts/train-r1.jsonl --checkpoint checkpoints/needle3.safetensors --epochs 3 --batch-size 8 --lr 1e-4 --lora-rank 16 --lora-alpha 32 --max-len 1280 --val-split 0 --seed 20260922 --checkpoint-dir checkpoints --out artifacts/candidate-r1-adapter.safetensors",
+    "epochs": 3,
+    "finalTrainLoss": 2.3398,
+    "learningRate": 0.0001,
+    "loraTargets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "gate_proj",
+      "out_proj"
+    ],
+    "loraWeightGroups": 5,
+    "maxLen": 1280,
+    "method": "lora",
+    "numerics": "CQ W4 straight-through estimator + A8, matching export",
+    "path": "train/config/candidate-r1.yaml",
+    "rank": 16,
+    "seed": 20260922,
+    "sequenceLength": 1280,
+    "sha256": "180d42db36bbe643ad1634f913c3a16c95f400726f904f4a98627fd3c0c471b8",
+    "steps": 57,
+    "valSplit": 0.0
+  },
+  "trainingCorpus": {
+    "cases": 151,
+    "contentSha256": "a87a444db105fa99c0a2ebe5b2bd5ac5d051f32dd6d0aea7bef238c587bd3b39",
+    "contentSha256BeforeExpansion": "3c35643c52de5581dbaa5ccca0fa55c4b4c52ecf806e1526ba80fc8b9efc99da",
+    "directory": "data/train",
+    "examplesAdded": 39,
+    "expansion": "train/expansion-r1.json",
+    "renderedExamples": 151,
+    "renderedJsonl": "artifacts/train-r1.jsonl",
+    "renderedJsonlSha256": "b4a112a51976b74861586d6aaaf90c62e7ef88901264b08069ed33dfe4ea7a54"
+  }
+}
