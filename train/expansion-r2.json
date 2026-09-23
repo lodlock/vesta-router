@@ -1,0 +1,3688 @@
+{
+  "expansionId": "expansion-r2",
+  "date": "2026-09-23",
+  "purpose": "Targeted additions to data/train for candidate-r2, aimed at the act / don't-act boundary. Priority: false-positive executable actions, no-tool misclassification, high-severity false actions, missing-slot execution, stale-context misuse, cancel/correction, wrong-tool, then argument normalization. Positive actions are added alongside so tool recall does not collapse under a much larger no-action set.",
+  "derivedFrom": {
+    "failureAnalysisInputs": [
+      "reports/control/baseline-local-base-reexport-3bde318ede18-3bde318ede18-20260923T211627Z/cases.jsonl",
+      "reports/candidate/baseline-candidate-r1-8b62b28c1e28-20260923T211657Z/cases.jsonl"
+    ],
+    "observation": "local base and candidate-r1 show the same 13 failure families at the same counts on the LF corpus: 10 false-positive executable actions (3 high_impact), 14 false-positive tool calls, 3 missing-slot executions, 4 stale-context misuses, 1 cancel-produced action, 1 wrong tool, 3 unit-normalization errors.",
+    "evalCorpusChanged": false,
+    "evalCorpusContentSha256": "ed854cae5787de2edd623828fe3c0795fcbc8645b7b37e83b5250ebac1e4c020"
+  },
+  "_rule": "Every example is authored for training only. None reuses an eval id or an eval utterance (checked by `python -m vesta_router validate` on normalized utterances), and a stricter token-overlap screen (Jaccard >= 0.5 against every eval utterance) was run before writing: nine candidates that were near-copies of specific eval cases were reworded or dropped. The three remaining pairs at 0.6 share only a generic command frame and have different expected outcomes.",
+  "trainCorpus": {
+    "before": {
+      "cases": 151,
+      "sha256": "a87a444db105fa99c0a2ebe5b2bd5ac5d051f32dd6d0aea7bef238c587bd3b39",
+      "byOutcome": {
+        "tool": 68,
+        "chat": 46,
+        "incomplete": 32,
+        "cancel": 5
+      }
+    },
+    "after": {
+      "cases": 497,
+      "sha256": "441a64cc6631fec282f4566387e0555489f045bae3b58c9358880403f81599ed",
+      "byOutcome": {
+        "tool": 153,
+        "chat": 236,
+        "incomplete": 88,
+        "cancel": 20
+      }
+    },
+    "added": 346,
+    "removed": 0,
+    "modified": 0,
+    "addedByOutcome": {
+      "chat": 190,
+      "incomplete": 56,
+      "tool": 85,
+      "cancel": 15
+    },
+    "addedByLocale": {
+      "en": 269,
+      "it": 77
+    }
+  },
+  "addedByFile": {
+    "adversarial.jsonl": 16,
+    "contrastive.jsonl": 40,
+    "corrections-cancellations.jsonl": 25,
+    "missing-slot.jsonl": 41,
+    "no-tool.jsonl": 144,
+    "noisy-input.jsonl": 12,
+    "positive.jsonl": 43,
+    "slot-filling.jsonl": 4,
+    "stale-context.jsonl": 21
+  },
+  "addedByCategory": {
+    "acknowledgement": 35,
+    "adversarial": 16,
+    "cancellation": 18,
+    "contrastive": 40,
+    "correction": 7,
+    "missing-slot": 41,
+    "no-tool": 26,
+    "positive": 37,
+    "slot-filling": 4,
+    "stale-context": 21,
+    "tool-mention": 83,
+    "typo": 12,
+    "unit-conversion": 6
+  },
+  "addedByPrimaryFamily": {
+    "cancel-produced-action": 15,
+    "correct-tool-wrong-arguments": 5,
+    "false-positive-executable-action": 111,
+    "false-positive-tool-call": 76,
+    "missing-slot-execution": 19,
+    "missing-slot-fabrication": 9,
+    "missing-slot-placeholder": 15,
+    "stale-context-misuse": 21,
+    "tool-recall-guard": 59,
+    "unit-normalization-error": 7,
+    "wrong-tool": 9
+  },
+  "addedByFamily": {
+    "cancel-produced-action": 15,
+    "correct-tool-wrong-arguments": 5,
+    "false-positive-executable-action": 190,
+    "false-positive-tool-call": 175,
+    "lexical-grounded-wrong-value": 140,
+    "missing-slot-execution": 19,
+    "missing-slot-fabrication": 22,
+    "missing-slot-placeholder": 15,
+    "no-tool-when-expected": 48,
+    "stale-context-misuse": 21,
+    "tool-recall-guard": 79,
+    "unit-normalization-error": 7,
+    "wrong-tool": 9
+  },
+  "_familyNote": "addedByFamily counts overlap (an acknowledgement answers both false-positive families and the lexical-grounding one). addedByPrimaryFamily counts each example once, by its first target. `tool-recall-guard` is not a failure family: it marks positive actions added so recall does not collapse. The per-example list is authoritative.",
+  "contrastivePairs": [
+    "pair.alarm",
+    "pair.bday",
+    "pair.cal",
+    "pair.call",
+    "pair.contacts",
+    "pair.doc",
+    "pair.event",
+    "pair.fill.giulia",
+    "pair.fill.half-eight",
+    "pair.home",
+    "pair.it.call",
+    "pair.it.nav",
+    "pair.it.sms",
+    "pair.msg",
+    "pair.nav",
+    "pair.negate",
+    "pair.rem",
+    "pair.setalarm",
+    "pair.sms",
+    "pair.time",
+    "pair.timer",
+    "pair.timer25"
+  ],
+  "examples": [
+    {
+      "id": "tr2.ack.thanks",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.thank-you",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.great",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.great-thanks",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.perfect",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.works-now",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.worked-perfectly",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.cheers",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.thx",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.ty",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.thanx",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.tanks",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.thankss",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.thnx-did-it",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.awesome-u",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.nice-one",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.got-it",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.brilliant",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.okay",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.sweet",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.all-good",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.trick",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.charm",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.appreciated",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.tahnk-yuo",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.gr8",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.ok-bye",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.grazie",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.grazie-mille",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.perfetto",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.ottimo",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.funzionato",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.grz",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.grazie-mile",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.ack.a-posto",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "acknowledgement: produced a call (navigate_to on the ack token) on the r1/base typo-thanks case"
+    },
+    {
+      "id": "tr2.fill.uh-huh",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.let-me-think",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.wait-what",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.haha",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.lol",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.right-then",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.erm",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.ahh",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.mmm",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.boh",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.allora",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.fill.ehm",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "conversational filler: a sentence with no request must not produce a call"
+    },
+    {
+      "id": "tr2.know.mountain",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.sistine",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.tokyo-pop",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.berlin-wall",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.friday-13",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.florence-river",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.madrid",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.marathon",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.leap-year",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.word-monday",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.jet-lag",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.monte-bianco",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.garibaldi",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.know.roma",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "general-knowledge question with a proper noun or date word: base and r1 route these to get_calendar_events / get_time"
+    },
+    {
+      "id": "tr2.noarg.week-flew",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.weekends",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.tuesday-monday",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.long-day",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.clocks-back",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.where-time",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.schedule-chaos",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.next-week",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.late-mondays",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.zones-head",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.watch-fast",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.feels-midnight",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.bed-1am",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.train-left",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.dinner-nine",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.work-six",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.too-many-meetings",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.agenda-full",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.it.volata",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.it.lunedi",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.it.agenda",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.it.tempo",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.noarg.it.letto",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "remark mentioning time, a day or a calendar: get_time / get_calendar_events have no required arguments, so any call is executable and the guard cannot stop it"
+    },
+    {
+      "id": "tr2.story.giulia-shower",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.mum-three",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.paolo-never",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.sara-funny",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.dentist-missed",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.chiara-photo",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.brother-work",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.owe-marta",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.dad-voicemail",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.elena-number",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.francesco-hour",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.nobody-calls",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.plumber",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.luca-outside",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.anna-flight",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.it.luca-riunione",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.it.giulia-risponde",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.it.madre",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.story.it.persa",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a person named in a story, not a request: base and r1 turn a name in a statement into make_call / send_sms, the high_impact false action"
+    },
+    {
+      "id": "tr2.app.maps",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.whatsapp-down",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.spotify",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.instagram",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.old-alarm",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.waze-vs",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.todoist",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.outlook",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.signal",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.nokia",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.it.gcal",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.app.it.whatsapp",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "an app or product named without intent: base and r1 made make_call(contact=<app name>), a high_impact action grounded on the app's name"
+    },
+    {
+      "id": "tr2.place.airport-nightmare",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.milan-spring",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.ring-road",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.harbour",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.lake-como",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.supermarket",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.hospital-parking",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.naples",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.station-closed",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.via-roma-closed",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.pharmacy-closes",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.it.tangenziale",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.it.aeroporto",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.place.it.farmacia",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a place named in a statement: base and r1 made get_time(place=...) or navigate_to from it"
+    },
+    {
+      "id": "tr2.vocab.oven-timer",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.alarm-tone",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.snoozed",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.dismiss-reminders",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.queue",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.planking",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.late-again",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.slept-through",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.q.alarms-phone",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.q.repeat",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.q.alarm-sound",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.q.locked",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.it.suono",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.it.forno",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.vocab.it.q.silenzioso",
+      "file": "no-tool.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-tool-call",
+        "false-positive-executable-action"
+      ],
+      "because": "the tool's own vocabulary in a statement or a question about the feature: not a request"
+    },
+    {
+      "id": "tr2.rep.wife-bank",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request reported, attributed to someone else, or negated: nothing for the router to do"
+    },
+    {
+      "id": "tr2.rep.luca-tickets",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request reported, attributed to someone else, or negated: nothing for the router to do"
+    },
+    {
+      "id": "tr2.rep.doctor-pills",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request reported, attributed to someone else, or negated: nothing for the router to do"
+    },
+    {
+      "id": "tr2.rep.no-alarms-sat",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request reported, attributed to someone else, or negated: nothing for the router to do"
+    },
+    {
+      "id": "tr2.rep.no-call",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request reported, attributed to someone else, or negated: nothing for the router to do"
+    },
+    {
+      "id": "tr2.rep.it.non-mandare",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request reported, attributed to someone else, or negated: nothing for the router to do"
+    },
+    {
+      "id": "tr2.rep.it.mi-ha-detto",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request reported, attributed to someone else, or negated: nothing for the router to do"
+    },
+    {
+      "id": "tr2.frag.fifteen-min",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a bare slot-shaped fragment with NO pending action: base and r1 executed set_timer(minutes=20) on a bare duration; a value alone is not a request"
+    },
+    {
+      "id": "tr2.frag.half-eight",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a bare slot-shaped fragment with NO pending action: base and r1 executed set_timer(minutes=20) on a bare duration; a value alone is not a request",
+      "pair": "pair.fill.half-eight"
+    },
+    {
+      "id": "tr2.frag.at-eleven",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a bare slot-shaped fragment with NO pending action: base and r1 executed set_timer(minutes=20) on a bare duration; a value alone is not a request"
+    },
+    {
+      "id": "tr2.frag.tomorrow-morning",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a bare slot-shaped fragment with NO pending action: base and r1 executed set_timer(minutes=20) on a bare duration; a value alone is not a request"
+    },
+    {
+      "id": "tr2.frag.giulia",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a bare slot-shaped fragment with NO pending action: base and r1 executed set_timer(minutes=20) on a bare duration; a value alone is not a request",
+      "pair": "pair.fill.giulia"
+    },
+    {
+      "id": "tr2.frag.station",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a bare slot-shaped fragment with NO pending action: base and r1 executed set_timer(minutes=20) on a bare duration; a value alone is not a request"
+    },
+    {
+      "id": "tr2.frag.three-hours",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a bare slot-shaped fragment with NO pending action: base and r1 executed set_timer(minutes=20) on a bare duration; a value alone is not a request"
+    },
+    {
+      "id": "tr2.frag.it.quindici",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a bare slot-shaped fragment with NO pending action: base and r1 executed set_timer(minutes=20) on a bare duration; a value alone is not a request"
+    },
+    {
+      "id": "tr2.frag.it.alle-otto",
+      "file": "adversarial.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a bare slot-shaped fragment with NO pending action: base and r1 executed set_timer(minutes=20) on a bare duration; a value alone is not a request"
+    },
+    {
+      "id": "tr2.slot.nav.route-guidance",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.nav.navigator",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.nav.directions",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.nav.mode",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.nav.guide",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.nav.it.avvia",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.nav.it.portami",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.sms.message-to",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.sms.text-chiara",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.sms.drop-line",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.sms.sms-to",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.sms.it.manda",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.sms.it.scrivi",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.sms.no-contact",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.sms.it.no-contact",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.sms.neither",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.reminder.tomorrow-nine",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.reminder.noon-q",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.reminder.it.cinque",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-execution",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.reminder.stamps",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.reminder.passport",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.reminder.it.bolletta",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.reminder.need-one",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.reminder.make-one",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.alarm.need",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-fabrication"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.alarm.please",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-fabrication"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.alarm.can-you",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-fabrication"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.alarm.it.svegliami",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-fabrication"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.alarm.it.sveglia-pf",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-fabrication"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.timer.please",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-fabrication"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.timer.need",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-fabrication"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.timer.it.avvia",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-fabrication"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.call.someone",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.call.phone-call",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.call.it.fai",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.event.school-play",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.event.accountant",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.event.it.cena",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.event.no-title",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.contacts.someone",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.slot.document.files",
+      "file": "missing-slot.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a request naming a tool with a required value absent: base and r1 scraped a word from the utterance into the slot (destination='navigation', text='a text') and it executed"
+    },
+    {
+      "id": "tr2.stale.alarm.one-more",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.alarm.another-tomorrow",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.call.her-again",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.call.her-mobile",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.sms.same-to",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.sms.text-again",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.rem.another-seven",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.rem.another",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.timer.new",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.nav.back",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.event.another",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.it.alarm",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.it.call",
+      "file": "stale-context.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "stale-context-misuse",
+        "missing-slot-fabrication"
+      ],
+      "because": "stale context: base and r1 copied a value from a completed prior turn the utterance never repeated"
+    },
+    {
+      "id": "tr2.stale.new.alarm",
+      "file": "stale-context.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "stale-context-misuse",
+        "tool-recall-guard"
+      ],
+      "because": "stale-context contrast: a new value is stated, so the action runs with it and nothing from history"
+    },
+    {
+      "id": "tr2.stale.new.timer",
+      "file": "stale-context.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "stale-context-misuse",
+        "tool-recall-guard"
+      ],
+      "because": "stale-context contrast: a new value is stated, so the action runs with it and nothing from history"
+    },
+    {
+      "id": "tr2.stale.new.call",
+      "file": "stale-context.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "stale-context-misuse",
+        "tool-recall-guard"
+      ],
+      "because": "stale-context contrast: a new value is stated, so the action runs with it and nothing from history"
+    },
+    {
+      "id": "tr2.stale.new.rem",
+      "file": "stale-context.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "stale-context-misuse",
+        "tool-recall-guard"
+      ],
+      "because": "stale-context contrast: a new value is stated, so the action runs with it and nothing from history"
+    },
+    {
+      "id": "tr2.stale.new.it.call",
+      "file": "stale-context.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "stale-context-misuse",
+        "tool-recall-guard"
+      ],
+      "because": "stale-context contrast: a new value is stated, so the action runs with it and nothing from history"
+    },
+    {
+      "id": "tr2.stale.chat.thanks",
+      "file": "stale-context.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "stale-context-misuse",
+        "false-positive-executable-action"
+      ],
+      "because": "acknowledgement after a completed action: history is not a request"
+    },
+    {
+      "id": "tr2.stale.chat.quick",
+      "file": "stale-context.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "stale-context-misuse",
+        "false-positive-executable-action"
+      ],
+      "because": "acknowledgement after a completed action: history is not a request"
+    },
+    {
+      "id": "tr2.stale.chat.it",
+      "file": "stale-context.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "stale-context-misuse",
+        "false-positive-executable-action"
+      ],
+      "because": "acknowledgement after a completed action: history is not a request"
+    },
+    {
+      "id": "tr2.cancel.timer.never-mind",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.timer.value",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.alarm.scrap",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.alarm.dont-set",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.alarm.forget-7",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.sms.stop",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.sms.dont-text",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.call.hang-on",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.call.no-no",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.nav.forget",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.rem.skip",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.event.leave",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.it.timer",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.it.call",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.it.sms",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "cancel",
+      "targets": [
+        "cancel-produced-action",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "cancellation of a pending action that names the tool or its value: base and r1 re-executed it"
+    },
+    {
+      "id": "tr2.cancel.none.leave-it",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action"
+      ],
+      "because": "a cancellation with nothing pending is not an action"
+    },
+    {
+      "id": "tr2.cancel.none.scratch",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action"
+      ],
+      "because": "a cancellation with nothing pending is not an action"
+    },
+    {
+      "id": "tr2.cancel.none.it",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action"
+      ],
+      "because": "a cancellation with nothing pending is not an action"
+    },
+    {
+      "id": "tr2.corr.timer.fifteen",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "correction of a pending action: act with the corrected value only"
+    },
+    {
+      "id": "tr2.corr.timer.seconds",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "unit-normalization-error"
+      ],
+      "because": "correction of a pending action: act with the corrected value only"
+    },
+    {
+      "id": "tr2.corr.alarm.640",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "correct-tool-wrong-arguments"
+      ],
+      "because": "correction of a pending action: act with the corrected value only"
+    },
+    {
+      "id": "tr2.corr.sms.marta",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "correct-tool-wrong-arguments"
+      ],
+      "because": "correction of a pending action: act with the corrected value only"
+    },
+    {
+      "id": "tr2.corr.call.paola",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "correct-tool-wrong-arguments"
+      ],
+      "because": "correction of a pending action: act with the corrected value only"
+    },
+    {
+      "id": "tr2.corr.nav.airport",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "correct-tool-wrong-arguments"
+      ],
+      "because": "correction of a pending action: act with the corrected value only"
+    },
+    {
+      "id": "tr2.corr.it.timer",
+      "file": "corrections-cancellations.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "correction of a pending action: act with the corrected value only"
+    },
+    {
+      "id": "tr2.doc.employment",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "wrong-tool",
+        "tool-recall-guard"
+      ],
+      "because": "a question answered from the user's documents: r1 substituted search_contacts for query_document"
+    },
+    {
+      "id": "tr2.doc.warranty",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "wrong-tool",
+        "tool-recall-guard"
+      ],
+      "because": "a question answered from the user's documents: r1 substituted search_contacts for query_document"
+    },
+    {
+      "id": "tr2.doc.mortgage",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "wrong-tool",
+        "tool-recall-guard"
+      ],
+      "because": "a question answered from the user's documents: r1 substituted search_contacts for query_document"
+    },
+    {
+      "id": "tr2.doc.gym",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "wrong-tool",
+        "tool-recall-guard"
+      ],
+      "because": "a question answered from the user's documents: r1 substituted search_contacts for query_document"
+    },
+    {
+      "id": "tr2.doc.wifi",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "wrong-tool",
+        "tool-recall-guard"
+      ],
+      "because": "a question answered from the user's documents: r1 substituted search_contacts for query_document"
+    },
+    {
+      "id": "tr2.doc.it.affitto",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "wrong-tool",
+        "tool-recall-guard"
+      ],
+      "because": "a question answered from the user's documents: r1 substituted search_contacts for query_document"
+    },
+    {
+      "id": "tr2.contacts.rossi",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "wrong-tool",
+        "tool-recall-guard"
+      ],
+      "because": "contacts lookup, kept beside the document questions so the two tools stay distinct"
+    },
+    {
+      "id": "tr2.contacts.beppe",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "wrong-tool",
+        "tool-recall-guard"
+      ],
+      "because": "contacts lookup, kept beside the document questions so the two tools stay distinct"
+    },
+    {
+      "id": "tr2.contacts.it.martina",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "wrong-tool",
+        "tool-recall-guard"
+      ],
+      "because": "contacts lookup, kept beside the document questions so the two tools stay distinct"
+    },
+    {
+      "id": "tr2.unit.15s",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "unit-normalization-error",
+        "tool-recall-guard"
+      ],
+      "because": "seconds and compounds convert to fractional minutes; r1 wrote the seconds count as minutes"
+    },
+    {
+      "id": "tr2.unit.two-half-min",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "unit-normalization-error",
+        "tool-recall-guard"
+      ],
+      "because": "seconds and compounds convert to fractional minutes; r1 wrote the seconds count as minutes"
+    },
+    {
+      "id": "tr2.unit.3m15s",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "unit-normalization-error",
+        "tool-recall-guard"
+      ],
+      "because": "seconds and compounds convert to fractional minutes; r1 wrote the seconds count as minutes"
+    },
+    {
+      "id": "tr2.unit.hour-half",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "unit-normalization-error",
+        "tool-recall-guard"
+      ],
+      "because": "seconds and compounds convert to fractional minutes; r1 wrote the seconds count as minutes"
+    },
+    {
+      "id": "tr2.unit.2m45s",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "unit-normalization-error",
+        "tool-recall-guard"
+      ],
+      "because": "seconds and compounds convert to fractional minutes; r1 wrote the seconds count as minutes"
+    },
+    {
+      "id": "tr2.unit.it.15s",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "unit-normalization-error",
+        "tool-recall-guard"
+      ],
+      "because": "seconds and compounds convert to fractional minutes; r1 wrote the seconds count as minutes"
+    },
+    {
+      "id": "tr2.pos.timer.seven",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.timer.eggs",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.timer.it.cinque",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.alarm.620",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.alarm.5am",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.alarm.ten-to-seven",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.alarm.it.sette-quarto",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.rem.dry-cleaning",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.rem.email-sara",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.rem.it.nonna",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.event.yoga",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.event.bank",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.event.it.riunione",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.nav.via-roma",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.nav.pharmacy",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.nav.it.stazione",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.call.office",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.call.it.mamma",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.call.number",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.sms.chiara",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.sms.it.sara",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.cal.tomorrow",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.cal.schedule",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.cal.it.oggi",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.time.now",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.time.ny",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.time.day",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pos.time.it.londra",
+      "file": "positive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "positive action: keeps tool recall from collapsing under the much larger no-action set"
+    },
+    {
+      "id": "tr2.pair.call.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.call"
+    },
+    {
+      "id": "tr2.pair.call.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.call"
+    },
+    {
+      "id": "tr2.pair.sms.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.sms"
+    },
+    {
+      "id": "tr2.pair.sms.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.sms"
+    },
+    {
+      "id": "tr2.pair.nav.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.nav"
+    },
+    {
+      "id": "tr2.pair.nav.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.nav"
+    },
+    {
+      "id": "tr2.pair.timer.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.timer"
+    },
+    {
+      "id": "tr2.pair.timer.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.timer"
+    },
+    {
+      "id": "tr2.pair.time.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.time"
+    },
+    {
+      "id": "tr2.pair.time.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.time"
+    },
+    {
+      "id": "tr2.pair.cal.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.cal"
+    },
+    {
+      "id": "tr2.pair.cal.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.cal"
+    },
+    {
+      "id": "tr2.pair.rem.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.rem"
+    },
+    {
+      "id": "tr2.pair.rem.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.rem"
+    },
+    {
+      "id": "tr2.pair.alarm.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.alarm"
+    },
+    {
+      "id": "tr2.pair.alarm.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.alarm"
+    },
+    {
+      "id": "tr2.pair.contacts.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.contacts"
+    },
+    {
+      "id": "tr2.pair.contacts.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.contacts"
+    },
+    {
+      "id": "tr2.pair.doc.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.doc"
+    },
+    {
+      "id": "tr2.pair.doc.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.doc"
+    },
+    {
+      "id": "tr2.pair.it.call.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.it.call"
+    },
+    {
+      "id": "tr2.pair.it.call.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.it.call"
+    },
+    {
+      "id": "tr2.pair.it.nav.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.it.nav"
+    },
+    {
+      "id": "tr2.pair.it.nav.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.it.nav"
+    },
+    {
+      "id": "tr2.pair.setalarm.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.setalarm"
+    },
+    {
+      "id": "tr2.pair.setalarm.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.setalarm"
+    },
+    {
+      "id": "tr2.pair.msg.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.msg"
+    },
+    {
+      "id": "tr2.pair.msg.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.msg"
+    },
+    {
+      "id": "tr2.pair.event.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.event"
+    },
+    {
+      "id": "tr2.pair.event.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.event"
+    },
+    {
+      "id": "tr2.pair.timer25.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.timer25"
+    },
+    {
+      "id": "tr2.pair.timer25.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.timer25"
+    },
+    {
+      "id": "tr2.pair.negate.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.negate"
+    },
+    {
+      "id": "tr2.pair.negate.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.negate"
+    },
+    {
+      "id": "tr2.pair.bday.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.bday"
+    },
+    {
+      "id": "tr2.pair.bday.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.bday"
+    },
+    {
+      "id": "tr2.pair.home.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.home"
+    },
+    {
+      "id": "tr2.pair.home.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.home"
+    },
+    {
+      "id": "tr2.pair.it.sms.act",
+      "file": "contrastive.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard",
+        "no-tool-when-expected"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.it.sms"
+    },
+    {
+      "id": "tr2.pair.it.sms.none",
+      "file": "contrastive.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "contrastive pair: the same vocabulary, and a small wording change flips whether anything should run",
+      "pair": "pair.it.sms"
+    },
+    {
+      "id": "tr2.fill.half-eight",
+      "file": "slot-filling.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "contrast with the bare fragment: identical words, but here a pending alarm asked for the time",
+      "pair": "pair.fill.half-eight"
+    },
+    {
+      "id": "tr2.fill.giulia",
+      "file": "slot-filling.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "contrast with the bare name: a pending call asked who",
+      "pair": "pair.fill.giulia"
+    },
+    {
+      "id": "tr2.fill.it.alle-nove",
+      "file": "slot-filling.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "slot fill in Italian"
+    },
+    {
+      "id": "tr2.fill.still-vague",
+      "file": "slot-filling.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-fabrication"
+      ],
+      "because": "a fill that supplies nothing keeps the action incomplete"
+    },
+    {
+      "id": "tr2.noise.cal-giulia",
+      "file": "noisy-input.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "typo'd request still acts"
+    },
+    {
+      "id": "tr2.noise.alrm",
+      "file": "noisy-input.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "typo'd request still acts"
+    },
+    {
+      "id": "tr2.noise.navigat",
+      "file": "noisy-input.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "typo'd request still acts"
+    },
+    {
+      "id": "tr2.noise.whats-teh-time",
+      "file": "noisy-input.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "typo'd request still acts"
+    },
+    {
+      "id": "tr2.noise.said-timer",
+      "file": "noisy-input.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "STT homophone of 'set'"
+    },
+    {
+      "id": "tr2.noise.self-correct",
+      "file": "noisy-input.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "correct-tool-wrong-arguments"
+      ],
+      "because": "an in-utterance correction: the later value wins"
+    },
+    {
+      "id": "tr2.noise.it.chiama",
+      "file": "noisy-input.jsonl",
+      "outcome": "tool",
+      "targets": [
+        "tool-recall-guard"
+      ],
+      "because": "lowercase STT output still acts"
+    },
+    {
+      "id": "tr2.noise.remnd",
+      "file": "noisy-input.jsonl",
+      "outcome": "incomplete",
+      "targets": [
+        "missing-slot-placeholder"
+      ],
+      "because": "a typo'd bare request is still missing everything"
+    },
+    {
+      "id": "tr2.noise.thanx-lot",
+      "file": "noisy-input.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "noisy acknowledgement: no request"
+    },
+    {
+      "id": "tr2.noise.okk",
+      "file": "noisy-input.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "noisy acknowledgement: no request"
+    },
+    {
+      "id": "tr2.noise.stt.mumble2",
+      "file": "noisy-input.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "noisy acknowledgement: no request"
+    },
+    {
+      "id": "tr2.noise.it.boh",
+      "file": "noisy-input.jsonl",
+      "outcome": "chat",
+      "targets": [
+        "false-positive-executable-action",
+        "false-positive-tool-call",
+        "lexical-grounded-wrong-value"
+      ],
+      "because": "noisy acknowledgement: no request"
+    }
+  ]
+}

@@ -15,3 +15,19 @@
 {"id": "tr.adv.declined-directions", "category": "adversarial", "locale": "en", "utterance": "Don't bother with directions, I know the way.", "state": null, "output": {"kind": "chat"}}
 {"id": "tr.adv.zero-value-question", "category": "adversarial", "locale": "en", "utterance": "Is a zero minute timer even a thing?", "state": null, "output": {"kind": "chat"}}
 {"id": "tr.adv.it-negation-call", "category": "adversarial", "locale": "it", "utterance": "Non chiamare Anna adesso.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.rep.wife-bank", "category": "adversarial", "locale": "en", "utterance": "My wife asked me to call the bank.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.rep.luca-tickets", "category": "adversarial", "locale": "en", "utterance": "Luca told me to remind him about the tickets.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.rep.doctor-pills", "category": "adversarial", "locale": "en", "utterance": "The doctor said I should set an alarm for my pills.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.rep.no-alarms-sat", "category": "adversarial", "locale": "en", "utterance": "Don't set any alarms for Saturday.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.rep.no-call", "category": "adversarial", "locale": "en", "utterance": "No need to call anyone.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.rep.it.non-mandare", "category": "adversarial", "locale": "it", "utterance": "Non mandare niente a Giulia.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.rep.it.mi-ha-detto", "category": "adversarial", "locale": "it", "utterance": "Paolo mi ha detto di chiamarlo domani.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.frag.fifteen-min", "category": "adversarial", "locale": "en", "utterance": "fifteen minutes", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.frag.half-eight", "category": "adversarial", "locale": "en", "utterance": "half past eight", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.frag.at-eleven", "category": "adversarial", "locale": "en", "utterance": "at 11", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.frag.tomorrow-morning", "category": "adversarial", "locale": "en", "utterance": "tomorrow morning", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.frag.giulia", "category": "adversarial", "locale": "en", "utterance": "Giulia", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.frag.station", "category": "adversarial", "locale": "en", "utterance": "to the station", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.frag.three-hours", "category": "adversarial", "locale": "en", "utterance": "three hours", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.frag.it.quindici", "category": "adversarial", "locale": "it", "utterance": "quindici minuti", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.frag.it.alle-otto", "category": "adversarial", "locale": "it", "utterance": "alle otto", "state": null, "output": {"kind": "chat"}}

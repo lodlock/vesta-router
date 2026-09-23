@@ -1,0 +1,121 @@
+# The configuration of ONE experimental fine-tune: candidate-r2.
+#
+# STATUS: EXPERIMENTAL. Not promoted, not stable, not a release. Its artifact is
+# a candidate measured against the frozen v2 eval corpus and nothing more.
+#
+# One controlled run, not a sweep. Relative to candidate-r1 exactly two things
+# change, on purpose: the training corpus (expansion-r2, targeted at the
+# act / don't-act boundary) and the optimisation budget (r1 was under-trained).
+# LoRA shape, numerics, sequence length, batch size, learning rate and seed are
+# r1's, so the result is about data and budget rather than hyperparameters.
+
+name: vesta-router-candidate-r2
+description: >
+  Second targeted fine-tune, aimed at the act / don't-act boundary: false
+  executable actions on sentences that ask for nothing, missing-slot execution,
+  stale-context reuse and cancellation — in that priority order.
+
+# ── What it learned from ─────────────────────────────────────────────────────
+
+data:
+  train_dir: data/train
+  eval_dir: null                      # never. Disjointness is checked before rendering.
+  tool_schema: tools/tool-schema-v2.json
+  exclude_dirs:
+    - data/historical
+  train_corpus_cases: 497
+  train_corpus_sha256: 441a64cc6631fec282f4566387e0555489f045bae3b58c9358880403f81599ed
+  train_corpus_sha256_before_expansion: a87a444db105fa99c0a2ebe5b2bd5ac5d051f32dd6d0aea7bef238c587bd3b39
+  expansion: train/expansion-r2.json
+  # The LF canonical eval digest (eval/CORPUS-REANCHOR.md). Unchanged by this run.
+  eval_corpus_sha256: ed854cae5787de2edd623828fe3c0795fcbc8645b7b37e83b5250ebac1e4c020
+
+rendering:
+  renderer: vesta_router.training.write_training_jsonl
+  rendered_jsonl: artifacts/train-r2.jsonl
+  rendered_jsonl_sha256: 9562db80de46e8439874316c9026f60d546cf31f6389195f430ee9d659739b2d
+  rendered_examples: 497
+  rendered_by_outcome: { tool: 153, chat: 236, incomplete: 88, cancel: 20 }
+  # Longest rendered example: 1155 tokens (unchanged from r1; every r2 addition
+  # renders to 1077-1140). Nothing is truncated at 1280.
+
+base_model:
+  engine: needle
+  architecture: needle3
+  checkpoint: checkpoints/needle3.safetensors
+  checkpoint_sha256: c234c70dccc7a9115e7c41ac2e41d3655fea3b85c245dd898b46179fb90c6c0c
+  layers: 20
+
+# ── Fine-tune, exactly as invoked ────────────────────────────────────────────
+#
+#   XLA_PYTHON_CLIENT_ALLOCATOR=cuda_async NEEDLE_TELEMETRY=0 \
+#   needle finetune artifacts/train-r2.jsonl \
+#     --checkpoint checkpoints/needle3.safetensors \
+#     --epochs 6 --batch-size 8 --lr 1e-4 \
+#     --lora-rank 16 --lora-alpha 32 \
+#     --max-len 1280 --val-split 0.1 --seed 20260922 \
+#     --checkpoint-dir checkpoints \
+#     --out artifacts/candidate-r2-adapter.safetensors
+
+fine_tune:
+  method: lora
+  adapter_format: safetensors         # never pickle, in either direction
+  rank: 16
+  alpha: 32
+  learning_rate: 1.0e-4
+  epochs: 6
+  batch_size: 8
+  seed: 20260922
+  max_len: 1280
+  val_split: 0.1
+  lora_targets: [q_proj, k_proj, v_proj, gate_proj, out_proj]
+  schedule: warmup_cosine_decay, warmup 16 of 336 steps, global-norm clip 1.0
+  optimizer: adamw
+  numerics: CQ W4 straight-through estimator + A8 activations, matching export
+  device: GPU (RTX 5070 Ti, WSL2), JAX 0.11.2 cuda12, XLA_PYTHON_CLIENT_ALLOCATOR=cuda_async
+  trainer: cactus-needle 3.0.5 (training path identical to 3.0.1's; see reports/candidate/candidate-r2-*/build-manifest.json)
+
+  steps: 336                          # 56 per epoch; 448 training examples divide into full batches
+  budget_rationale: >
+    r1 ran 57 steps (3 epochs x 19) over 151 examples, ended at training loss
+    2.34 and moved no eval metric - under-trained, not evidence about training.
+    r2 has 3.3x the data and 6 epochs: 336 steps, 5.9x r1's, about 2,700
+    example-passes against r1's 456. The learning rate is r1's so that the two
+    changes are data and budget only. At the measured 0.83 s/step on the GPU
+    this is ~5 minutes; the same run on the Windows CPU would have taken ~4 h,
+    which is why r1 was 57 steps.
+
+  val_split_rationale: >
+    cactus-needle 3.0.5 exposes --val-split: a seeded random holdout, a
+    held-out loss after every epoch, and exact-call accuracy on the held-out
+    examples scored through the W4 weights the archive ships. At six epochs an
+    overfitting signal is worth 49 of 497 training examples. It is NOT a
+    substitute for data/eval (still the only measurement that counts) and it
+    does not select a checkpoint - Needle has no early stopping, and the final
+    adapter is the one exported.
+
+export:
+  format: cact
+  quantization: cactus-quants W4A8
+  confidence_head: dropped
+  # JAX_PLATFORMS=cpu: the WSL CPU exporter reproduces r1 and the local base
+  # re-export byte-identically; a GPU export of the same adapter does not.
+  command: JAX_PLATFORMS=cpu needle build checkpoints/needle3.safetensors --lora artifacts/candidate-r2-adapter.safetensors --out artifacts/candidate-r2.cact
+
+evaluation:
+  evaluator: "1.1.0"
+  runtime: cactus-needle 3.0.1 wrapper (checkout f189b23, --needle-path) + libneedle.so 3.0.1 linux x86_64
+  compared_against:
+    - reports/control/baseline-local-base-reexport-3bde318ede18-3bde318ede18-20260923T211627Z
+    - reports/candidate/baseline-candidate-r1-8b62b28c1e28-20260923T211657Z
+
+not_applied:
+  - key: objective.oversample
+    reason: >
+      `needle finetune` still has no per-example weighting. The safety emphasis
+      is carried by the composition of the corpus (expansion-r2), not by
+      duplicating lines or by the loss.
+  - key: objective.penalize_false_action_over_false_chat
+    reason: the loss is plain masked cross-entropy over the target tokens.
+  - key: fine_tune.dropout
+    reason: no flag on `needle finetune`; the trainer applies none.

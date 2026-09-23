@@ -24,3 +24,147 @@
 {"id": "tr.mention.week-is-full", "category": "tool-mention", "locale": "en", "utterance": "My week is completely full already.", "state": null, "output": {"kind": "chat"}}
 {"id": "tr.mention.old-app", "category": "tool-mention", "locale": "en", "utterance": "I stopped using that maps app years ago.", "state": null, "output": {"kind": "chat"}}
 {"id": "tr.mention.meetings.it", "category": "tool-mention", "locale": "it", "utterance": "Ho troppe riunioni questa settimana.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.thanks", "category": "acknowledgement", "locale": "en", "utterance": "thanks", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.thank-you", "category": "acknowledgement", "locale": "en", "utterance": "thank you so much", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.great", "category": "acknowledgement", "locale": "en", "utterance": "great", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.great-thanks", "category": "acknowledgement", "locale": "en", "utterance": "great, thanks", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.perfect", "category": "acknowledgement", "locale": "en", "utterance": "perfect", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.works-now", "category": "acknowledgement", "locale": "en", "utterance": "yes, it works now", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.worked-perfectly", "category": "acknowledgement", "locale": "en", "utterance": "that worked perfectly, cheers", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.cheers", "category": "acknowledgement", "locale": "en", "utterance": "cheers", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.thx", "category": "acknowledgement", "locale": "en", "utterance": "thx", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.ty", "category": "acknowledgement", "locale": "en", "utterance": "ty!!", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.thanx", "category": "acknowledgement", "locale": "en", "utterance": "thanx a lot", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.tanks", "category": "acknowledgement", "locale": "en", "utterance": "tanks mate", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.thankss", "category": "acknowledgement", "locale": "en", "utterance": "thankss", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.thnx-did-it", "category": "acknowledgement", "locale": "en", "utterance": "thnx, did the job", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.awesome-u", "category": "acknowledgement", "locale": "en", "utterance": "awesome thank u", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.nice-one", "category": "acknowledgement", "locale": "en", "utterance": "nice one", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.got-it", "category": "acknowledgement", "locale": "en", "utterance": "got it, thanks", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.brilliant", "category": "acknowledgement", "locale": "en", "utterance": "brilliant, ta", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.okay", "category": "acknowledgement", "locale": "en", "utterance": "okay thanks", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.sweet", "category": "acknowledgement", "locale": "en", "utterance": "sweet", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.all-good", "category": "acknowledgement", "locale": "en", "utterance": "yep all good", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.trick", "category": "acknowledgement", "locale": "en", "utterance": "that did the trick", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.charm", "category": "acknowledgement", "locale": "en", "utterance": "worked like a charm", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.appreciated", "category": "acknowledgement", "locale": "en", "utterance": "much appreciated", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.tahnk-yuo", "category": "acknowledgement", "locale": "en", "utterance": "tahnk yuo", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.gr8", "category": "acknowledgement", "locale": "en", "utterance": "gr8 thx", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.ok-bye", "category": "acknowledgement", "locale": "en", "utterance": "ok thx bye", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.grazie", "category": "acknowledgement", "locale": "it", "utterance": "grazie", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.grazie-mille", "category": "acknowledgement", "locale": "it", "utterance": "grazie mille", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.perfetto", "category": "acknowledgement", "locale": "it", "utterance": "perfetto", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.ottimo", "category": "acknowledgement", "locale": "it", "utterance": "ottimo, grazie", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.funzionato", "category": "acknowledgement", "locale": "it", "utterance": "ha funzionato", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.grz", "category": "acknowledgement", "locale": "it", "utterance": "grz", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.grazie-mile", "category": "acknowledgement", "locale": "it", "utterance": "grazie mile", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.ack.a-posto", "category": "acknowledgement", "locale": "it", "utterance": "tutto a posto, grazie", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.uh-huh", "category": "no-tool", "locale": "en", "utterance": "uh huh", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.let-me-think", "category": "no-tool", "locale": "en", "utterance": "hmm let me think", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.wait-what", "category": "no-tool", "locale": "en", "utterance": "wait what", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.haha", "category": "no-tool", "locale": "en", "utterance": "haha", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.lol", "category": "no-tool", "locale": "en", "utterance": "lol ok", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.right-then", "category": "no-tool", "locale": "en", "utterance": "right then", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.erm", "category": "no-tool", "locale": "en", "utterance": "erm", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.ahh", "category": "no-tool", "locale": "en", "utterance": "ahh I see", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.mmm", "category": "no-tool", "locale": "en", "utterance": "mmm not sure", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.boh", "category": "no-tool", "locale": "it", "utterance": "boh", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.allora", "category": "no-tool", "locale": "it", "utterance": "allora...", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.fill.ehm", "category": "no-tool", "locale": "it", "utterance": "ehm niente", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.mountain", "category": "no-tool", "locale": "en", "utterance": "What's the tallest mountain in Italy?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.sistine", "category": "no-tool", "locale": "en", "utterance": "Who painted the Sistine Chapel ceiling?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.tokyo-pop", "category": "no-tool", "locale": "en", "utterance": "How many people live in Tokyo?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.berlin-wall", "category": "no-tool", "locale": "en", "utterance": "When did the Berlin Wall fall?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.friday-13", "category": "no-tool", "locale": "en", "utterance": "Why is Friday the thirteenth considered unlucky?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.florence-river", "category": "no-tool", "locale": "en", "utterance": "What river runs through Florence?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.madrid", "category": "no-tool", "locale": "en", "utterance": "Is Madrid bigger than Barcelona?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.marathon", "category": "no-tool", "locale": "en", "utterance": "How long is a marathon?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.leap-year", "category": "no-tool", "locale": "en", "utterance": "Why do we have leap years?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.word-monday", "category": "no-tool", "locale": "en", "utterance": "Where does the word Wednesday come from?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.jet-lag", "category": "no-tool", "locale": "en", "utterance": "How long does jet lag usually last?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.monte-bianco", "category": "no-tool", "locale": "it", "utterance": "Quanto è alto il Monte Bianco?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.garibaldi", "category": "no-tool", "locale": "it", "utterance": "Chi era Garibaldi?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.know.roma", "category": "no-tool", "locale": "it", "utterance": "In che anno è stata fondata Roma?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.week-flew", "category": "tool-mention", "locale": "en", "utterance": "This week has flown by.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.weekends", "category": "tool-mention", "locale": "en", "utterance": "Weekends are never long enough.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.tuesday-monday", "category": "tool-mention", "locale": "en", "utterance": "Tuesday felt like a Monday.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.long-day", "category": "tool-mention", "locale": "en", "utterance": "It's been such a long day.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.clocks-back", "category": "tool-mention", "locale": "en", "utterance": "The clocks go back soon and I always forget.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.where-time", "category": "tool-mention", "locale": "en", "utterance": "Where did the time go?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.schedule-chaos", "category": "tool-mention", "locale": "en", "utterance": "My schedule has been chaos lately.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.next-week", "category": "tool-mention", "locale": "en", "utterance": "Next week is going to be brutal.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.late-mondays", "category": "tool-mention", "locale": "en", "utterance": "I'm always late on Mondays.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.zones-head", "category": "tool-mention", "locale": "en", "utterance": "Time zones make my head hurt.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.watch-fast", "category": "tool-mention", "locale": "en", "utterance": "My watch runs five minutes fast.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.feels-midnight", "category": "tool-mention", "locale": "en", "utterance": "It feels like midnight already.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.bed-1am", "category": "tool-mention", "locale": "en", "utterance": "I went to bed at 1am.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.train-left", "category": "tool-mention", "locale": "en", "utterance": "The train left at 8:10 without me.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.dinner-nine", "category": "tool-mention", "locale": "en", "utterance": "We had dinner at nine last night.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.work-six", "category": "tool-mention", "locale": "en", "utterance": "I finished work at six yesterday.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.too-many-meetings", "category": "tool-mention", "locale": "en", "utterance": "Way too many meetings on my plate tomorrow.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.agenda-full", "category": "tool-mention", "locale": "en", "utterance": "My diary is packed until Christmas.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.it.volata", "category": "tool-mention", "locale": "it", "utterance": "Questa settimana è volata.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.it.lunedi", "category": "tool-mention", "locale": "it", "utterance": "Il lunedì mattina è sempre un disastro.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.it.agenda", "category": "tool-mention", "locale": "it", "utterance": "Ho l'agenda pienissima.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.it.tempo", "category": "tool-mention", "locale": "it", "utterance": "Il tempo non basta mai.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noarg.it.letto", "category": "tool-mention", "locale": "it", "utterance": "Sono andato a letto tardissimo ieri.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.giulia-shower", "category": "tool-mention", "locale": "en", "utterance": "Giulia called while I was in the shower.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.mum-three", "category": "tool-mention", "locale": "en", "utterance": "My mum phoned three times this morning.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.paolo-never", "category": "tool-mention", "locale": "en", "utterance": "Paolo never picks up his phone.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.sara-funny", "category": "tool-mention", "locale": "en", "utterance": "Sara sent me the funniest message.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.dentist-missed", "category": "tool-mention", "locale": "en", "utterance": "I missed a call from the dentist's office.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.chiara-photo", "category": "tool-mention", "locale": "en", "utterance": "Chiara texted me a photo of her dog.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.brother-work", "category": "tool-mention", "locale": "en", "utterance": "My brother keeps calling me at work.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.owe-marta", "category": "tool-mention", "locale": "en", "utterance": "I owe Marta a phone call, honestly.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.dad-voicemail", "category": "tool-mention", "locale": "en", "utterance": "Dad left a voicemail.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.elena-number", "category": "tool-mention", "locale": "en", "utterance": "Elena's number changed last month.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.francesco-hour", "category": "tool-mention", "locale": "en", "utterance": "I talked to Francesco for an hour yesterday.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.nobody-calls", "category": "tool-mention", "locale": "en", "utterance": "Nobody calls anymore, everyone just texts.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.plumber", "category": "tool-mention", "locale": "en", "utterance": "The plumber said he'd call back after lunch.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.luca-outside", "category": "tool-mention", "locale": "en", "utterance": "Luca rang to say he was outside.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.anna-flight", "category": "tool-mention", "locale": "en", "utterance": "Anna's flight lands at 6:40.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.it.luca-riunione", "category": "tool-mention", "locale": "it", "utterance": "Mi ha chiamato Luca mentre ero in riunione.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.it.giulia-risponde", "category": "tool-mention", "locale": "it", "utterance": "Giulia non risponde mai ai messaggi.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.it.madre", "category": "tool-mention", "locale": "it", "utterance": "Mia madre mi ha scritto stamattina.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.story.it.persa", "category": "tool-mention", "locale": "it", "utterance": "Ho perso una chiamata di Paolo.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.maps", "category": "tool-mention", "locale": "en", "utterance": "I used to use Google Maps for everything.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.whatsapp-down", "category": "tool-mention", "locale": "en", "utterance": "WhatsApp was down this morning.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.spotify", "category": "tool-mention", "locale": "en", "utterance": "Spotify keeps shuffling the same songs.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.instagram", "category": "tool-mention", "locale": "en", "utterance": "I deleted Instagram last month.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.old-alarm", "category": "tool-mention", "locale": "en", "utterance": "My old phone had a much better alarm app.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.waze-vs", "category": "tool-mention", "locale": "en", "utterance": "Is Waze better than Google Maps?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.todoist", "category": "tool-mention", "locale": "en", "utterance": "I tried Todoist but gave up after a week.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.outlook", "category": "tool-mention", "locale": "en", "utterance": "Outlook calendar sync is painfully slow.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.signal", "category": "tool-mention", "locale": "en", "utterance": "Telegram or Signal, which one is more private?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.nokia", "category": "tool-mention", "locale": "en", "utterance": "I miss my old Nokia.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.it.gcal", "category": "tool-mention", "locale": "it", "utterance": "Uso ancora Google Calendar al lavoro.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.app.it.whatsapp", "category": "tool-mention", "locale": "it", "utterance": "WhatsApp oggi non funzionava.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.airport-nightmare", "category": "tool-mention", "locale": "en", "utterance": "The airport was a nightmare this morning.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.milan-spring", "category": "tool-mention", "locale": "en", "utterance": "Milan is lovely in spring.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.ring-road", "category": "tool-mention", "locale": "en", "utterance": "Traffic on the ring road was terrible.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.harbour", "category": "tool-mention", "locale": "en", "utterance": "We walked down to the old harbour yesterday.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.lake-como", "category": "tool-mention", "locale": "en", "utterance": "I grew up near Lake Como.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.supermarket", "category": "tool-mention", "locale": "en", "utterance": "The new supermarket on Via Verdi is huge.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.hospital-parking", "category": "tool-mention", "locale": "en", "utterance": "Parking at the hospital costs a fortune.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.naples", "category": "tool-mention", "locale": "en", "utterance": "I've never been to Naples.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.station-closed", "category": "tool-mention", "locale": "en", "utterance": "The station is closed for repairs this weekend.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.via-roma-closed", "category": "tool-mention", "locale": "en", "utterance": "Via Roma is closed to traffic today.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.pharmacy-closes", "category": "tool-mention", "locale": "en", "utterance": "The pharmacy closes at 7 on Saturdays.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.it.tangenziale", "category": "tool-mention", "locale": "it", "utterance": "Il traffico in tangenziale era terribile.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.it.aeroporto", "category": "tool-mention", "locale": "it", "utterance": "L'aeroporto era pieno di gente.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.place.it.farmacia", "category": "tool-mention", "locale": "it", "utterance": "La farmacia chiude alle otto.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.oven-timer", "category": "tool-mention", "locale": "en", "utterance": "The oven timer is broken again.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.alarm-tone", "category": "tool-mention", "locale": "en", "utterance": "My alarm tone is so annoying.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.snoozed", "category": "tool-mention", "locale": "en", "utterance": "I snoozed my alarm four times.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.dismiss-reminders", "category": "tool-mention", "locale": "en", "utterance": "Reminders are useless if I dismiss them straight away.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.queue", "category": "tool-mention", "locale": "en", "utterance": "Twenty five minutes in that queue felt like an hour.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.planking", "category": "tool-mention", "locale": "en", "utterance": "Ten minutes of planking nearly killed me.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.late-again", "category": "tool-mention", "locale": "en", "utterance": "Five minutes late again, typical.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.slept-through", "category": "tool-mention", "locale": "en", "utterance": "I set an alarm last night and slept through it anyway.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.q.alarms-phone", "category": "tool-mention", "locale": "en", "utterance": "Can this phone do alarms on a schedule?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.q.repeat", "category": "tool-mention", "locale": "en", "utterance": "Could a reminder repeat every week?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.q.alarm-sound", "category": "tool-mention", "locale": "en", "utterance": "How do I change the alarm sound?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.q.locked", "category": "tool-mention", "locale": "en", "utterance": "Does the timer keep running if I lock the screen?", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.it.suono", "category": "tool-mention", "locale": "it", "utterance": "Odio il suono della mia sveglia.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.it.forno", "category": "tool-mention", "locale": "it", "utterance": "Il timer del forno è rotto.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.vocab.it.q.silenzioso", "category": "tool-mention", "locale": "it", "utterance": "Se imposto una sveglia, suona anche in silenzioso?", "state": null, "output": {"kind": "chat"}}

@@ -62,6 +62,14 @@ few hundred kilobytes, it is the part that has to be auditable, and it outlives
 the artifact it measures — the same reason `releases/` carries manifests and
 eval reports rather than `.cact` files.
 
+## Corpus digests on disk
+
+Reports made before 2026-09-23T21:16Z carry corpus digest `c5b5577a…`; later
+ones carry `ed854cae…`. **Same cases, different bytes** — the earlier runs read
+a Windows working tree with CRLF in `data/eval/positive.jsonl`. The historical
+reports are kept unedited. See [`../eval/CORPUS-REANCHOR.md`](../eval/CORPUS-REANCHOR.md);
+compare new candidates only with the LF-corpus controls it names.
+
 ## Evaluator versions on disk
 
 A report carries the `evaluatorVersion` that wrote it, and two reports carrying

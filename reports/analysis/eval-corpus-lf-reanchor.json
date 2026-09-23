@@ -1,0 +1,279 @@
+{
+  "_what": "Re-anchoring of the frozen v2 eval corpus digest from a CRLF working-tree form to the committed LF form. The historical reports are NOT edited; this record explains why their corpusContentSha256 differs from reports made after it.",
+  "artifactsTransferred": {
+    "candidate-r1": "8b62b28c1e281e4bead85b5c9c525a241237abe2c84ae2c73c5cbdc48fbca5f4",
+    "candidate-r1-adapter": "c11e356556e185728b0376b9bf2287961b39fd39a0dedd426ed61102b9cf79f9",
+    "local-base-reexport": "3bde318ede183eb06eb65524c9139f83d749e929f46feadfe516cefa3c8e8863",
+    "note": "copied from the Windows checkout and verified; both .cact files were also REBUILT in WSL (JAX_PLATFORMS=cpu, cactus-needle 3.0.5 exporter) byte-identically. A GPU export of the same r1 adapter is NOT byte-identical (f642d2e0...), so exports run on CPU."
+  },
+  "canonicalDigest": "ed854cae5787de2edd623828fe3c0795fcbc8645b7b37e83b5250ebac1e4c020",
+  "canonicalFiles": [
+    {
+      "name": "missing-slot.jsonl",
+      "sha256": "c722d150c6f4af99198d832224f93b428da0b67431f33cebe1df77edf20a9095",
+      "sizeBytes": 5438
+    },
+    {
+      "name": "negative.jsonl",
+      "sha256": "8723a007c4b6171e60fdc42a6114f7c4e48376a775ac959dcb2fb4bfe5c2a730",
+      "sizeBytes": 5525
+    },
+    {
+      "name": "positive.jsonl",
+      "sha256": "6b53dbac70f7a1899c96051121344464f6200f842debe0639a96c0dea9b4be19",
+      "sizeBytes": 7817
+    },
+    {
+      "name": "stale-context.jsonl",
+      "sha256": "c2a2a10ee50c8e6ca6f15826d2314ec875535cc3336ac8d70e9be3aba823e0bb",
+      "sizeBytes": 5142
+    }
+  ],
+  "cause": {
+    "difference": "CRLF line endings (21 lines, 21 extra bytes) in the Windows working tree the historical reports were produced from; git has only ever stored LF",
+    "file": "positive.jsonl",
+    "otherFilesByteIdentical": true,
+    "reconstructedDigest": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef",
+    "reconstruction": "replacing LF with CRLF in the committed positive.jsonl and re-running corpus_digest reproduces the historical digest exactly"
+  },
+  "date": "2026-09-23",
+  "digestFunction": "vesta_router.runner.corpus_digest (the function write_report uses)",
+  "historicalDigest": "c5b5577a29237794d53c184fddf1742c6fb406b88731680302a4cfe6271341ef",
+  "historicalFiles": [
+    {
+      "name": "missing-slot.jsonl",
+      "sha256": "c722d150c6f4af99198d832224f93b428da0b67431f33cebe1df77edf20a9095",
+      "sizeBytes": 5438
+    },
+    {
+      "name": "negative.jsonl",
+      "sha256": "8723a007c4b6171e60fdc42a6114f7c4e48376a775ac959dcb2fb4bfe5c2a730",
+      "sizeBytes": 5525
+    },
+    {
+      "name": "positive.jsonl",
+      "sha256": "20d02efe0dc9cf08a36a6a1606d94a7fda85adcf94b64ebad0039a8d3b2b8e15",
+      "sizeBytes": 7838
+    },
+    {
+      "name": "stale-context.jsonl",
+      "sha256": "c2a2a10ee50c8e6ca6f15826d2314ec875535cc3336ac8d70e9be3aba823e0bb",
+      "sizeBytes": 5142
+    }
+  ],
+  "historicalVsLfReports": {
+    "candidate-r1": {
+      "caseOrderIdentical": true,
+      "casesWithDifferentOutput": [
+        {
+          "classificationChanges": {},
+          "guardedOutcomeSame": true,
+          "id": "slot.alarm.bare.it",
+          "toolNamesSame": true,
+          "utterance": "Mettimi una sveglia.",
+          "windowsCalls": [
+            {
+              "arguments": {
+                "time": "now"
+              },
+              "name": "set_alarm"
+            }
+          ],
+          "wslCalls": [
+            {
+              "arguments": {
+                "time": "07:00"
+              },
+              "name": "set_alarm"
+            }
+          ]
+        },
+        {
+          "classificationChanges": {},
+          "guardedOutcomeSame": true,
+          "id": "neg.capital",
+          "toolNamesSame": true,
+          "utterance": "What is the capital of Australia?",
+          "windowsCalls": [
+            {
+              "arguments": {},
+              "name": "get_calendar_events"
+            }
+          ],
+          "wslCalls": [
+            {
+              "arguments": {
+                "date": "Australia"
+              },
+              "name": "get_calendar_events"
+            }
+          ]
+        },
+        {
+          "classificationChanges": {},
+          "guardedOutcomeSame": true,
+          "id": "stale.cancellation.it",
+          "toolNamesSame": true,
+          "utterance": "lascia stare",
+          "windowsCalls": [
+            {
+              "arguments": {
+                "time": "07:00"
+              },
+              "name": "set_alarm"
+            }
+          ],
+          "wslCalls": [
+            {
+              "arguments": {
+                "time": "now"
+              },
+              "name": "set_alarm"
+            }
+          ]
+        }
+      ],
+      "historical": "reports/candidate/baseline-candidate-r1-8b62b28c1e28-20260923T174434Z",
+      "lfCorpus": "reports/candidate/baseline-candidate-r1-8b62b28c1e28-20260923T211657Z",
+      "metricDifferences": {},
+      "metricsIdentical": true
+    },
+    "local-base": {
+      "caseOrderIdentical": true,
+      "casesWithDifferentOutput": [
+        {
+          "classificationChanges": {},
+          "guardedOutcomeSame": true,
+          "id": "neg.woke-at-730",
+          "toolNamesSame": true,
+          "utterance": "I woke up at 7:30.",
+          "windowsCalls": [
+            {
+              "arguments": {},
+              "name": "get_time"
+            }
+          ],
+          "wslCalls": [
+            {
+              "arguments": {
+                "kind": "difference"
+              },
+              "name": "get_time"
+            }
+          ]
+        },
+        {
+          "classificationChanges": {
+            "fabricatedRequiredValue": [
+              false,
+              true
+            ],
+            "placeholderRequiredValue": [
+              true,
+              false
+            ]
+          },
+          "guardedOutcomeSame": true,
+          "id": "neg.sms-complaint",
+          "toolNamesSame": true,
+          "utterance": "He never texts me back.",
+          "windowsCalls": [
+            {
+              "arguments": {
+                "destination": ""
+              },
+              "name": "navigate_to"
+            }
+          ],
+          "wslCalls": [
+            {
+              "arguments": {
+                "destination": "home"
+              },
+              "name": "navigate_to"
+            }
+          ]
+        },
+        {
+          "classificationChanges": {},
+          "guardedOutcomeSame": true,
+          "id": "stale.timer.prior-turn",
+          "toolNamesSame": true,
+          "utterance": "Set a timer.",
+          "windowsCalls": [
+            {
+              "arguments": {
+                "label": "Args",
+                "minutes": 5.0
+              },
+              "name": "set_timer"
+            }
+          ],
+          "wslCalls": [
+            {
+              "arguments": {
+                "minutes": 5.0
+              },
+              "name": "set_timer"
+            }
+          ]
+        },
+        {
+          "classificationChanges": {},
+          "guardedOutcomeSame": true,
+          "id": "stale.cancellation.it",
+          "toolNamesSame": true,
+          "utterance": "lascia stare",
+          "windowsCalls": [
+            {
+              "arguments": {
+                "label": "Pending",
+                "time": "missing"
+              },
+              "name": "set_alarm"
+            }
+          ],
+          "wslCalls": [
+            {
+              "arguments": {
+                "label": "Missing",
+                "time": "pending"
+              },
+              "name": "set_alarm"
+            }
+          ]
+        }
+      ],
+      "historical": "reports/control/baseline-local-base-reexport-3bde318ede18-3bde318ede18-20260923T174345Z",
+      "lfCorpus": "reports/control/baseline-local-base-reexport-3bde318ede18-3bde318ede18-20260923T211627Z",
+      "metricDifferences": {},
+      "metricsIdentical": true
+    }
+  },
+  "prevention": ".gitattributes: *.jsonl text eol=lf",
+  "runtime": {
+    "historical": "cactus-needle 3.0.1, libneedle.dll (Windows x86_64), via checkout f189b23",
+    "lfEngineLibrarySha256": "978fce130aac08af506b5fe8bb2950da58e9479d0de69d972d9bd69db953568d",
+    "lfReports": "cactus-needle 3.0.1 wrapper from checkout f189b23 (--needle-path) + libneedle.so 3.0.1 linux x86_64 from Cactus-Compute/needle3 python/cactus_needle-3.0.1-py3-none-manylinux2014_x86_64.whl"
+  },
+  "scoredContentIdentical": {
+    "candidate-r1": {
+      "cases": 64,
+      "casesMatchingCommittedCorpus": 64,
+      "mismatches": [],
+      "report": "reports/candidate/baseline-candidate-r1-8b62b28c1e28-20260923T174434Z"
+    },
+    "local-base": {
+      "cases": 64,
+      "casesMatchingCommittedCorpus": 64,
+      "mismatches": [],
+      "report": "reports/control/baseline-local-base-reexport-3bde318ede18-3bde318ede18-20260923T174345Z"
+    },
+    "published-base": {
+      "cases": 64,
+      "casesMatchingCommittedCorpus": 64,
+      "mismatches": [],
+      "report": "reports/baseline/baseline-needle3-c9d915eca282-20260923T174256Z"
+    }
+  }
+}

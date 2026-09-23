@@ -10,3 +10,15 @@
 {"id": "tr.typo.navigate", "category": "typo", "locale": "en", "utterance": "naviagte to the trian station", "state": null, "output": {"kind": "tool", "tool": "navigate_to", "arguments": {"destination": "the train station"}}}
 {"id": "tr.typo.chat", "category": "typo", "locale": "en", "utterance": "taht was realy helpfull", "state": null, "output": {"kind": "chat"}}
 {"id": "tr.typo.it", "category": "typo", "locale": "it", "utterance": "ricrodami di chiamre il dottore alle 10", "state": null, "output": {"kind": "tool", "tool": "set_reminder", "arguments": {"text": "chiamare il dottore", "datetime": "10:00"}}}
+{"id": "tr2.noise.cal-giulia", "category": "typo", "locale": "en", "utterance": "cal giulia", "state": null, "output": {"kind": "tool", "tool": "make_call", "arguments": {"contact": "giulia"}}}
+{"id": "tr2.noise.alrm", "category": "typo", "locale": "en", "utterance": "set alrm 6 30", "state": null, "output": {"kind": "tool", "tool": "set_alarm", "arguments": {"time": "06:30"}}}
+{"id": "tr2.noise.navigat", "category": "typo", "locale": "en", "utterance": "navigat to via roma", "state": null, "output": {"kind": "tool", "tool": "navigate_to", "arguments": {"destination": "via roma"}}}
+{"id": "tr2.noise.whats-teh-time", "category": "typo", "locale": "en", "utterance": "whats teh time", "state": null, "output": {"kind": "tool", "tool": "get_time", "arguments": {}}}
+{"id": "tr2.noise.said-timer", "category": "typo", "locale": "en", "utterance": "said a timer for five minutes", "state": null, "output": {"kind": "tool", "tool": "set_timer", "arguments": {"minutes": 5}}}
+{"id": "tr2.noise.self-correct", "category": "typo", "locale": "en", "utterance": "wake me up at seven, no, eight", "state": null, "output": {"kind": "tool", "tool": "set_alarm", "arguments": {"time": "08:00"}}}
+{"id": "tr2.noise.it.chiama", "category": "typo", "locale": "it", "utterance": "chiama giulia", "state": null, "output": {"kind": "tool", "tool": "make_call", "arguments": {"contact": "giulia"}}}
+{"id": "tr2.noise.remnd", "category": "typo", "locale": "en", "utterance": "remnd me", "state": null, "output": {"kind": "incomplete", "tool": "set_reminder", "missing": ["text", "datetime"]}}
+{"id": "tr2.noise.thanx-lot", "category": "typo", "locale": "en", "utterance": "thanx alot!!!", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noise.okk", "category": "typo", "locale": "en", "utterance": "okk kool", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noise.stt.mumble2", "category": "typo", "locale": "en", "utterance": "mm yeah no that's fine", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.noise.it.boh", "category": "typo", "locale": "it", "utterance": "eh vabbè", "state": null, "output": {"kind": "chat"}}

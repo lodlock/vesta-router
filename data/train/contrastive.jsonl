@@ -1,0 +1,40 @@
+{"id": "tr2.pair.call.act", "category": "contrastive", "locale": "en", "utterance": "Call Giulia.", "state": null, "output": {"kind": "tool", "tool": "make_call", "arguments": {"contact": "Giulia"}}}
+{"id": "tr2.pair.call.none", "category": "contrastive", "locale": "en", "utterance": "Giulia called me back at last.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.sms.act", "category": "contrastive", "locale": "en", "utterance": "Text Luca that I'm outside.", "state": null, "output": {"kind": "tool", "tool": "send_sms", "arguments": {"contact": "Luca", "text": "I'm outside"}}}
+{"id": "tr2.pair.sms.none", "category": "contrastive", "locale": "en", "utterance": "Luca texted that he's outside.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.nav.act", "category": "contrastive", "locale": "en", "utterance": "Navigate to the bus station.", "state": null, "output": {"kind": "tool", "tool": "navigate_to", "arguments": {"destination": "the bus station"}}}
+{"id": "tr2.pair.nav.none", "category": "contrastive", "locale": "en", "utterance": "The bus station was packed this morning.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.timer.act", "category": "contrastive", "locale": "en", "utterance": "Fifteen minute timer, please.", "state": null, "output": {"kind": "tool", "tool": "set_timer", "arguments": {"minutes": 15}}}
+{"id": "tr2.pair.timer.none", "category": "contrastive", "locale": "en", "utterance": "Fifteen minutes wasn't long enough for the bread.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.time.act", "category": "contrastive", "locale": "en", "utterance": "Tell me the time in Sydney.", "state": null, "output": {"kind": "tool", "tool": "get_time", "arguments": {"place": "Sydney", "kind": "time"}}}
+{"id": "tr2.pair.time.none", "category": "contrastive", "locale": "en", "utterance": "My cousin in Sydney is always asleep when I call.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.cal.act", "category": "contrastive", "locale": "en", "utterance": "Show me Friday's calendar.", "state": null, "output": {"kind": "tool", "tool": "get_calendar_events", "arguments": {"date": "Friday"}}}
+{"id": "tr2.pair.cal.none", "category": "contrastive", "locale": "en", "utterance": "Friday's calendar looks rough.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.rem.act", "category": "contrastive", "locale": "en", "utterance": "Remind me to call mum at six.", "state": null, "output": {"kind": "tool", "tool": "set_reminder", "arguments": {"text": "call mum", "datetime": "18:00"}}}
+{"id": "tr2.pair.rem.none", "category": "contrastive", "locale": "en", "utterance": "Mum reminded me to call her at six.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.alarm.act", "category": "contrastive", "locale": "en", "utterance": "Wake me at 5:50.", "state": null, "output": {"kind": "tool", "tool": "set_alarm", "arguments": {"time": "05:50"}}}
+{"id": "tr2.pair.alarm.none", "category": "contrastive", "locale": "en", "utterance": "I was up at 5:50 again without an alarm.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.contacts.act", "category": "contrastive", "locale": "en", "utterance": "Look up Beppe in my contacts.", "state": null, "output": {"kind": "tool", "tool": "search_contacts", "arguments": {"query": "Beppe"}}}
+{"id": "tr2.pair.contacts.none", "category": "contrastive", "locale": "en", "utterance": "Beppe's number is somewhere in my contacts.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.doc.act", "category": "contrastive", "locale": "en", "utterance": "What does my gym contract say about freezing membership?", "state": null, "output": {"kind": "tool", "tool": "query_document", "arguments": {"query": "gym contract freezing membership"}}}
+{"id": "tr2.pair.doc.none", "category": "contrastive", "locale": "en", "utterance": "I never read my gym contract.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.it.call.act", "category": "contrastive", "locale": "it", "utterance": "Chiama Luca.", "state": null, "output": {"kind": "tool", "tool": "make_call", "arguments": {"contact": "Luca"}}}
+{"id": "tr2.pair.it.call.none", "category": "contrastive", "locale": "it", "utterance": "Mi ha chiamato Luca.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.it.nav.act", "category": "contrastive", "locale": "it", "utterance": "Portami a Bologna.", "state": null, "output": {"kind": "tool", "tool": "navigate_to", "arguments": {"destination": "Bologna"}}}
+{"id": "tr2.pair.it.nav.none", "category": "contrastive", "locale": "it", "utterance": "Sono stato a Bologna il mese scorso.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.setalarm.act", "category": "contrastive", "locale": "en", "utterance": "Set an alarm for 7.", "state": null, "output": {"kind": "tool", "tool": "set_alarm", "arguments": {"time": "07:00"}}}
+{"id": "tr2.pair.setalarm.none", "category": "contrastive", "locale": "en", "utterance": "Setting alarms never works for me.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.msg.act", "category": "contrastive", "locale": "en", "utterance": "Message Sara: running late", "state": null, "output": {"kind": "tool", "tool": "send_sms", "arguments": {"contact": "Sara", "text": "running late"}}}
+{"id": "tr2.pair.msg.none", "category": "contrastive", "locale": "en", "utterance": "Sara's messages are always so long.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.event.act", "category": "contrastive", "locale": "en", "utterance": "Add dinner with Elena on Saturday at 8.", "state": null, "output": {"kind": "tool", "tool": "create_event", "arguments": {"title": "dinner with Elena", "start": "Saturday 20:00"}}}
+{"id": "tr2.pair.event.none", "category": "contrastive", "locale": "en", "utterance": "Dinner with Elena on Saturday was great.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.timer25.act", "category": "contrastive", "locale": "en", "utterance": "Start a 25 minute timer.", "state": null, "output": {"kind": "tool", "tool": "set_timer", "arguments": {"minutes": 25}}}
+{"id": "tr2.pair.timer25.none", "category": "contrastive", "locale": "en", "utterance": "The 25 minute timer on the oven went off early.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.negate.act", "category": "contrastive", "locale": "en", "utterance": "Call the dentist.", "state": null, "output": {"kind": "tool", "tool": "make_call", "arguments": {"contact": "the dentist"}}}
+{"id": "tr2.pair.negate.none", "category": "contrastive", "locale": "en", "utterance": "Don't call the dentist yet.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.bday.act", "category": "contrastive", "locale": "en", "utterance": "Text Chiara happy birthday.", "state": null, "output": {"kind": "tool", "tool": "send_sms", "arguments": {"contact": "Chiara", "text": "happy birthday"}}}
+{"id": "tr2.pair.bday.none", "category": "contrastive", "locale": "en", "utterance": "Chiara sent me a happy birthday message.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.home.act", "category": "contrastive", "locale": "en", "utterance": "Navigate home.", "state": null, "output": {"kind": "tool", "tool": "navigate_to", "arguments": {"destination": "home"}}}
+{"id": "tr2.pair.home.none", "category": "contrastive", "locale": "en", "utterance": "Navigating home in this traffic is hell.", "state": null, "output": {"kind": "chat"}}
+{"id": "tr2.pair.it.sms.act", "category": "contrastive", "locale": "it", "utterance": "Scrivi a Giulia che sono in ritardo.", "state": null, "output": {"kind": "tool", "tool": "send_sms", "arguments": {"contact": "Giulia", "text": "sono in ritardo"}}}
+{"id": "tr2.pair.it.sms.none", "category": "contrastive", "locale": "it", "utterance": "Giulia mi ha scritto che è in ritardo.", "state": null, "output": {"kind": "chat"}}
