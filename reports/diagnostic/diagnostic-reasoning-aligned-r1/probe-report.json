@@ -1,0 +1,2153 @@
+{
+ "_status": "DIAGNOSTIC. Not an eval report, not a candidate, not promotable. The tuned adapter was trained on 9 data/eval utterances on purpose and must never be scored on data/eval as a candidate.",
+ "diagnosticId": "diagnostic-reasoning-aligned-r1",
+ "question": "Does reasoning-aligned training reach the normal Needle serving path?",
+ "stages": {
+  "A": {
+   "what": "local base re-export, native serving path",
+   "artifactSha256": "3bde318ede183eb06eb65524c9139f83d749e929f46feadfe516cefa3c8e8863",
+   "pass": "6/12",
+   "rawPass": "3/12"
+  },
+  "B": {
+   "what": "tuned weights before export: base + LoRA merged, CQ W4 STE + A8 (quant=True), greedy; prompt from needle.model.finetune.render_example with compact tools and a '<think>\\n' opener - the engine's format",
+   "adapterSha256": "6faf6b842fd93a9b6e133b7bc70810b0e06d578a069d85b2e7c184c6b8809de0",
+   "pass": "12/12",
+   "rawPass": "12/12",
+   "withoutOpener": {
+    "pass": "12/12",
+    "note": "same outputs: the tuned model opens <think> by itself"
+   }
+  },
+  "C": {
+   "what": "tuned .cact, native serving path (cactus-needle 3.0.1 wrapper + libneedle.so 3.0.1, auto_date off, reset per probe)",
+   "artifactSha256": "7d1edb86c99c5439fbcc0d1baec113937d100b03bd1d98deb28d87647e7b91bc",
+   "pass": "12/12",
+   "rawPass": "12/12",
+   "repeatRunIdentical": true,
+   "confidence": null
+  }
+ },
+ "outcome": "B correct, C correct on 12/12 probes (8 in-set, 4 held-out); B and C reasoning text and calls identical on every probe",
+ "probes": [
+  {
+   "probe": "1.typo-thanks",
+   "evalId": "neg.typo.thanks",
+   "inTrainingSet": true,
+   "utterance": "thnaks that worked",
+   "expected": {
+    "kind": "chat"
+   },
+   "A_baseNative": {
+    "reasoning": "'thnaks that worked' means continue/advance -> navigate_to to next place.",
+    "functionCalls": [
+     {
+      "name": "navigate_to",
+      "arguments": {
+       "destination": "thnaks"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   "B_tunedPreExport": {
+    "reasoning": "No actionable request; the user is saying thanks.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "No actionable request; the user is saying thanks.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "2.marco-called",
+   "evalId": "neg.call-story",
+   "inTrainingSet": true,
+   "utterance": "Marco called me twice yesterday.",
+   "expected": {
+    "kind": "chat"
+   },
+   "A_baseNative": {
+    "reasoning": "'Marco' -> contact 'Marco'; 'twice yesterday' -> date omitted (defaults to today).",
+    "functionCalls": [
+     {
+      "name": "make_call",
+      "arguments": {
+       "contact": "Marco"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   "B_tunedPreExport": {
+    "reasoning": "No actionable request; the user describes a past call.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "No actionable request; the user describes a past call.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "3.tasker-memory",
+   "evalId": "neg.tasker-memory",
+   "inTrainingSet": true,
+   "utterance": "I used Tasker years ago.",
+   "expected": {
+    "kind": "chat"
+   },
+   "A_baseNative": {
+    "reasoning": "User wants to call a contact named Tasker. 'make_call' with contact 'Tasker'.",
+    "functionCalls": [
+     {
+      "name": "make_call",
+      "arguments": {
+       "contact": "Tasker"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   "B_tunedPreExport": {
+    "reasoning": "No actionable request; Tasker is mentioned, not asked for.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "No actionable request; Tasker is mentioned, not asked for.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "4.woke-at-730",
+   "evalId": "neg.woke-at-730",
+   "inTrainingSet": true,
+   "utterance": "I woke up at 7:30.",
+   "expected": {
+    "kind": "chat"
+   },
+   "A_baseNative": {
+    "reasoning": "'woke up' implies need to check time; '7:30' -> time '07:30'; no label or date given, so only required param filled.",
+    "functionCalls": [
+     {
+      "name": "get_time",
+      "arguments": {
+       "kind": "difference"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   "B_tunedPreExport": {
+    "reasoning": "No actionable request; 7:30 is when the user woke up, not an alarm time.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "No actionable request; 7:30 is when the user woke up, not an alarm time.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "5.start-navigation",
+   "evalId": "slot.navigate.bare",
+   "inTrainingSet": true,
+   "utterance": "Start navigation.",
+   "expected": {
+    "kind": "incomplete",
+    "tool": "navigate_to"
+   },
+   "A_baseNative": {
+    "reasoning": "'Start navigation' -> navigate_to. Destination not specified, use generic 'home' as place.",
+    "functionCalls": [
+     {
+      "name": "navigate_to",
+      "arguments": {
+       "destination": "navigation"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   "B_tunedPreExport": {
+    "reasoning": "Navigation is requested, but the destination is missing.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "Navigation is requested, but the destination is missing.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "6.timer-20",
+   "evalId": "pos.timer.minutes",
+   "inTrainingSet": true,
+   "utterance": "Set a timer for 20 minutes.",
+   "expected": {
+    "kind": "tool",
+    "tool": "set_timer",
+    "arguments": {
+     "minutes": 20
+    }
+   },
+   "A_baseNative": {
+    "reasoning": "Query asks for a timer. minutes 20 from query. No label given.",
+    "functionCalls": [
+     {
+      "name": "set_timer",
+      "arguments": {
+       "minutes": 20.0
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_tunedPreExport": {
+    "reasoning": "The user requests a 20 minute timer.",
+    "functionCalls": [
+     {
+      "name": "set_timer",
+      "arguments": {
+       "minutes": 20
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "The user requests a 20 minute timer.",
+    "functionCalls": [
+     {
+      "name": "set_timer",
+      "arguments": {
+       "minutes": 20.0
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "7.timer-bare",
+   "evalId": "slot.timer.bare",
+   "inTrainingSet": true,
+   "utterance": "Set a timer.",
+   "expected": {
+    "kind": "incomplete",
+    "tool": "set_timer"
+   },
+   "A_baseNative": {
+    "reasoning": "Intended tool: set_timer. Missing required parameter: minutes (no duration given).",
+    "functionCalls": [],
+    "suppressedCalls": [
+     {
+      "name": "set_timer",
+      "arguments": {
+       "minutes": 30.0
+      }
+     }
+    ],
+    "rawOutcome": "suppressed_only",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": false,
+    "pass": true
+   },
+   "B_tunedPreExport": {
+    "reasoning": "A timer is requested, but the duration is missing.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "A timer is requested, but the duration is missing.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "8.stale-call-them",
+   "evalId": "stale.call.other-contact",
+   "inTrainingSet": true,
+   "utterance": "Call them back.",
+   "expected": {
+    "kind": "incomplete",
+    "tool": "make_call"
+   },
+   "A_baseNative": {
+    "reasoning": "make_call with contact 'Marco' from query.",
+    "functionCalls": [
+     {
+      "name": "make_call",
+      "arguments": {
+       "contact": "Marco"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": false,
+    "pass": true
+   },
+   "B_tunedPreExport": {
+    "reasoning": "A call is requested, but no contact is named in this turn.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "A call is requested, but no contact is named in this turn.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "H1.navigate-pos",
+   "evalId": "pos.navigate",
+   "inTrainingSet": false,
+   "utterance": "Navigate to Piazza Garibaldi.",
+   "expected": {
+    "kind": "tool",
+    "tool": "navigate_to",
+    "arguments": {
+     "destination": "Piazza Garibaldi"
+    }
+   },
+   "A_baseNative": {
+    "reasoning": "'Navigate to' -> navigate_to. 'Piazza Garibaldi' -> destination.",
+    "functionCalls": [
+     {
+      "name": "navigate_to",
+      "arguments": {
+       "destination": "Piazza Garibaldi"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_tunedPreExport": {
+    "reasoning": "The user asks for directions to Piazza Garibaldi.",
+    "functionCalls": [
+     {
+      "name": "navigate_to",
+      "arguments": {
+       "destination": "Piazza Garibaldi"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "The user asks for directions to Piazza Garibaldi.",
+    "functionCalls": [
+     {
+      "name": "navigate_to",
+      "arguments": {
+       "destination": "Piazza Garibaldi"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "H2.call-marco-pos",
+   "evalId": "pos.call.contact",
+   "inTrainingSet": false,
+   "utterance": "Call Marco.",
+   "expected": {
+    "kind": "tool",
+    "tool": "make_call",
+    "arguments": {
+     "contact": "Marco"
+    }
+   },
+   "A_baseNative": {
+    "reasoning": "'Call Marco' -> make_call with contact 'Marco'.",
+    "functionCalls": [
+     {
+      "name": "make_call",
+      "arguments": {
+       "contact": "Marco"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_tunedPreExport": {
+    "reasoning": "The user asks to call Marco.",
+    "functionCalls": [
+     {
+      "name": "make_call",
+      "arguments": {
+       "contact": "Marco"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "The user asks to call Marco.",
+    "functionCalls": [
+     {
+      "name": "make_call",
+      "arguments": {
+       "contact": "Marco"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "H3.drive-story",
+   "evalId": "neg.navigate-story",
+   "inTrainingSet": false,
+   "utterance": "The drive to Piazza Garibaldi took forever.",
+   "expected": {
+    "kind": "chat"
+   },
+   "A_baseNative": {
+    "reasoning": "'drive' -> get_time. 'Piazza Garibaldi' -> place. No other params.",
+    "functionCalls": [
+     {
+      "name": "get_time",
+      "arguments": {
+       "place": "Piazza Garibaldi"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   "B_tunedPreExport": {
+    "reasoning": "No actionable request; the user describes a past activity.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "No actionable request; the user describes a past activity.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  },
+  {
+   "probe": "H4.alarm-bare",
+   "evalId": "slot.alarm.bare",
+   "inTrainingSet": false,
+   "utterance": "Wake me up.",
+   "expected": {
+    "kind": "incomplete",
+    "tool": "set_alarm"
+   },
+   "A_baseNative": {
+    "reasoning": "'Wake me up' means set an alarm. No time given, use default. No label given, omit optional.",
+    "functionCalls": [
+     {
+      "name": "set_alarm",
+      "arguments": {
+       "time": "07:00"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": false,
+    "pass": true
+   },
+   "B_tunedPreExport": {
+    "reasoning": "Awake is requested, but no time is given.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "C_tunedCact": {
+    "reasoning": "Awake is requested, but no time is given.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   "B_C_identical": true,
+   "classification": "B correct, C correct"
+  }
+ ],
+ "underfitFirstAttempt": {
+  "note": "200 steps (50 epochs), same LR and LoRA: final loss 0.74; did not reproduce its own training targets even at the exact training prefix, so it could not answer the format question. Kept as a record, superseded by the 1000-step run, never exported.",
+  "adapterSha256": "c5279f09ca4cf11ba27a942cb41e01f009f7cf5c886241245b35ff6652c9b10e",
+  "B_pass": "8/12",
+  "B_rows": [
+   {
+    "probe": "1.typo-thanks",
+    "reasoning": "'thnaks that worked' means continue the conversation -> navigate_to to the current location.",
+    "functionCalls": [
+     {
+      "name": "navigate_to",
+      "arguments": {
+       "destination": "current location"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": false,
+    "pass": true
+   },
+   {
+    "probe": "2.marco-called",
+    "reasoning": "'Marco called me twice yesterday' -> make_call with contact 'Marco'.",
+    "functionCalls": [
+     {
+      "name": "make_call",
+      "arguments": {
+       "contact": "Marco"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   {
+    "probe": "3.tasker-memory",
+    "reasoning": "User is a Tasker and wants to record a time. Need to check Tasker's calendar events to see if he's on time.",
+    "functionCalls": [
+     {
+      "name": "get_calendar_events",
+      "arguments": {
+       "date": ""
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   {
+    "probe": "4.woke-at-730",
+    "reasoning": "User is winding down and wants to record a sleep session. No tool for sleep tracking exists.",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   {
+    "probe": "5.start-navigation",
+    "reasoning": "User wants to start navigation. No destination given, so use default.",
+    "functionCalls": [
+     {
+      "name": "navigate_to",
+      "arguments": {
+       "destination": "home"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": false,
+    "pass": true
+   },
+   {
+    "probe": "6.timer-20",
+    "reasoning": "Query asks for a 20-minute timer. set_timer with minutes 20.",
+    "functionCalls": [
+     {
+      "name": "set_timer",
+      "arguments": {
+       "minutes": 20
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   {
+    "probe": "7.timer-bare",
+    "reasoning": "Intended tool: set_timer. Missing required parameter: minutes (no duration given).",
+    "functionCalls": [],
+    "suppressedCalls": [],
+    "rawOutcome": "no_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   {
+    "probe": "8.stale-call-them",
+    "reasoning": "'call them back' -> make_call. contact 'Marco' from query.",
+    "functionCalls": [
+     {
+      "name": "make_call",
+      "arguments": {
+       "contact": "Marco"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": false,
+    "pass": true
+   },
+   {
+    "probe": "H1.navigate-pos",
+    "reasoning": "'Navigate to' -> navigate_to. 'Piazza Garibaldi' -> destination.",
+    "functionCalls": [
+     {
+      "name": "navigate_to",
+      "arguments": {
+       "destination": "Piazza Garibaldi"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": true,
+    "pass": true
+   },
+   {
+    "probe": "H2.call-marco-pos",
+    "reasoning": "User wants to call Marco. Need contact name first.",
+    "functionCalls": [
+     {
+      "name": "search_contacts",
+      "arguments": {
+       "query": "Marco"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   {
+    "probe": "H3.drive-story",
+    "reasoning": "'drive to Piazza Garibaldi took forever' → get_time with place 'Piazza Garibaldi'.",
+    "functionCalls": [
+     {
+      "name": "get_time",
+      "arguments": {
+       "place": "Piazza Garibaldi"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "executable_action",
+    "rawPass": false,
+    "pass": false
+   },
+   {
+    "probe": "H4.alarm-bare",
+    "reasoning": "'Wake me up' means set an alarm. No time given, so use a reasonable default.",
+    "functionCalls": [
+     {
+      "name": "set_alarm",
+      "arguments": {
+       "time": "07:00",
+       "label": "Wake up"
+      }
+     }
+    ],
+    "suppressedCalls": [],
+    "rawOutcome": "tool_call",
+    "guardedOutcome": "no_executable_action",
+    "rawPass": false,
+    "pass": true
+   }
+  ]
+ },
+ "confirmationSubset": {
+  "_note": "14 eval cases the diagnostic set does not mirror (train/diagnostic/confirm-subset.json), native path only. A spot check, not a metric of record.",
+  "baseNative": {
+   "label": "confirm-local-base-reexport-3bde318ede18",
+   "pass": "11/14",
+   "rawPass": "7/14",
+   "rows": [
+    {
+     "probe": "c.pos.timer-hours",
+     "reasoning": "'two hours' -> minutes 120; no label given, omit optional label.",
+     "functionCalls": [
+      {
+       "name": "set_timer",
+       "arguments": {
+        "minutes": 120.0
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.alarm-time",
+     "reasoning": "'7:30 tomorrow' -> time '07:30'. No label given, omit optional.",
+     "functionCalls": [
+      {
+       "name": "set_alarm",
+       "arguments": {
+        "time": "07:30"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.reminder",
+     "reasoning": "'Remind me' -> set_reminder. 'call the dentist' -> text. '3pm' -> date '15:00'.",
+     "functionCalls": [
+      {
+       "name": "set_reminder",
+       "arguments": {
+        "text": "call the dentist",
+        "datetime": "15:00"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.sms",
+     "reasoning": "Query asks to send SMS. contact 'Marco' from query, text 'I'm running late' from query.",
+     "functionCalls": [
+      {
+       "name": "send_sms",
+       "arguments": {
+        "contact": "Marco",
+        "text": "I'm running late"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.contacts",
+     "reasoning": "User asks for Marco's number. Use search_contacts with query 'Marco'.",
+     "functionCalls": [
+      {
+       "name": "search_contacts",
+       "arguments": {
+        "query": "Marco"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.calendar",
+     "reasoning": "User asks for calendar events. get_calendar_events with no date parameter returns today's events.",
+     "functionCalls": [
+      {
+       "name": "get_calendar_events",
+       "arguments": {}
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.time-tokyo",
+     "reasoning": "User asks for current time in Tokyo. Use get_time with place 'Tokyo'.",
+     "functionCalls": [
+      {
+       "name": "get_time",
+       "arguments": {
+        "place": "Tokyo"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": false,
+     "pass": false
+    },
+    {
+     "probe": "c.stale.correction",
+     "reasoning": "Quote is reported content, ignored. User wants a 10-minute timer. minutes=10 from query. label omitted.",
+     "functionCalls": [
+      {
+       "name": "set_timer",
+       "arguments": {
+        "minutes": 10.0
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.neg.cat-name",
+     "reasoning": "'Monday is a terrible name' → get_calendar_events with date 'monday'.",
+     "functionCalls": [
+      {
+       "name": "get_calendar_events",
+       "arguments": {
+        "date": "monday"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": false,
+     "pass": false
+    },
+    {
+     "probe": "c.neg.alarm-complaint",
+     "reasoning": "User wants to set an alarm. 'alarm didn't go off' implies need for a new alarm. No specific time given, so use a reasonable default. No label given, omit optional.",
+     "functionCalls": [
+      {
+       "name": "set_alarm",
+       "arguments": {
+        "time": "07:00",
+        "date": "yesterday"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": false,
+     "pass": true
+    },
+    {
+     "probe": "c.neg.sms-complaint",
+     "reasoning": "'he never texts me back' means go back -> navigate_to with destination 'home' as place.",
+     "functionCalls": [
+      {
+       "name": "navigate_to",
+       "arguments": {
+        "destination": "home"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": false,
+     "pass": true
+    },
+    {
+     "probe": "c.neg.negation-call",
+     "reasoning": "'Don't call Marco' -> make_call with contact 'Marco'.",
+     "functionCalls": [],
+     "suppressedCalls": [
+      {
+       "name": "make_call",
+       "arguments": {
+        "contact": "Marco"
+       }
+      }
+     ],
+     "rawOutcome": "suppressed_only",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": false,
+     "pass": true
+    },
+    {
+     "probe": "c.slot.call-bare",
+     "reasoning": "'Make a call' -> make_call. No contact named, use default.",
+     "functionCalls": [
+      {
+       "name": "make_call",
+       "arguments": {
+        "contact": ""
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": false,
+     "pass": true
+    },
+    {
+     "probe": "c.slot.sms-no-text",
+     "reasoning": "'Send Marco a text' -> send_sms. contact 'Marco', text 'a text'.",
+     "functionCalls": [
+      {
+       "name": "send_sms",
+       "arguments": {
+        "contact": "Marco",
+        "text": "a text"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": false,
+     "pass": false
+    }
+   ]
+  },
+  "tunedCactNative": {
+   "label": "confirm-diagnostic-reasoning-aligned-r1-s1000",
+   "pass": "12/14",
+   "rawPass": "12/14",
+   "rows": [
+    {
+     "probe": "c.pos.timer-hours",
+     "reasoning": "A timer is requested, but the duration is missing.",
+     "functionCalls": [],
+     "suppressedCalls": [],
+     "rawOutcome": "no_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": false,
+     "pass": false
+    },
+    {
+     "probe": "c.pos.alarm-time",
+     "reasoning": "The user requests an alarm at 07:30.",
+     "functionCalls": [
+      {
+       "name": "set_alarm",
+       "arguments": {
+        "time": "07:30"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.reminder",
+     "reasoning": "The user asks to be reminded to call the dentist at 15:00.",
+     "functionCalls": [
+      {
+       "name": "set_reminder",
+       "arguments": {
+        "text": "call the dentist",
+        "datetime": "15:00"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.sms",
+     "reasoning": "The user asks to text Marco the message 'I'm running late'.",
+     "functionCalls": [
+      {
+       "name": "send_sms",
+       "arguments": {
+        "contact": "Marco",
+        "text": "I'm running late"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.contacts",
+     "reasoning": "The user asks for Marco's number.",
+     "functionCalls": [
+      {
+       "name": "search_contacts",
+       "arguments": {
+        "query": "Marco"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.calendar",
+     "reasoning": "The user asks for calendar events.",
+     "functionCalls": [
+      {
+       "name": "get_calendar_events",
+       "arguments": {}
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.pos.time-tokyo",
+     "reasoning": "The user asks for the current time in Tokyo.",
+     "functionCalls": [
+      {
+       "name": "get_time",
+       "arguments": {
+        "place": "Tokyo"
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": false,
+     "pass": false
+    },
+    {
+     "probe": "c.stale.correction",
+     "reasoning": "The user corrects the pending timer to 10 minutes.",
+     "functionCalls": [
+      {
+       "name": "set_timer",
+       "arguments": {
+        "minutes": 10.0
+       }
+      }
+     ],
+     "suppressedCalls": [],
+     "rawOutcome": "tool_call",
+     "guardedOutcome": "executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.neg.cat-name",
+     "reasoning": "No actionable request; Monday is a day, not an alarm time.",
+     "functionCalls": [],
+     "suppressedCalls": [],
+     "rawOutcome": "no_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.neg.alarm-complaint",
+     "reasoning": "No actionable request; the user describes a past alarm.",
+     "functionCalls": [],
+     "suppressedCalls": [],
+     "rawOutcome": "no_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.neg.sms-complaint",
+     "reasoning": "No actionable request; the user is asking to notify them of past messages.",
+     "functionCalls": [],
+     "suppressedCalls": [],
+     "rawOutcome": "no_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.neg.negation-call",
+     "reasoning": "No actionable request; the user is asking to notify a contact named Marco.",
+     "functionCalls": [],
+     "suppressedCalls": [],
+     "rawOutcome": "no_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.slot.call-bare",
+     "reasoning": "A call is requested, but the contact and number are missing.",
+     "functionCalls": [],
+     "suppressedCalls": [],
+     "rawOutcome": "no_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": true,
+     "pass": true
+    },
+    {
+     "probe": "c.slot.sms-no-text",
+     "reasoning": "A text is requested, but the contact and message are missing.",
+     "functionCalls": [],
+     "suppressedCalls": [],
+     "rawOutcome": "no_call",
+     "guardedOutcome": "no_executable_action",
+     "rawPass": true,
+     "pass": true
+    }
+   ]
+  }
+ },
+ "phase1Evidence": {
+  "nativePrefixTokens": [
+   {
+    "case": "sys+1tool",
+    "toolsJson": "default",
+    "nativePrefixTokens": 116,
+    "pythonRenderPrefixTokens": 154
+   },
+   {
+    "case": "sys+1tool",
+    "toolsJson": "compact",
+    "nativePrefixTokens": 116,
+    "pythonRenderPrefixTokens": 117
+   },
+   {
+    "case": "sys+1tool",
+    "toolsJson": "compact-sorted",
+    "nativePrefixTokens": 116,
+    "pythonRenderPrefixTokens": 117
+   },
+   {
+    "case": "sys+3tools",
+    "toolsJson": "default",
+    "nativePrefixTokens": 253,
+    "pythonRenderPrefixTokens": 375
+   },
+   {
+    "case": "sys+3tools",
+    "toolsJson": "compact",
+    "nativePrefixTokens": 253,
+    "pythonRenderPrefixTokens": 254
+   },
+   {
+    "case": "sys+3tools",
+    "toolsJson": "compact-sorted",
+    "nativePrefixTokens": 253,
+    "pythonRenderPrefixTokens": 254
+   },
+   {
+    "case": "sys+5tools",
+    "toolsJson": "default",
+    "nativePrefixTokens": 363,
+    "pythonRenderPrefixTokens": 543
+   },
+   {
+    "case": "sys+5tools",
+    "toolsJson": "compact",
+    "nativePrefixTokens": 363,
+    "pythonRenderPrefixTokens": 364
+   },
+   {
+    "case": "sys+5tools",
+    "toolsJson": "compact-sorted",
+    "nativePrefixTokens": 363,
+    "pythonRenderPrefixTokens": 364
+   },
+   {
+    "case": "nosys+5tools",
+    "toolsJson": "default",
+    "nativePrefixTokens": 328,
+    "pythonRenderPrefixTokens": 508
+   },
+   {
+    "case": "nosys+5tools",
+    "toolsJson": "compact",
+    "nativePrefixTokens": 328,
+    "pythonRenderPrefixTokens": 329
+   },
+   {
+    "case": "nosys+5tools",
+    "toolsJson": "compact-sorted",
+    "nativePrefixTokens": 328,
+    "pythonRenderPrefixTokens": 329
+   },
+   {
+    "case": "sys+6tools",
+    "toolsJson": "default",
+    "nativePrefixTokens": 409,
+    "pythonRenderPrefixTokens": 614
+   },
+   {
+    "case": "sys+6tools",
+    "toolsJson": "compact",
+    "nativePrefixTokens": 409,
+    "pythonRenderPrefixTokens": 410
+   },
+   {
+    "case": "sys+6tools",
+    "toolsJson": "compact-sorted",
+    "nativePrefixTokens": 409,
+    "pythonRenderPrefixTokens": 410
+   },
+   {
+    "case": "sys+11tools",
+    "toolsJson": "default",
+    "nativePrefixTokens": 715,
+    "pythonRenderPrefixTokens": 1066
+   },
+   {
+    "case": "sys+11tools",
+    "toolsJson": "compact",
+    "nativePrefixTokens": 715,
+    "pythonRenderPrefixTokens": 716
+   },
+   {
+    "case": "sys+11tools",
+    "toolsJson": "compact-sorted",
+    "nativePrefixTokens": 711,
+    "pythonRenderPrefixTokens": 712
+   }
+  ],
+  "prefixNote": "needle_init's count ignores the caller's tools-JSON whitespace but follows its key order: it equals the trainer's rendering of the COMPACT tools JSON, in the caller's key order, minus 1, in every configuration (11 tools: native 715 insertion order / 711 key-sorted; trainer 716 / 712 compact, 1066 spaced as r1/r2 trained).",
+  "baseOpener": {
+   "python_think": "7/12",
+   "python_none": "7/12",
+   "note": "base weights + compact tools + '<think>\\n' reproduce the native base reasoning text verbatim on 2,6,7,8,H1,H2,H3"
+  },
+  "r2": {
+   "_note": "r2 without an opener goes straight to <tool_call> on 5,6,7,H1,H2, yet native r2 returns reasoning identical to the forced-'<think>' python run: the engine forces the reasoning phase.",
+   "native": {
+    "label": "r2-native",
+    "pass": "6/12",
+    "rawPass": "3/12",
+    "rows": [
+     {
+      "probe": "1.typo-thanks",
+      "reasoning": "'thnaks that worked' means continue/advance -> navigate_to with destination 'thnaks'",
+      "functionCalls": [
+       {
+        "name": "navigate_to",
+        "arguments": {
+         "destination": "thnaks"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "2.marco-called",
+      "reasoning": "'Marco' -> contact 'Marco'. 'twice yesterday' -> date omitted (defaults to today).",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Marco"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "3.tasker-memory",
+      "reasoning": "User wants to call a contact named Tasker. Use make_call with contact name.",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Tasker"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "4.woke-at-730",
+      "reasoning": "'woke up' -> set_alarm. '7:30' -> time '07:30'. No label or date given, so only required param set.",
+      "functionCalls": [
+       {
+        "name": "set_alarm",
+        "arguments": {
+         "time": "07:30"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "5.start-navigation",
+      "reasoning": "'Start navigation' -> navigate_to. Destination 'home' from context.",
+      "functionCalls": [
+       {
+        "name": "navigate_to",
+        "arguments": {
+         "destination": "navigation"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "6.timer-20",
+      "reasoning": "Query asks for a timer. '20 minutes' -> minutes 20. No label given, omit optional label.",
+      "functionCalls": [
+       {
+        "name": "set_timer",
+        "arguments": {
+         "minutes": 20.0
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "7.timer-bare",
+      "reasoning": "Intended tool: set_timer. Missing required parameter: minutes (no duration given).",
+      "functionCalls": [],
+      "suppressedCalls": [
+       {
+        "name": "set_timer",
+        "arguments": {
+         "minutes": 0.0
+        }
+       }
+      ],
+      "rawOutcome": "suppressed_only",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     },
+     {
+      "probe": "8.stale-call-them",
+      "reasoning": "make_call with contact 'Marco' from query.",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Marco"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     },
+     {
+      "probe": "H1.navigate-pos",
+      "reasoning": "'Navigate to' -> navigate_to. 'Piazza Garibaldi' -> destination.",
+      "functionCalls": [
+       {
+        "name": "navigate_to",
+        "arguments": {
+         "destination": "Piazza Garibaldi"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "H2.call-marco-pos",
+      "reasoning": "'Call Marco' -> make_call with contact 'Marco'.",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Marco"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "H3.drive-story",
+      "reasoning": "'drive' -> get_time. 'Piazza Garibaldi' -> place. No other params.",
+      "functionCalls": [
+       {
+        "name": "get_time",
+        "arguments": {
+         "place": "Piazza Garibaldi"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "H4.alarm-bare",
+      "reasoning": "'Wake me up' means set an alarm. No time given, use default. No label given, omit optional param.",
+      "functionCalls": [
+       {
+        "name": "set_alarm",
+        "arguments": {
+         "time": "07:00"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     }
+    ]
+   },
+   "py_none_spaced_trainedFormat": {
+    "label": "r2-py-none-spaced",
+    "pass": "9/12",
+    "rawPass": "9/12",
+    "rows": [
+     {
+      "probe": "1.typo-thanks",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "2.marco-called",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "3.tasker-memory",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "4.woke-at-730",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "5.start-navigation",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "6.timer-20",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "7.timer-bare",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "8.stale-call-them",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "H1.navigate-pos",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "H2.call-marco-pos",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "H3.drive-story",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "H4.alarm-bare",
+      "reasoning": null,
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     }
+    ]
+   },
+   "py_none_compact": {
+    "label": "r2-py-none-compact",
+    "pass": "7/12",
+    "rawPass": "3/12",
+    "rows": [
+     {
+      "probe": "1.typo-thanks",
+      "reasoning": "'thnaks that worked' means continue/advance -> navigate_to to advance to next item.",
+      "functionCalls": [
+       {
+        "name": "navigate_to",
+        "arguments": {
+         "destination": "next item"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     },
+     {
+      "probe": "2.marco-called",
+      "reasoning": "'Marco' -> contact 'Marco'. 'twice yesterday' -> date omitted (defaults to today).",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Marco"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "3.tasker-memory",
+      "reasoning": "User wants to call a contact named Tasker. Use make_call with contact name.",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Tasker"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "4.woke-at-730",
+      "reasoning": "'woke up' -> set_alarm. '7:30' -> time '07:30'. No date or label given, so omit optional params.",
+      "functionCalls": [
+       {
+        "name": "set_alarm",
+        "arguments": {
+         "time": "07:30"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "5.start-navigation",
+      "reasoning": null,
+      "functionCalls": [
+       {
+        "name": "start_navigation",
+        "arguments": {
+         "destination": "home",
+         "mode": "driving"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "malformed",
+      "guardedOutcome": "malformed",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "6.timer-20",
+      "reasoning": "Timer set; now initiating a phone call to a contact.",
+      "functionCalls": [
+       {
+        "name": "set_timer",
+        "arguments": {
+         "minutes": 20
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "7.timer-bare",
+      "reasoning": "Timer set; now initiating a phone call to a contact.",
+      "functionCalls": [
+       {
+        "name": "set_timer",
+        "arguments": {
+         "minutes": 45
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     },
+     {
+      "probe": "8.stale-call-them",
+      "reasoning": "make_call with contact 'Marco' from query.",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Marco"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     },
+     {
+      "probe": "H1.navigate-pos",
+      "reasoning": "earlier set_timer 45 minutes 'pasta'; 'change to 60 minutes",
+      "functionCalls": [
+       {
+        "name": "navigate_to",
+        "arguments": {
+         "destination": "Piazza Garibaldi"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "H2.call-marco-pos",
+      "reasoning": "earlier set_timer 45 minutes 'pasta'; 'change to 20 minutes' -> minutes 20, label unchanged",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Marco"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "H3.drive-story",
+      "reasoning": "'drive' -> get_time. 'Piazza Garibaldi' -> place. No other params.",
+      "functionCalls": [
+       {
+        "name": "get_time",
+        "arguments": {
+         "place": "Piazza Garibaldi"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "H4.alarm-bare",
+      "reasoning": "'Wake me up' means set an alarm. No time given, use default. No label given, omit optional param.",
+      "functionCalls": [
+       {
+        "name": "set_alarm",
+        "arguments": {
+         "time": "07:00",
+         "date": "today"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     }
+    ]
+   },
+   "py_think_compact": {
+    "label": "r2-py-think-compact",
+    "pass": "7/12",
+    "rawPass": "4/12",
+    "rows": [
+     {
+      "probe": "1.typo-thanks",
+      "reasoning": "'thnaks that worked' means continue/advance -> navigate_to with destination 'that worked'",
+      "functionCalls": [
+       {
+        "name": "navigate_to",
+        "arguments": {
+         "destination": "that worked"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "2.marco-called",
+      "reasoning": "'Marco' -> contact 'Marco'. 'twice yesterday' -> date omitted (defaults to today).",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Marco"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "3.tasker-memory",
+      "reasoning": "User wants to call a contact named Tasker. Use make_call with contact name.",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Tasker"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "4.woke-at-730",
+      "reasoning": "'woke up' -> set_alarm. '7:30' -> time '07:30'. No label or date given, so only required param filled.",
+      "functionCalls": [
+       {
+        "name": "set_alarm",
+        "arguments": {
+         "time": "07:30"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "5.start-navigation",
+      "reasoning": "'Start navigation' -> navigate_to. Destination 'home' from context.",
+      "functionCalls": [
+       {
+        "name": "navigate_to",
+        "arguments": {
+         "destination": "home"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     },
+     {
+      "probe": "6.timer-20",
+      "reasoning": "Query asks for a timer. minutes 20 from query. No label given.",
+      "functionCalls": [
+       {
+        "name": "set_timer",
+        "arguments": {
+         "minutes": 20
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "7.timer-bare",
+      "reasoning": "Intended tool: set_timer. Missing required parameter: minutes (no duration given).",
+      "functionCalls": [],
+      "suppressedCalls": [],
+      "rawOutcome": "no_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "8.stale-call-them",
+      "reasoning": "'call them back' -> make_call. contact 'Marco' from query.",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Marco"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     },
+     {
+      "probe": "H1.navigate-pos",
+      "reasoning": "'Navigate to' -> navigate_to. 'Piazza Garibaldi' -> destination.",
+      "functionCalls": [
+       {
+        "name": "navigate_to",
+        "arguments": {
+         "destination": "Piazza Garibaldi"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "H2.call-marco-pos",
+      "reasoning": "'Call Marco' -> make_call with contact 'Marco'.",
+      "functionCalls": [
+       {
+        "name": "make_call",
+        "arguments": {
+         "contact": "Marco"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": true,
+      "pass": true
+     },
+     {
+      "probe": "H3.drive-story",
+      "reasoning": "'drive to Piazza Garibaldi' -> get_time with place 'Piazza Garibaldi'. No other tool fits.",
+      "functionCalls": [
+       {
+        "name": "get_time",
+        "arguments": {
+         "place": "Piazza Garibaldi"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "executable_action",
+      "rawPass": false,
+      "pass": false
+     },
+     {
+      "probe": "H4.alarm-bare",
+      "reasoning": "'Wake me up' means set an alarm. No time given, use default. No label given, omit optional param.",
+      "functionCalls": [
+       {
+        "name": "set_alarm",
+        "arguments": {
+         "time": "07:00",
+         "date": "today"
+        }
+       }
+      ],
+      "suppressedCalls": [],
+      "rawOutcome": "tool_call",
+      "guardedOutcome": "no_executable_action",
+      "rawPass": false,
+      "pass": true
+     }
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,19 @@
+{
+  "_status": "Phase 6 confirmation subset. Eval cases the diagnostic training set does NOT mirror (it mirrors neg.typo.thanks, neg.call-story, neg.tasker-memory, neg.woke-at-730, slot.navigate.bare, pos.timer.minutes, slot.timer.bare, stale.call.other-contact and, by utterance, stale.timer.prior-turn). Weighted toward positives because over-refusal is the risk a no-action-heavy adapter carries. 14 of the 64 cases; not an eval report.",
+  "probes": [
+    {"key": "c.pos.timer-hours", "evalId": "pos.timer.hours"},
+    {"key": "c.pos.alarm-time", "evalId": "pos.alarm.time"},
+    {"key": "c.pos.reminder", "evalId": "pos.reminder.both"},
+    {"key": "c.pos.sms", "evalId": "pos.sms.both"},
+    {"key": "c.pos.contacts", "evalId": "pos.contacts.search"},
+    {"key": "c.pos.calendar", "evalId": "pos.calendar.today"},
+    {"key": "c.pos.time-tokyo", "evalId": "pos.time.elsewhere"},
+    {"key": "c.stale.correction", "evalId": "stale.correction.duration"},
+    {"key": "c.neg.cat-name", "evalId": "neg.cat-name"},
+    {"key": "c.neg.alarm-complaint", "evalId": "neg.alarm-complaint"},
+    {"key": "c.neg.sms-complaint", "evalId": "neg.sms-complaint"},
+    {"key": "c.neg.negation-call", "evalId": "neg.negation.call"},
+    {"key": "c.slot.call-bare", "evalId": "slot.call.bare"},
+    {"key": "c.slot.sms-no-text", "evalId": "slot.sms.no-text"}
+  ]
+}

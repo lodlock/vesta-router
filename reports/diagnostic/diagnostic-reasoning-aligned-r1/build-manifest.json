@@ -1,0 +1,60 @@
+{
+  "_status": "DIAGNOSTIC BUILD RECORD. Not a candidate, not promoted, not promotable: the training set mirrors nine data/eval cases on purpose.",
+  "manifestKind": "diagnostic-build-record",
+  "manifestVersion": 1,
+  "diagnosticId": "diagnostic-reasoning-aligned-r1",
+  "generatedAt": "2026-09-23",
+  "promoted": false,
+  "config": "train/config/diagnostic-reasoning-aligned-r1.yaml",
+  "baseCheckpoint": {
+    "path": "checkpoints/needle3.safetensors",
+    "sha256": "c234c70dccc7a9115e7c41ac2e41d3655fea3b85c245dd898b46179fb90c6c0c"
+  },
+  "dataset": {
+    "cases": "train/diagnostic/cases/reasoning-aligned-r1.jsonl",
+    "casesSha256": "9b9e696b8cf2eed3db98685c594c588e9ec6e5a41e8ea63675ed54c0685b118a",
+    "examples": 32,
+    "renderedJsonl": "artifacts/diagnostic-reasoning-aligned-r1.jsonl",
+    "renderedJsonlSha256": "0bc550b372c5ec0aec2fb314f159c39a8e99cf3d9c5786a10587ae374a8082d5"
+  },
+  "training": {
+    "command": "XLA_PYTHON_CLIENT_ALLOCATOR=cuda_async NEEDLE_TELEMETRY=0 needle finetune artifacts/diagnostic-reasoning-aligned-r1.jsonl --checkpoint checkpoints/needle3.safetensors --epochs 250 --batch-size 8 --lr 1e-4 --lora-rank 16 --lora-alpha 32 --max-len 1280 --val-split 0 --seed 20260922 --checkpoint-dir checkpoints --out artifacts/diagnostic-reasoning-aligned-r1-s1000-adapter.safetensors",
+    "steps": 1000,
+    "finalLoss": 0.001,
+    "wallS": 644.5,
+    "backend": "jax gpu float32 (log: 'backend   gpu  float32')",
+    "adapterSha256": "6faf6b842fd93a9b6e133b7bc70810b0e06d578a069d85b2e7c184c6b8809de0",
+    "adapterSizeBytes": 7906608,
+    "supersededFirstAttempt": {
+      "steps": 200,
+      "finalLoss": 0.7424,
+      "wallS": 166.8,
+      "adapterSha256": "c5279f09ca4cf11ba27a942cb41e01f009f7cf5c886241245b35ff6652c9b10e",
+      "exported": false
+    }
+  },
+  "artifact": {
+    "path": "artifacts/diagnostic-reasoning-aligned-r1-s1000.cact",
+    "sha256": "7d1edb86c99c5439fbcc0d1baec113937d100b03bd1d98deb28d87647e7b91bc",
+    "sizeBytes": 63437076,
+    "tensors": 574,
+    "numerics": "W4A8",
+    "confidenceHead": "dropped",
+    "buildCommand": "JAX_PLATFORMS=cpu needle build checkpoints/needle3.safetensors --lora artifacts/diagnostic-reasoning-aligned-r1-s1000-adapter.safetensors --out artifacts/diagnostic-reasoning-aligned-r1-s1000.cact"
+  },
+  "environment": {
+    "platform": "WSL2 Ubuntu (Linux 6.18.33.2-microsoft-standard-WSL2)",
+    "gpu": "NVIDIA GeForce RTX 5070 Ti",
+    "env": { "XLA_PYTHON_CLIENT_ALLOCATOR": "cuda_async", "NEEDLE_TELEMETRY": "0" },
+    "packages": { "cactus-needle (trainer, exporter)": "3.0.5", "jax": "0.11.2", "jaxlib": "0.11.2", "flax": "0.12.9", "optax": "0.2.8", "numpy": "2.5.3" },
+    "servingRuntime": "cactus-needle 3.0.1 wrapper (checkout f189b23) + libneedle.so 3.0.1 (sha256 978fce130aac08af506b5fe8bb2950da58e9479d0de69d972d9bd69db953568d)"
+  },
+  "result": {
+    "probeReport": "reports/diagnostic/diagnostic-reasoning-aligned-r1/probe-report.json",
+    "A_baseNative": "6/12",
+    "B_tunedPreExport": "12/12",
+    "C_tunedCactNative": "12/12",
+    "classification": "B correct, C correct on every probe; B and C identical",
+    "confirmationSubset": { "baseNative": "11/14", "tunedCactNative": "12/14", "overRefusal": ["pos.timer.hours"] }
+  }
+}

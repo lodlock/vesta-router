@@ -1,0 +1,19 @@
+{
+  "_status": "DIAGNOSTIC PROBES. Not an eval corpus and not a metric of record. Every probe is an existing data/eval case, referenced by id so its expectation is the eval corpus's own, never restated.",
+  "_inSet": "The first eight probes are ALSO in the diagnostic training set on purpose (the diagnostic intentionally overfits them: the question is format alignment, not generalisation). Any adapter trained on train/diagnostic/*.jsonl is contaminated for these eval ids and must never be scored on data/eval as a candidate.",
+  "_heldOut": "The last four are NOT in the diagnostic training set. They separate 'the serving path consumes the tuned behaviour' from 'the adapter memorised eight strings', and two of them are the positives most exposed to over-refusal after training 'Start navigation.' and 'Marco called me...' toward no call.",
+  "probes": [
+    {"key": "1.typo-thanks", "evalId": "neg.typo.thanks", "inTrainingSet": true},
+    {"key": "2.marco-called", "evalId": "neg.call-story", "inTrainingSet": true},
+    {"key": "3.tasker-memory", "evalId": "neg.tasker-memory", "inTrainingSet": true},
+    {"key": "4.woke-at-730", "evalId": "neg.woke-at-730", "inTrainingSet": true},
+    {"key": "5.start-navigation", "evalId": "slot.navigate.bare", "inTrainingSet": true},
+    {"key": "6.timer-20", "evalId": "pos.timer.minutes", "inTrainingSet": true},
+    {"key": "7.timer-bare", "evalId": "slot.timer.bare", "inTrainingSet": true},
+    {"key": "8.stale-call-them", "evalId": "stale.call.other-contact", "inTrainingSet": true},
+    {"key": "H1.navigate-pos", "evalId": "pos.navigate", "inTrainingSet": false},
+    {"key": "H2.call-marco-pos", "evalId": "pos.call.contact", "inTrainingSet": false},
+    {"key": "H3.drive-story", "evalId": "neg.navigate-story", "inTrainingSet": false},
+    {"key": "H4.alarm-bare", "evalId": "slot.alarm.bare", "inTrainingSet": false}
+  ]
+}

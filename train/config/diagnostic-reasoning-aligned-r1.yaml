@@ -1,0 +1,104 @@
+# The configuration of ONE diagnostic fine-tune: diagnostic-reasoning-aligned-r1.
+#
+# STATUS: DIAGNOSTIC. Not r3, not a candidate, not promotable. Its training set
+# contains nine data/eval utterances ON PURPOSE (it overfits the probes it is
+# measured on), so it must never be scored on data/eval as a candidate.
+#
+# Question: does training in the engine's own decoding format carry the tuned
+# act / don't-act behaviour through the normal serving path?
+#
+# Relative to candidate-r2 the LoRA shape, numerics, learning rate, batch size,
+# max-len and seed are unchanged. What changes is the data (32 hand-written
+# examples, train/diagnostic/cases) and its FORMAT, in three ways, each measured
+# against the native engine rather than assumed:
+#
+#   1. reasoning   every example has one short line; the trainer wraps it in
+#                  "<think>\n...\n</think>\n". The engine forces that phase on
+#                  every turn (r2's own weights skip it unforced, yet the engine
+#                  returns reasoning identical to a forced-<think> decode).
+#   2. tools JSON  compact separators. needle_init reports 715 prefix tokens for
+#                  schema v2 whatever whitespace the caller's JSON has; r1/r2
+#                  training embedded the spaced string (1066 tokens).
+#   3. key order   not sorted. The engine keeps the caller's key order (715
+#                  insertion order vs 711 sorted); the base emits
+#                  {"name":...,"arguments":...}. r1/r2 sorted, so they learned
+#                  {"arguments":...,"name":...}.
+
+name: diagnostic-reasoning-aligned-r1
+status: diagnostic
+
+data:
+  cases: train/diagnostic/cases/reasoning-aligned-r1.jsonl   # 32 cases, each with `reasoning`
+  cases_sha256: 9b9e696b8cf2eed3db98685c594c588e9ec6e5a41e8ea63675ed54c0685b118a
+  by_outcome: { tool: 12, chat: 10, incomplete: 8, cancel: 2 }
+  tool_schema: tools/tool-schema-v2.json
+  renderer: train/diagnostic/build_dataset.py
+  rendered_jsonl: artifacts/diagnostic-reasoning-aligned-r1.jsonl
+  rendered_jsonl_sha256: 0bc550b372c5ec0aec2fb314f159c39a8e99cf3d9c5786a10587ae374a8082d5
+  rendered_tokens: { min: 734, max: 790 }      # static prefix 716 incl. BOS = engine's 715 + BOS
+  mirrors_eval_ids:                            # deliberate contamination
+    - neg.typo.thanks
+    - neg.call-story
+    - neg.tasker-memory
+    - neg.woke-at-730
+    - slot.navigate.bare
+    - pos.timer.minutes
+    - slot.timer.bare
+    - stale.call.other-contact
+    - stale.timer.prior-turn                   # same utterance, different history
+  held_out_probe_eval_ids: [pos.navigate, pos.call.contact, neg.navigate-story, slot.alarm.bare]
+
+base_model:
+  checkpoint: checkpoints/needle3.safetensors
+  checkpoint_sha256: c234c70dccc7a9115e7c41ac2e41d3655fea3b85c245dd898b46179fb90c6c0c
+  layers: 20
+
+# ── Fine-tune, exactly as invoked ────────────────────────────────────────────
+#
+#   XLA_PYTHON_CLIENT_ALLOCATOR=cuda_async NEEDLE_TELEMETRY=0 \
+#   needle finetune artifacts/diagnostic-reasoning-aligned-r1.jsonl \
+#     --checkpoint checkpoints/needle3.safetensors \
+#     --epochs 250 --batch-size 8 --lr 1e-4 \
+#     --lora-rank 16 --lora-alpha 32 \
+#     --max-len 1280 --val-split 0 --seed 20260922 \
+#     --checkpoint-dir checkpoints \
+#     --out artifacts/diagnostic-reasoning-aligned-r1-s1000-adapter.safetensors
+
+fine_tune:
+  method: lora
+  rank: 16
+  alpha: 32
+  learning_rate: 1.0e-4
+  batch_size: 8
+  seed: 20260922
+  max_len: 1280                     # trainer fitted seq_len 1024
+  val_split: 0                      # 32 examples; every one is trained, and the probes are the measurement
+  epochs: 250
+  steps: 1000                       # 4 per epoch; warmup 50, cosine decay, clip 1.0
+  loss_by_epoch: { 25: 1.3447, 50: 0.3380, 75: 0.1235, 100: 0.0134, 150: 0.0021, 200: 0.0017, 250: 0.0010 }
+  wall_s: 644.5
+  device: GPU (RTX 5070 Ti, WSL2), JAX 0.11.2 cuda12, backend gpu float32
+  trainer: cactus-needle 3.0.5
+  adapter: artifacts/diagnostic-reasoning-aligned-r1-s1000-adapter.safetensors
+  adapter_sha256: 6faf6b842fd93a9b6e133b7bc70810b0e06d578a069d85b2e7c184c6b8809de0
+
+  first_attempt:
+    # Same everything, --epochs 50 (200 steps, warmup 10), 166.8 s wall.
+    # Final loss 0.74; it did not reproduce its own training targets at the
+    # exact training prefix, so it could not answer a format question.
+    # Superseded, not exported, kept for the record.
+    adapter: artifacts/diagnostic-reasoning-aligned-r1-s200-adapter.safetensors
+    adapter_sha256: c5279f09ca4cf11ba27a942cb41e01f009f7cf5c886241245b35ff6652c9b10e
+
+export:
+  command: JAX_PLATFORMS=cpu needle build checkpoints/needle3.safetensors --lora artifacts/diagnostic-reasoning-aligned-r1-s1000-adapter.safetensors --out artifacts/diagnostic-reasoning-aligned-r1-s1000.cact
+  artifact_sha256: 7d1edb86c99c5439fbcc0d1baec113937d100b03bd1d98deb28d87647e7b91bc
+  size_bytes: 63437076
+  tensors: 574
+  numerics: W4A8, confidence head dropped
+
+probes:
+  driver: train/diagnostic/probe.py
+  probes: train/diagnostic/probes.json
+  confirmation_subset: train/diagnostic/confirm-subset.json
+  report: reports/diagnostic/diagnostic-reasoning-aligned-r1/probe-report.json
