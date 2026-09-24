@@ -1,0 +1,2592 @@
+{
+  "_status": "DIAGNOSTIC CONTROL. Not an eval report, not a candidate, not promotable. Trained on the same 32 cases as diagnostic-reasoning-aligned-r1 (9 mirror data/eval utterances on purpose).",
+  "diagnosticId": "diagnostic-compact-no-reasoning-r1",
+  "question": "Was reasoning necessary for the diagnostic improvement, or was serving-format serialization (compact tools JSON, unsorted name-first calls) alone sufficient?",
+  "metricDefinitions": {
+    "correct": "probe.py pass (tool: full_call_exact and executable; otherwise guarded no_executable_action)",
+    "falseActions": "expected no call, guarded outcome executable_action",
+    "overRefusals": "expected tool, guarded outcome not executable_action",
+    "wrongTool": "expected tool, executable, expected tool name absent",
+    "exactArgs": "expected-tool probes with exact call / expected-tool probes"
+  },
+  "stagesNative": {
+    "A": {
+      "what": "local base re-export, native serving path",
+      "artifactSha256": "3bde318ede183eb06eb65524c9139f83d749e929f46feadfe516cefa3c8e8863",
+      "primary": {
+        "label": "A-native-primary",
+        "correct": "6/12",
+        "rawCorrect": "3/12",
+        "falseActions": 6,
+        "overRefusals": 0,
+        "wrongTool": 0,
+        "exactArgs": "3/3",
+        "argMismatch": 0,
+        "rows": [
+          {
+            "probe": "1.typo-thanks",
+            "evalId": "neg.typo.thanks",
+            "utterance": "thnaks that worked",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "'thnaks that worked' means continue/advance -> navigate_to to next place.",
+            "functionCalls": [
+              {
+                "name": "navigate_to",
+                "arguments": {
+                  "destination": "thnaks"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "2.marco-called",
+            "evalId": "neg.call-story",
+            "utterance": "Marco called me twice yesterday.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "'Marco' -> contact 'Marco'; 'twice yesterday' -> date omitted (defaults to today).",
+            "functionCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "3.tasker-memory",
+            "evalId": "neg.tasker-memory",
+            "utterance": "I used Tasker years ago.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants to call a contact named Tasker. 'make_call' with contact 'Tasker'.",
+            "functionCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Tasker"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "4.woke-at-730",
+            "evalId": "neg.woke-at-730",
+            "utterance": "I woke up at 7:30.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "'woke up' implies need to check time; '7:30' -> time '07:30'; no label or date given, so only required param filled.",
+            "functionCalls": [
+              {
+                "name": "get_time",
+                "arguments": {
+                  "kind": "difference"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "5.start-navigation",
+            "evalId": "slot.navigate.bare",
+            "utterance": "Start navigation.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "navigate_to"
+            },
+            "reasoning": "'Start navigation' -> navigate_to. Destination not specified, use generic 'home' as place.",
+            "functionCalls": [
+              {
+                "name": "navigate_to",
+                "arguments": {
+                  "destination": "navigation"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "6.timer-20",
+            "evalId": "pos.timer.minutes",
+            "utterance": "Set a timer for 20 minutes.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_timer",
+              "arguments": {
+                "minutes": 20
+              }
+            },
+            "reasoning": "Query asks for a timer. minutes 20 from query. No label given.",
+            "functionCalls": [
+              {
+                "name": "set_timer",
+                "arguments": {
+                  "minutes": 20.0
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "7.timer-bare",
+            "evalId": "slot.timer.bare",
+            "utterance": "Set a timer.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "set_timer"
+            },
+            "reasoning": "Intended tool: set_timer. Missing required parameter: minutes (no duration given).",
+            "functionCalls": [],
+            "suppressedCalls": [
+              {
+                "name": "set_timer",
+                "arguments": {
+                  "minutes": 30.0
+                }
+              }
+            ],
+            "rawOutcome": "suppressed_only",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "8.stale-call-them",
+            "evalId": "stale.call.other-contact",
+            "utterance": "Call them back.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "make_call"
+            },
+            "reasoning": "make_call with contact 'Marco' from query.",
+            "functionCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H1.navigate-pos",
+            "evalId": "pos.navigate",
+            "utterance": "Navigate to Piazza Garibaldi.",
+            "expected": {
+              "kind": "tool",
+              "tool": "navigate_to",
+              "arguments": {
+                "destination": "Piazza Garibaldi"
+              }
+            },
+            "reasoning": "'Navigate to' -> navigate_to. 'Piazza Garibaldi' -> destination.",
+            "functionCalls": [
+              {
+                "name": "navigate_to",
+                "arguments": {
+                  "destination": "Piazza Garibaldi"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H2.call-marco-pos",
+            "evalId": "pos.call.contact",
+            "utterance": "Call Marco.",
+            "expected": {
+              "kind": "tool",
+              "tool": "make_call",
+              "arguments": {
+                "contact": "Marco"
+              }
+            },
+            "reasoning": "'Call Marco' -> make_call with contact 'Marco'.",
+            "functionCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H3.drive-story",
+            "evalId": "neg.navigate-story",
+            "utterance": "The drive to Piazza Garibaldi took forever.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "'drive' -> get_time. 'Piazza Garibaldi' -> place. No other params.",
+            "functionCalls": [
+              {
+                "name": "get_time",
+                "arguments": {
+                  "place": "Piazza Garibaldi"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H4.alarm-bare",
+            "evalId": "slot.alarm.bare",
+            "utterance": "Wake me up.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "set_alarm"
+            },
+            "reasoning": "'Wake me up' means set an alarm. No time given, use default. No label given, omit optional.",
+            "functionCalls": [
+              {
+                "name": "set_alarm",
+                "arguments": {
+                  "time": "07:00"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          }
+        ]
+      },
+      "confirm": {
+        "label": "A-native-confirm",
+        "correct": "11/14",
+        "rawCorrect": "7/14",
+        "falseActions": 2,
+        "overRefusals": 0,
+        "wrongTool": 0,
+        "exactArgs": "7/8",
+        "argMismatch": 1,
+        "rows": [
+          {
+            "probe": "c.pos.timer-hours",
+            "evalId": "pos.timer.hours",
+            "utterance": "Set a timer for two hours.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_timer",
+              "arguments": {
+                "minutes": 120
+              }
+            },
+            "reasoning": "'two hours' -> minutes 120; no label given, omit optional label.",
+            "functionCalls": [
+              {
+                "name": "set_timer",
+                "arguments": {
+                  "minutes": 120.0
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.alarm-time",
+            "evalId": "pos.alarm.time",
+            "utterance": "Wake me at 7:30 tomorrow.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_alarm",
+              "arguments": {
+                "time": "07:30"
+              }
+            },
+            "reasoning": "'7:30 tomorrow' -> time '07:30'. No label given, omit optional.",
+            "functionCalls": [
+              {
+                "name": "set_alarm",
+                "arguments": {
+                  "time": "07:30"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.reminder",
+            "evalId": "pos.reminder.both",
+            "utterance": "Remind me to call the dentist at 3pm.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_reminder",
+              "arguments": {
+                "text": "call the dentist",
+                "datetime": "15:00"
+              }
+            },
+            "reasoning": "'Remind me' -> set_reminder. 'call the dentist' -> text. '3pm' -> date '15:00'.",
+            "functionCalls": [
+              {
+                "name": "set_reminder",
+                "arguments": {
+                  "text": "call the dentist",
+                  "datetime": "15:00"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.sms",
+            "evalId": "pos.sms.both",
+            "utterance": "Text Marco that I'm running late.",
+            "expected": {
+              "kind": "tool",
+              "tool": "send_sms",
+              "arguments": {
+                "contact": "Marco",
+                "text": "I'm running late"
+              }
+            },
+            "reasoning": "Query asks to send SMS. contact 'Marco' from query, text 'I'm running late' from query.",
+            "functionCalls": [
+              {
+                "name": "send_sms",
+                "arguments": {
+                  "contact": "Marco",
+                  "text": "I'm running late"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.contacts",
+            "evalId": "pos.contacts.search",
+            "utterance": "What's Marco's number?",
+            "expected": {
+              "kind": "tool",
+              "tool": "search_contacts",
+              "arguments": {
+                "query": "Marco"
+              }
+            },
+            "reasoning": "User asks for Marco's number. Use search_contacts with query 'Marco'.",
+            "functionCalls": [
+              {
+                "name": "search_contacts",
+                "arguments": {
+                  "query": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.calendar",
+            "evalId": "pos.calendar.today",
+            "utterance": "What's on my calendar?",
+            "expected": {
+              "kind": "tool",
+              "tool": "get_calendar_events",
+              "arguments": {}
+            },
+            "reasoning": "User asks for calendar events. get_calendar_events with no date parameter returns today's events.",
+            "functionCalls": [
+              {
+                "name": "get_calendar_events",
+                "arguments": {}
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.time-tokyo",
+            "evalId": "pos.time.elsewhere",
+            "utterance": "What time is it in Tokyo?",
+            "expected": {
+              "kind": "tool",
+              "tool": "get_time",
+              "arguments": {
+                "place": "Tokyo",
+                "kind": "time"
+              }
+            },
+            "reasoning": "User asks for current time in Tokyo. Use get_time with place 'Tokyo'.",
+            "functionCalls": [
+              {
+                "name": "get_time",
+                "arguments": {
+                  "place": "Tokyo"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.stale.correction",
+            "evalId": "stale.correction.duration",
+            "utterance": "no, make it 10 minutes",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_timer",
+              "arguments": {
+                "minutes": 10
+              }
+            },
+            "reasoning": "Quote is reported content, ignored. User wants a 10-minute timer. minutes=10 from query. label omitted.",
+            "functionCalls": [
+              {
+                "name": "set_timer",
+                "arguments": {
+                  "minutes": 10.0
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.cat-name",
+            "evalId": "neg.cat-name",
+            "utterance": "Monday is a terrible name for a cat.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "'Monday is a terrible name' → get_calendar_events with date 'monday'.",
+            "functionCalls": [
+              {
+                "name": "get_calendar_events",
+                "arguments": {
+                  "date": "monday"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.alarm-complaint",
+            "evalId": "neg.alarm-complaint",
+            "utterance": "My alarm didn't go off yesterday.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants to set an alarm. 'alarm didn't go off' implies need for a new alarm. No specific time given, so use a reasonable default. No label given, omit optional.",
+            "functionCalls": [
+              {
+                "name": "set_alarm",
+                "arguments": {
+                  "time": "07:00",
+                  "date": "yesterday"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.sms-complaint",
+            "evalId": "neg.sms-complaint",
+            "utterance": "He never texts me back.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "'he never texts me back' means go back -> navigate_to with destination 'home' as place.",
+            "functionCalls": [
+              {
+                "name": "navigate_to",
+                "arguments": {
+                  "destination": "home"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.negation-call",
+            "evalId": "neg.negation.call",
+            "utterance": "Don't call Marco, I'll do it myself.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "'Don't call Marco' -> make_call with contact 'Marco'.",
+            "functionCalls": [],
+            "suppressedCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Marco"
+                }
+              }
+            ],
+            "rawOutcome": "suppressed_only",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.slot.call-bare",
+            "evalId": "slot.call.bare",
+            "utterance": "Make a call.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "make_call"
+            },
+            "reasoning": "'Make a call' -> make_call. No contact named, use default.",
+            "functionCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": ""
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.slot.sms-no-text",
+            "evalId": "slot.sms.no-text",
+            "utterance": "Send Marco a text.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "send_sms"
+            },
+            "reasoning": "'Send Marco a text' -> send_sms. contact 'Marco', text 'a text'.",
+            "functionCalls": [
+              {
+                "name": "send_sms",
+                "arguments": {
+                  "contact": "Marco",
+                  "text": "a text"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          }
+        ]
+      }
+    },
+    "B": {
+      "what": "compact-format, NO reasoning (this control) .cact, native serving path",
+      "artifactSha256": "4e34b695c65f2ed462cee789312563dc06fd6de67ef099a3d286d54fb98ba630",
+      "primary": {
+        "label": "B-native-primary",
+        "correct": "7/12",
+        "rawCorrect": "4/12",
+        "falseActions": 5,
+        "overRefusals": 0,
+        "wrongTool": 0,
+        "exactArgs": "3/3",
+        "argMismatch": 0,
+        "rows": [
+          {
+            "probe": "1.typo-thanks",
+            "evalId": "neg.typo.thanks",
+            "utterance": "thnaks that worked",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "'thnaks that worked' means continue/advance -> navigate_to with no arguments.",
+            "functionCalls": [
+              {
+                "name": "navigate_to",
+                "arguments": {
+                  "destination": ""
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "2.marco-called",
+            "evalId": "neg.call-story",
+            "utterance": "Marco called me twice yesterday.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants to call Marco. Need contact name first via search_contacts.",
+            "functionCalls": [
+              {
+                "name": "search_contacts",
+                "arguments": {
+                  "query": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "3.tasker-memory",
+            "evalId": "neg.tasker-memory",
+            "utterance": "I used Tasker years ago.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants to call a contact named Tasker. Use make_call with contact name.",
+            "functionCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Tasker"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "4.woke-at-730",
+            "evalId": "neg.woke-at-730",
+            "utterance": "I woke up at 7:30.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants to set an alarm. '7:30' -> time '07:30'. No label given, omit optional.",
+            "functionCalls": [
+              {
+                "name": "set_alarm",
+                "arguments": {
+                  "time": "07:30"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "5.start-navigation",
+            "evalId": "slot.navigate.bare",
+            "utterance": "Start navigation.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "navigate_to"
+            },
+            "reasoning": "Query asks to start navigation. No destination given, use default.",
+            "functionCalls": [
+              {
+                "name": "navigate_to",
+                "arguments": {
+                  "destination": "navigation"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "6.timer-20",
+            "evalId": "pos.timer.minutes",
+            "utterance": "Set a timer for 20 minutes.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_timer",
+              "arguments": {
+                "minutes": 20
+              }
+            },
+            "reasoning": "Query asks for a timer. '20 minutes' -> minutes 20. No label given, omit optional label.",
+            "functionCalls": [
+              {
+                "name": "set_timer",
+                "arguments": {
+                  "minutes": 20.0
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "7.timer-bare",
+            "evalId": "slot.timer.bare",
+            "utterance": "Set a timer.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "set_timer"
+            },
+            "reasoning": "Intended tool: set_timer. Missing required parameter: minutes.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "8.stale-call-them",
+            "evalId": "stale.call.other-contact",
+            "utterance": "Call them back.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "make_call"
+            },
+            "reasoning": "make_call with contact 'Marco' from query.",
+            "functionCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H1.navigate-pos",
+            "evalId": "pos.navigate",
+            "utterance": "Navigate to Piazza Garibaldi.",
+            "expected": {
+              "kind": "tool",
+              "tool": "navigate_to",
+              "arguments": {
+                "destination": "Piazza Garibaldi"
+              }
+            },
+            "reasoning": "Query asks to navigate to 'Piazza Garibaldi'. Tool navigate_to with destination parameter.",
+            "functionCalls": [
+              {
+                "name": "navigate_to",
+                "arguments": {
+                  "destination": "Piazza Garibaldi"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H2.call-marco-pos",
+            "evalId": "pos.call.contact",
+            "utterance": "Call Marco.",
+            "expected": {
+              "kind": "tool",
+              "tool": "make_call",
+              "arguments": {
+                "contact": "Marco"
+              }
+            },
+            "reasoning": "make_call with contact 'Marco' from query.",
+            "functionCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H3.drive-story",
+            "evalId": "neg.navigate-story",
+            "utterance": "The drive to Piazza Garibaldi took forever.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants to know current time. 'Piazza Garibaldi' -> place 'Piazza Garibaldi'. No other tool matches this intent.",
+            "functionCalls": [
+              {
+                "name": "get_time",
+                "arguments": {
+                  "place": "Piazza Garibaldi"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H4.alarm-bare",
+            "evalId": "slot.alarm.bare",
+            "utterance": "Wake me up.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "set_alarm"
+            },
+            "reasoning": "'Wake me up' -> set_alarm. No time given, default to current time. No label or date given, omit optional params.",
+            "functionCalls": [
+              {
+                "name": "set_alarm",
+                "arguments": {
+                  "time": "now"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          }
+        ],
+        "repeatRunIdentical": true
+      },
+      "confirm": {
+        "label": "B-native-confirm",
+        "correct": "11/14",
+        "rawCorrect": "8/14",
+        "falseActions": 2,
+        "overRefusals": 0,
+        "wrongTool": 0,
+        "exactArgs": "7/8",
+        "argMismatch": 1,
+        "rows": [
+          {
+            "probe": "c.pos.timer-hours",
+            "evalId": "pos.timer.hours",
+            "utterance": "Set a timer for two hours.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_timer",
+              "arguments": {
+                "minutes": 120
+              }
+            },
+            "reasoning": "'two hours' -> minutes 120; no label given.",
+            "functionCalls": [
+              {
+                "name": "set_timer",
+                "arguments": {
+                  "minutes": 120.0
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.alarm-time",
+            "evalId": "pos.alarm.time",
+            "utterance": "Wake me at 7:30 tomorrow.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_alarm",
+              "arguments": {
+                "time": "07:30"
+              }
+            },
+            "reasoning": "'7:30 tomorrow' -> time '07:30'. No label given, omit optional.",
+            "functionCalls": [
+              {
+                "name": "set_alarm",
+                "arguments": {
+                  "time": "07:30"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.reminder",
+            "evalId": "pos.reminder.both",
+            "utterance": "Remind me to call the dentist at 3pm.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_reminder",
+              "arguments": {
+                "text": "call the dentist",
+                "datetime": "15:00"
+              }
+            },
+            "reasoning": "Query asks for a reminder. '3pm' -> time '15:00'. No label given, omit optional.",
+            "functionCalls": [
+              {
+                "name": "set_reminder",
+                "arguments": {
+                  "text": "call the dentist",
+                  "datetime": "15:00"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.sms",
+            "evalId": "pos.sms.both",
+            "utterance": "Text Marco that I'm running late.",
+            "expected": {
+              "kind": "tool",
+              "tool": "send_sms",
+              "arguments": {
+                "contact": "Marco",
+                "text": "I'm running late"
+              }
+            },
+            "reasoning": "Query asks to send SMS. 'Marco' -> contact, 'I'm running late' -> text.",
+            "functionCalls": [
+              {
+                "name": "send_sms",
+                "arguments": {
+                  "contact": "Marco",
+                  "text": "I'm running late"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.contacts",
+            "evalId": "pos.contacts.search",
+            "utterance": "What's Marco's number?",
+            "expected": {
+              "kind": "tool",
+              "tool": "search_contacts",
+              "arguments": {
+                "query": "Marco"
+              }
+            },
+            "reasoning": "Query asks for contact info of a specific name. search_contacts with query 'Marco' returns contact details including phone number.",
+            "functionCalls": [
+              {
+                "name": "search_contacts",
+                "arguments": {
+                  "query": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.calendar",
+            "evalId": "pos.calendar.today",
+            "utterance": "What's on my calendar?",
+            "expected": {
+              "kind": "tool",
+              "tool": "get_calendar_events",
+              "arguments": {}
+            },
+            "reasoning": "User asks for calendar events. No date specified, so omit optional parameter.",
+            "functionCalls": [
+              {
+                "name": "get_calendar_events",
+                "arguments": {}
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.time-tokyo",
+            "evalId": "pos.time.elsewhere",
+            "utterance": "What time is it in Tokyo?",
+            "expected": {
+              "kind": "tool",
+              "tool": "get_time",
+              "arguments": {
+                "place": "Tokyo",
+                "kind": "time"
+              }
+            },
+            "reasoning": "User asks for current time in Tokyo. Use get_time with place 'Tokyo'.",
+            "functionCalls": [
+              {
+                "name": "get_time",
+                "arguments": {
+                  "place": "Tokyo"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.stale.correction",
+            "evalId": "stale.correction.duration",
+            "utterance": "no, make it 10 minutes",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_timer",
+              "arguments": {
+                "minutes": 10
+              }
+            },
+            "reasoning": "User wants a 10-minute timer. set_timer with minutes 10.",
+            "functionCalls": [
+              {
+                "name": "set_timer",
+                "arguments": {
+                  "minutes": 10.0
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.cat-name",
+            "evalId": "neg.cat-name",
+            "utterance": "Monday is a terrible name for a cat.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants calendar events for Monday. get_calendar_events with date 'Monday'.",
+            "functionCalls": [
+              {
+                "name": "get_calendar_events",
+                "arguments": {
+                  "date": "Monday"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.alarm-complaint",
+            "evalId": "neg.alarm-complaint",
+            "utterance": "My alarm didn't go off yesterday.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants to set an alarm. 'yesterday' is relative, cannot resolve to absolute date. Use set_alarm with default time and no label.",
+            "functionCalls": [
+              {
+                "name": "set_alarm",
+                "arguments": {
+                  "time": "07:00"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.sms-complaint",
+            "evalId": "neg.sms-complaint",
+            "utterance": "He never texts me back.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants to send a text. No contact named, so use default. No text provided, use generic 'Hello'.",
+            "functionCalls": [
+              {
+                "name": "send_sms",
+                "arguments": {
+                  "contact": "my phone",
+                  "text": "Hello"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.negation-call",
+            "evalId": "neg.negation.call",
+            "utterance": "Don't call Marco, I'll do it myself.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "User wants to call Marco. 'make_call' with contact 'Marco'.",
+            "functionCalls": [],
+            "suppressedCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Marco"
+                }
+              }
+            ],
+            "rawOutcome": "suppressed_only",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.slot.call-bare",
+            "evalId": "slot.call.bare",
+            "utterance": "Make a call.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "make_call"
+            },
+            "reasoning": "Intended tool: make_call. Missing required parameter: contact.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.slot.sms-no-text",
+            "evalId": "slot.sms.no-text",
+            "utterance": "Send Marco a text.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "send_sms"
+            },
+            "reasoning": "Query asks to send SMS. contact 'Marco' from query. text 'a text' from query.",
+            "functionCalls": [
+              {
+                "name": "send_sms",
+                "arguments": {
+                  "contact": "Marco",
+                  "text": "a text"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          }
+        ]
+      }
+    },
+    "C": {
+      "what": "compact-format WITH reasoning (diagnostic-reasoning-aligned-r1) .cact, native serving path",
+      "artifactSha256": "7d1edb86c99c5439fbcc0d1baec113937d100b03bd1d98deb28d87647e7b91bc",
+      "primary": {
+        "label": "C-native-primary",
+        "correct": "12/12",
+        "rawCorrect": "12/12",
+        "falseActions": 0,
+        "overRefusals": 0,
+        "wrongTool": 0,
+        "exactArgs": "3/3",
+        "argMismatch": 0,
+        "rows": [
+          {
+            "probe": "1.typo-thanks",
+            "evalId": "neg.typo.thanks",
+            "utterance": "thnaks that worked",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "No actionable request; the user is saying thanks.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "2.marco-called",
+            "evalId": "neg.call-story",
+            "utterance": "Marco called me twice yesterday.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "No actionable request; the user describes a past call.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "3.tasker-memory",
+            "evalId": "neg.tasker-memory",
+            "utterance": "I used Tasker years ago.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "No actionable request; Tasker is mentioned, not asked for.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "4.woke-at-730",
+            "evalId": "neg.woke-at-730",
+            "utterance": "I woke up at 7:30.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "No actionable request; 7:30 is when the user woke up, not an alarm time.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "5.start-navigation",
+            "evalId": "slot.navigate.bare",
+            "utterance": "Start navigation.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "navigate_to"
+            },
+            "reasoning": "Navigation is requested, but the destination is missing.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "6.timer-20",
+            "evalId": "pos.timer.minutes",
+            "utterance": "Set a timer for 20 minutes.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_timer",
+              "arguments": {
+                "minutes": 20
+              }
+            },
+            "reasoning": "The user requests a 20 minute timer.",
+            "functionCalls": [
+              {
+                "name": "set_timer",
+                "arguments": {
+                  "minutes": 20.0
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "7.timer-bare",
+            "evalId": "slot.timer.bare",
+            "utterance": "Set a timer.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "set_timer"
+            },
+            "reasoning": "A timer is requested, but the duration is missing.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "8.stale-call-them",
+            "evalId": "stale.call.other-contact",
+            "utterance": "Call them back.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "make_call"
+            },
+            "reasoning": "A call is requested, but no contact is named in this turn.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H1.navigate-pos",
+            "evalId": "pos.navigate",
+            "utterance": "Navigate to Piazza Garibaldi.",
+            "expected": {
+              "kind": "tool",
+              "tool": "navigate_to",
+              "arguments": {
+                "destination": "Piazza Garibaldi"
+              }
+            },
+            "reasoning": "The user asks for directions to Piazza Garibaldi.",
+            "functionCalls": [
+              {
+                "name": "navigate_to",
+                "arguments": {
+                  "destination": "Piazza Garibaldi"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H2.call-marco-pos",
+            "evalId": "pos.call.contact",
+            "utterance": "Call Marco.",
+            "expected": {
+              "kind": "tool",
+              "tool": "make_call",
+              "arguments": {
+                "contact": "Marco"
+              }
+            },
+            "reasoning": "The user asks to call Marco.",
+            "functionCalls": [
+              {
+                "name": "make_call",
+                "arguments": {
+                  "contact": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H3.drive-story",
+            "evalId": "neg.navigate-story",
+            "utterance": "The drive to Piazza Garibaldi took forever.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "No actionable request; the user describes a past activity.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "H4.alarm-bare",
+            "evalId": "slot.alarm.bare",
+            "utterance": "Wake me up.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "set_alarm"
+            },
+            "reasoning": "Awake is requested, but no time is given.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          }
+        ]
+      },
+      "confirm": {
+        "label": "C-native-confirm",
+        "correct": "12/14",
+        "rawCorrect": "12/14",
+        "falseActions": 0,
+        "overRefusals": 1,
+        "wrongTool": 0,
+        "exactArgs": "6/8",
+        "argMismatch": 1,
+        "rows": [
+          {
+            "probe": "c.pos.timer-hours",
+            "evalId": "pos.timer.hours",
+            "utterance": "Set a timer for two hours.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_timer",
+              "arguments": {
+                "minutes": 120
+              }
+            },
+            "reasoning": "A timer is requested, but the duration is missing.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.alarm-time",
+            "evalId": "pos.alarm.time",
+            "utterance": "Wake me at 7:30 tomorrow.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_alarm",
+              "arguments": {
+                "time": "07:30"
+              }
+            },
+            "reasoning": "The user requests an alarm at 07:30.",
+            "functionCalls": [
+              {
+                "name": "set_alarm",
+                "arguments": {
+                  "time": "07:30"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.reminder",
+            "evalId": "pos.reminder.both",
+            "utterance": "Remind me to call the dentist at 3pm.",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_reminder",
+              "arguments": {
+                "text": "call the dentist",
+                "datetime": "15:00"
+              }
+            },
+            "reasoning": "The user asks to be reminded to call the dentist at 15:00.",
+            "functionCalls": [
+              {
+                "name": "set_reminder",
+                "arguments": {
+                  "text": "call the dentist",
+                  "datetime": "15:00"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.sms",
+            "evalId": "pos.sms.both",
+            "utterance": "Text Marco that I'm running late.",
+            "expected": {
+              "kind": "tool",
+              "tool": "send_sms",
+              "arguments": {
+                "contact": "Marco",
+                "text": "I'm running late"
+              }
+            },
+            "reasoning": "The user asks to text Marco the message 'I'm running late'.",
+            "functionCalls": [
+              {
+                "name": "send_sms",
+                "arguments": {
+                  "contact": "Marco",
+                  "text": "I'm running late"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.contacts",
+            "evalId": "pos.contacts.search",
+            "utterance": "What's Marco's number?",
+            "expected": {
+              "kind": "tool",
+              "tool": "search_contacts",
+              "arguments": {
+                "query": "Marco"
+              }
+            },
+            "reasoning": "The user asks for Marco's number.",
+            "functionCalls": [
+              {
+                "name": "search_contacts",
+                "arguments": {
+                  "query": "Marco"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.calendar",
+            "evalId": "pos.calendar.today",
+            "utterance": "What's on my calendar?",
+            "expected": {
+              "kind": "tool",
+              "tool": "get_calendar_events",
+              "arguments": {}
+            },
+            "reasoning": "The user asks for calendar events.",
+            "functionCalls": [
+              {
+                "name": "get_calendar_events",
+                "arguments": {}
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.pos.time-tokyo",
+            "evalId": "pos.time.elsewhere",
+            "utterance": "What time is it in Tokyo?",
+            "expected": {
+              "kind": "tool",
+              "tool": "get_time",
+              "arguments": {
+                "place": "Tokyo",
+                "kind": "time"
+              }
+            },
+            "reasoning": "The user asks for the current time in Tokyo.",
+            "functionCalls": [
+              {
+                "name": "get_time",
+                "arguments": {
+                  "place": "Tokyo"
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": false,
+            "pass": false,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.stale.correction",
+            "evalId": "stale.correction.duration",
+            "utterance": "no, make it 10 minutes",
+            "expected": {
+              "kind": "tool",
+              "tool": "set_timer",
+              "arguments": {
+                "minutes": 10
+              }
+            },
+            "reasoning": "The user corrects the pending timer to 10 minutes.",
+            "functionCalls": [
+              {
+                "name": "set_timer",
+                "arguments": {
+                  "minutes": 10.0
+                }
+              }
+            ],
+            "suppressedCalls": [],
+            "rawOutcome": "tool_call",
+            "guardedOutcome": "executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.cat-name",
+            "evalId": "neg.cat-name",
+            "utterance": "Monday is a terrible name for a cat.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "No actionable request; Monday is a day, not an alarm time.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.alarm-complaint",
+            "evalId": "neg.alarm-complaint",
+            "utterance": "My alarm didn't go off yesterday.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "No actionable request; the user describes a past alarm.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.sms-complaint",
+            "evalId": "neg.sms-complaint",
+            "utterance": "He never texts me back.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "No actionable request; the user is asking to notify them of past messages.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.neg.negation-call",
+            "evalId": "neg.negation.call",
+            "utterance": "Don't call Marco, I'll do it myself.",
+            "expected": {
+              "kind": "chat"
+            },
+            "reasoning": "No actionable request; the user is asking to notify a contact named Marco.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.slot.call-bare",
+            "evalId": "slot.call.bare",
+            "utterance": "Make a call.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "make_call"
+            },
+            "reasoning": "A call is requested, but the contact and number are missing.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          },
+          {
+            "probe": "c.slot.sms-no-text",
+            "evalId": "slot.sms.no-text",
+            "utterance": "Send Marco a text.",
+            "expected": {
+              "kind": "incomplete",
+              "tool": "send_sms"
+            },
+            "reasoning": "A text is requested, but the contact and message are missing.",
+            "functionCalls": [],
+            "suppressedCalls": [],
+            "rawOutcome": "no_call",
+            "guardedOutcome": "no_executable_action",
+            "rawPass": true,
+            "pass": true,
+            "error": null,
+            "confidence": null
+          }
+        ]
+      }
+    }
+  },
+  "B_preExport": {
+    "_note": "B weights before export (CQ W4 STE + A8, greedy, compact tools). Without an opener B goes straight to <tool_call> and is 12/12; with the <think> opener the engine forces, B writes base-style reasoning and follows it into the same false actions as native.",
+    "B-py-none": {
+      "label": "B-py-none",
+      "correct": "12/12",
+      "rawCorrect": "12/12",
+      "falseActions": 0,
+      "overRefusals": 0,
+      "wrongTool": 0,
+      "exactArgs": "3/3",
+      "argMismatch": 0,
+      "opener": "",
+      "rows": [
+        {
+          "probe": "1.typo-thanks",
+          "evalId": "neg.typo.thanks",
+          "utterance": "thnaks that worked",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": null,
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "2.marco-called",
+          "evalId": "neg.call-story",
+          "utterance": "Marco called me twice yesterday.",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": null,
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "3.tasker-memory",
+          "evalId": "neg.tasker-memory",
+          "utterance": "I used Tasker years ago.",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": null,
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "4.woke-at-730",
+          "evalId": "neg.woke-at-730",
+          "utterance": "I woke up at 7:30.",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": null,
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "5.start-navigation",
+          "evalId": "slot.navigate.bare",
+          "utterance": "Start navigation.",
+          "expected": {
+            "kind": "incomplete",
+            "tool": "navigate_to"
+          },
+          "reasoning": null,
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "6.timer-20",
+          "evalId": "pos.timer.minutes",
+          "utterance": "Set a timer for 20 minutes.",
+          "expected": {
+            "kind": "tool",
+            "tool": "set_timer",
+            "arguments": {
+              "minutes": 20
+            }
+          },
+          "reasoning": null,
+          "functionCalls": [
+            {
+              "name": "set_timer",
+              "arguments": {
+                "minutes": 20
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[{\"name\":\"set_timer\",\"arguments\":{\"minutes\":20}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "7.timer-bare",
+          "evalId": "slot.timer.bare",
+          "utterance": "Set a timer.",
+          "expected": {
+            "kind": "incomplete",
+            "tool": "set_timer"
+          },
+          "reasoning": null,
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "8.stale-call-them",
+          "evalId": "stale.call.other-contact",
+          "utterance": "Call them back.",
+          "expected": {
+            "kind": "incomplete",
+            "tool": "make_call"
+          },
+          "reasoning": null,
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "H1.navigate-pos",
+          "evalId": "pos.navigate",
+          "utterance": "Navigate to Piazza Garibaldi.",
+          "expected": {
+            "kind": "tool",
+            "tool": "navigate_to",
+            "arguments": {
+              "destination": "Piazza Garibaldi"
+            }
+          },
+          "reasoning": null,
+          "functionCalls": [
+            {
+              "name": "navigate_to",
+              "arguments": {
+                "destination": "Piazza Garibaldi"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[{\"name\":\"navigate_to\",\"arguments\":{\"destination\":\"Piazza Garibaldi\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "H2.call-marco-pos",
+          "evalId": "pos.call.contact",
+          "utterance": "Call Marco.",
+          "expected": {
+            "kind": "tool",
+            "tool": "make_call",
+            "arguments": {
+              "contact": "Marco"
+            }
+          },
+          "reasoning": null,
+          "functionCalls": [
+            {
+              "name": "make_call",
+              "arguments": {
+                "contact": "Marco"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[{\"name\":\"make_call\",\"arguments\":{\"contact\":\"Marco\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "H3.drive-story",
+          "evalId": "neg.navigate-story",
+          "utterance": "The drive to Piazza Garibaldi took forever.",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": null,
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "H4.alarm-bare",
+          "evalId": "slot.alarm.bare",
+          "utterance": "Wake me up.",
+          "expected": {
+            "kind": "incomplete",
+            "tool": "set_alarm"
+          },
+          "reasoning": null,
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<tool_call>[]</tool_call><|im_end|>",
+          "parseProblem": null
+        }
+      ]
+    },
+    "B-py-think": {
+      "label": "B-py-think",
+      "correct": "8/12",
+      "rawCorrect": "4/12",
+      "falseActions": 4,
+      "overRefusals": 0,
+      "wrongTool": 0,
+      "exactArgs": "3/3",
+      "argMismatch": 0,
+      "opener": "<think>\n",
+      "rows": [
+        {
+          "probe": "1.typo-thanks",
+          "evalId": "neg.typo.thanks",
+          "utterance": "thnaks that worked",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": "'thnaks that worked' means continue/advance -> navigate_to with no arguments.",
+          "functionCalls": [
+            {
+              "name": "navigate_to",
+              "arguments": {}
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": false,
+          "pass": true,
+          "error": null,
+          "rawText": "<think>\n'thnaks that worked' means continue/advance -> navigate_to with no arguments.\n</think>\n<tool_call>[{\"name\":\"navigate_to\",\"arguments\":{}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "2.marco-called",
+          "evalId": "neg.call-story",
+          "utterance": "Marco called me twice yesterday.",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": "User wants to call Marco. Need contact name first via search_contacts.",
+          "functionCalls": [
+            {
+              "name": "search_contacts",
+              "arguments": {
+                "query": "Marco"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": false,
+          "pass": false,
+          "error": null,
+          "rawText": "<think>\nUser wants to call Marco. Need contact name first via search_contacts.\n</think>\n<tool_call>[{\"name\":\"search_contacts\",\"arguments\":{\"query\":\"Marco\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "3.tasker-memory",
+          "evalId": "neg.tasker-memory",
+          "utterance": "I used Tasker years ago.",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": "User wants to call a contact named Tasker. Use make_call with contact name.",
+          "functionCalls": [
+            {
+              "name": "make_call",
+              "arguments": {
+                "contact": "Tasker"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": false,
+          "pass": false,
+          "error": null,
+          "rawText": "<think>\nUser wants to call a contact named Tasker. Use make_call with contact name.\n</think>\n<tool_call>[{\"name\":\"make_call\",\"arguments\":{\"contact\":\"Tasker\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "4.woke-at-730",
+          "evalId": "neg.woke-at-730",
+          "utterance": "I woke up at 7:30.",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": "User wants to set an alarm. '7:30' -> time '07:30'. No label or date given, so only required param is time.",
+          "functionCalls": [
+            {
+              "name": "set_alarm",
+              "arguments": {
+                "time": "07:30"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": false,
+          "pass": false,
+          "error": null,
+          "rawText": "<think>\nUser wants to set an alarm. '7:30' -> time '07:30'. No label or date given, so only required param is time.\n</think>\n<tool_call>[{\"name\":\"set_alarm\",\"arguments\":{\"time\":\"07:30\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "5.start-navigation",
+          "evalId": "slot.navigate.bare",
+          "utterance": "Start navigation.",
+          "expected": {
+            "kind": "incomplete",
+            "tool": "navigate_to"
+          },
+          "reasoning": "Query asks to start navigation. No destination given, use default.",
+          "functionCalls": [
+            {
+              "name": "navigate_to",
+              "arguments": {
+                "destination": "home"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": false,
+          "pass": true,
+          "error": null,
+          "rawText": "<think>\nQuery asks to start navigation. No destination given, use default.\n</think>\n<tool_call>[{\"name\":\"navigate_to\",\"arguments\":{\"destination\":\"home\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "6.timer-20",
+          "evalId": "pos.timer.minutes",
+          "utterance": "Set a timer for 20 minutes.",
+          "expected": {
+            "kind": "tool",
+            "tool": "set_timer",
+            "arguments": {
+              "minutes": 20
+            }
+          },
+          "reasoning": "Query asks for a timer. '20 minutes' -> minutes 20. No label given, omit optional label.",
+          "functionCalls": [
+            {
+              "name": "set_timer",
+              "arguments": {
+                "minutes": 20
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<think>\nQuery asks for a timer. '20 minutes' -> minutes 20. No label given, omit optional label.\n</think>\n<tool_call>[{\"name\":\"set_timer\",\"arguments\":{\"minutes\":20}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "7.timer-bare",
+          "evalId": "slot.timer.bare",
+          "utterance": "Set a timer.",
+          "expected": {
+            "kind": "incomplete",
+            "tool": "set_timer"
+          },
+          "reasoning": "Intended tool is set_timer. Missing required parameter: minutes.",
+          "functionCalls": [],
+          "suppressedCalls": [],
+          "rawOutcome": "no_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<think>\nIntended tool is set_timer. Missing required parameter: minutes.\n</think>\nHow many minutes should the timer be?<|im_end|>",
+          "parseProblem": "no <tool_call> block"
+        },
+        {
+          "probe": "8.stale-call-them",
+          "evalId": "stale.call.other-contact",
+          "utterance": "Call them back.",
+          "expected": {
+            "kind": "incomplete",
+            "tool": "make_call"
+          },
+          "reasoning": "Query asks to initiate a phone call. 'make_call' tool with contact 'Marco'.",
+          "functionCalls": [
+            {
+              "name": "make_call",
+              "arguments": {
+                "contact": "Marco"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": false,
+          "pass": true,
+          "error": null,
+          "rawText": "<think>\nQuery asks to initiate a phone call. 'make_call' tool with contact 'Marco'.\n</think>\n<tool_call>[{\"name\":\"make_call\",\"arguments\":{\"contact\":\"Marco\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "H1.navigate-pos",
+          "evalId": "pos.navigate",
+          "utterance": "Navigate to Piazza Garibaldi.",
+          "expected": {
+            "kind": "tool",
+            "tool": "navigate_to",
+            "arguments": {
+              "destination": "Piazza Garibaldi"
+            }
+          },
+          "reasoning": "Query asks to navigate to 'Piazza Garibaldi'. Tool navigate_to with destination parameter.",
+          "functionCalls": [
+            {
+              "name": "navigate_to",
+              "arguments": {
+                "destination": "Piazza Garibaldi"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<think>\nQuery asks to navigate to 'Piazza Garibaldi'. Tool navigate_to with destination parameter.\n</think>\n<tool_call>[{\"name\":\"navigate_to\",\"arguments\":{\"destination\":\"Piazza Garibaldi\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "H2.call-marco-pos",
+          "evalId": "pos.call.contact",
+          "utterance": "Call Marco.",
+          "expected": {
+            "kind": "tool",
+            "tool": "make_call",
+            "arguments": {
+              "contact": "Marco"
+            }
+          },
+          "reasoning": "make_call with contact 'Marco' from query.",
+          "functionCalls": [
+            {
+              "name": "make_call",
+              "arguments": {
+                "contact": "Marco"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": true,
+          "pass": true,
+          "error": null,
+          "rawText": "<think>\nmake_call with contact 'Marco' from query.\n</think>\n<tool_call>[{\"name\":\"make_call\",\"arguments\":{\"contact\":\"Marco\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "H3.drive-story",
+          "evalId": "neg.navigate-story",
+          "utterance": "The drive to Piazza Garibaldi took forever.",
+          "expected": {
+            "kind": "chat"
+          },
+          "reasoning": "User wants to know current time. 'Piazza Garibaldi' -> place 'Piazza Garibaldi'. No other tool matches this intent.",
+          "functionCalls": [
+            {
+              "name": "get_time",
+              "arguments": {
+                "place": "Piazza Garibaldi"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "executable_action",
+          "rawPass": false,
+          "pass": false,
+          "error": null,
+          "rawText": "<think>\nUser wants to know current time. 'Piazza Garibaldi' -> place 'Piazza Garibaldi'. No other tool matches this intent.\n</think>\n<tool_call>[{\"name\":\"get_time\",\"arguments\":{\"place\":\"Piazza Garibaldi\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        },
+        {
+          "probe": "H4.alarm-bare",
+          "evalId": "slot.alarm.bare",
+          "utterance": "Wake me up.",
+          "expected": {
+            "kind": "incomplete",
+            "tool": "set_alarm"
+          },
+          "reasoning": "'Wake me up' -> set_alarm. No time given, default to current time. No label or date given, omit optional params.",
+          "functionCalls": [
+            {
+              "name": "set_alarm",
+              "arguments": {
+                "time": "now"
+              }
+            }
+          ],
+          "suppressedCalls": [],
+          "rawOutcome": "tool_call",
+          "guardedOutcome": "no_executable_action",
+          "rawPass": false,
+          "pass": true,
+          "error": null,
+          "rawText": "<think>\n'Wake me up' -> set_alarm. No time given, default to current time. No label or date given, omit optional params.\n</think>\n<tool_call>[{\"name\":\"set_alarm\",\"arguments\":{\"time\":\"now\"}}]</tool_call><|im_end|>",
+          "parseProblem": null
+        }
+      ]
+    }
+  },
+  "outcome": "B native is ~base (7/12 vs A 6/12 primary; 11/14 vs A 11/14 confirm). C native 12/12 primary, 12/14 confirm. B learned the decisions only on the no-think path, which the serving engine never takes. Reasoning was necessary on this serving path."
+}

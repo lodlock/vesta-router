@@ -19,6 +19,11 @@ the same -1 offset as every other configuration measured), and the base model
 emits ``{"name":...,"arguments":...}``. ``vesta_router.training`` sorts, so r1
 and r2 learned ``{"arguments":...,"name":...}`` - a third difference.
 
+``--no-reasoning`` renders the same cases with the ``reasoning`` field left
+out (the control diagnostic-compact-no-reasoning-r1): the trainer then emits no
+think block and the target starts at ``<tool_call>``. Tools, key order, query,
+system and answers are byte-identical to the reasoning variant.
+
 ``query``, ``system`` and ``answers`` come from the same places the evaluator and
 ``vesta_router.training`` take them from.
 """
@@ -43,7 +48,7 @@ CASES = Path(__file__).with_name("cases")
 SCHEMA = ROOT / "tools/tool-schema-v2.json"
 
 
-def main(out: str) -> None:
+def main(out: str, with_reasoning: bool = True) -> None:
     schema = load_tool_schema(SCHEMA)
     cases, problems = load_corpus(CASES)
     problems += validate_corpus(cases, schema)
@@ -68,6 +73,8 @@ def main(out: str) -> None:
             "reasoning": case.raw["reasoning"],
             "answers": answers,
         }
+        if not with_reasoning:
+            del example["reasoning"]
         lines.append(json.dumps(example, ensure_ascii=False) + "\n")
     data = "".join(lines).encode("utf-8")
     Path(out).parent.mkdir(parents=True, exist_ok=True)
@@ -76,4 +83,5 @@ def main(out: str) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    args = sys.argv[1:]
+    main(next(a for a in args if not a.startswith("--")), with_reasoning="--no-reasoning" not in args)

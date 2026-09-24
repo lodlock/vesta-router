@@ -1,0 +1,75 @@
+# The configuration of ONE diagnostic fine-tune: diagnostic-compact-no-reasoning-r1.
+#
+# STATUS: DIAGNOSTIC CONTROL. Not r3, not a candidate, not promotable. Same 32
+# cases as diagnostic-reasoning-aligned-r1, so the same nine data/eval
+# utterances are in its training set on purpose.
+#
+# Question: was reasoning necessary for diagnostic-reasoning-aligned-r1's
+# improvement, or was the serving-format serialization alone sufficient?
+#
+# Identical to diagnostic-reasoning-aligned-r1 in cases, compact tools JSON,
+# unsorted name-first call serialization, expected calls, seed, optimizer,
+# LoRA shape, max-len and steps. The ONE difference: the rendered examples carry
+# no `reasoning` key, so the trainer emits no think block and the target starts
+# at <tool_call>. Each rendered line equals the reasoning variant's line with
+# that key removed (verified).
+
+name: diagnostic-compact-no-reasoning-r1
+status: diagnostic
+control_for: diagnostic-reasoning-aligned-r1
+
+data:
+  cases: train/diagnostic/cases/reasoning-aligned-r1.jsonl   # same file; `reasoning` dropped at render time
+  cases_sha256: 9b9e696b8cf2eed3db98685c594c588e9ec6e5a41e8ea63675ed54c0685b118a
+  by_outcome: { tool: 12, chat: 10, incomplete: 8, cancel: 2 }
+  tool_schema: tools/tool-schema-v2.json
+  renderer: train/diagnostic/build_dataset.py --no-reasoning
+  rendered_jsonl: artifacts/diagnostic-compact-no-reasoning-r1.jsonl
+  rendered_jsonl_sha256: 7df93197160e1058cac8596a6e2db12e0a563caf13a5292ad82dc78915192196
+
+base_model:
+  checkpoint: checkpoints/needle3.safetensors
+  checkpoint_sha256: c234c70dccc7a9115e7c41ac2e41d3655fea3b85c245dd898b46179fb90c6c0c
+  layers: 20
+
+# ── Fine-tune, exactly as invoked ────────────────────────────────────────────
+#
+#   XLA_PYTHON_CLIENT_ALLOCATOR=cuda_async NEEDLE_TELEMETRY=0 \
+#   needle finetune artifacts/diagnostic-compact-no-reasoning-r1.jsonl \
+#     --checkpoint checkpoints/needle3.safetensors \
+#     --epochs 250 --batch-size 8 --lr 1e-4 \
+#     --lora-rank 16 --lora-alpha 32 \
+#     --max-len 1280 --val-split 0 --seed 20260922 \
+#     --checkpoint-dir checkpoints \
+#     --out artifacts/diagnostic-compact-no-reasoning-r1-s1000-adapter.safetensors
+
+fine_tune:
+  method: lora
+  rank: 16
+  alpha: 32
+  learning_rate: 1.0e-4
+  batch_size: 8
+  seed: 20260922
+  max_len: 1280                     # trainer fitted seq_len 1024
+  val_split: 0
+  epochs: 250
+  steps: 1000
+  loss_by_epoch: { 25: 0.9928, 50: 0.0617, 75: 0.0204, 100: 0.0084, 150: 0.0032, 200: 0.0020, 250: 0.0021 }
+  wall_s: 673.0
+  device: GPU (RTX 5070 Ti, WSL2), JAX 0.11.2 cuda12, backend gpu float32
+  trainer: cactus-needle 3.0.5
+  adapter: artifacts/diagnostic-compact-no-reasoning-r1-s1000-adapter.safetensors
+  adapter_sha256: 1b300aea65e27838ae98f35bee85754b046bfdd37f7bee15506252dbb65f56db
+
+export:
+  command: JAX_PLATFORMS=cpu needle build checkpoints/needle3.safetensors --lora artifacts/diagnostic-compact-no-reasoning-r1-s1000-adapter.safetensors --out artifacts/diagnostic-compact-no-reasoning-r1-s1000.cact
+  artifact_sha256: 4e34b695c65f2ed462cee789312563dc06fd6de67ef099a3d286d54fb98ba630
+  size_bytes: 63437076
+  tensors: 574
+  numerics: W4A8, confidence head dropped
+
+probes:
+  driver: train/diagnostic/probe.py
+  probes: train/diagnostic/probes.json
+  confirmation_subset: train/diagnostic/confirm-subset.json
+  report: reports/diagnostic/diagnostic-compact-no-reasoning-r1/probe-report.json
